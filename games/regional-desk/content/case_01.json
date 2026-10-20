@@ -1,0 +1,112 @@
+{
+  "id": "missing-interval",
+  "version": 1,
+  "title": "The Missing Interval",
+  "date": "2026-09-14",
+  "brief": "Lantern Six vanishes from a public tracking view. A post calls it a covert voyage toward Taiwan. Determine the best-supported stop, explain the public tracking gap, and assess whether hostile intent is established.",
+  "disclaimer": "FICTIONAL SCENARIO / REAL GEOGRAPHY. All vessel activity, records and organizations are invented. All times are UTC. Place markers are approximate; this schematic is not a navigational chart.",
+  "places": [
+    {"name": "Basco / Batan", "lat": 20.45, "lon": 121.97},
+    {"name": "Itbayat", "lat": 20.78, "lon": 121.84}
+  ],
+  "evidence": [
+    {
+      "id": "manifest",
+      "title": "01 / Dispatch extract",
+      "time": "05:30",
+      "source": "Synthetic dispatch desk record",
+      "body": "Dispatch: 14 September 2026, 05:30 UTC\nVessel: LANTERN SIX\nLocal hull identifier: LN-6 (fictional, not an IMO number)\nDeparture area: Basco, Batan Island\nCargo: sealed replacement communications batteries\nPlan: northbound island resupply; final delivery point subject to local request.\n\nThis is a plan, not proof that a particular stop occurred. No passenger or military cargo is listed in this extract. An incomplete manifest cannot establish everything carried aboard."
+    },
+    {
+      "id": "tracks",
+      "title": "02 / Public receiver export",
+      "time": "10:00",
+      "source": "Synthetic public tracking dataset",
+      "body": "Receiver export for LN-6 / all times UTC\n\n06:00   20.450 N, 121.950 E\n06:30   20.610 N, 121.920 E\n09:00   20.720 N, 121.840 E\n10:00   20.480 N, 121.960 E\n\nNo observations were received between the 06:30 and 09:00 fixes. The displayed fixes are not a continuous voyage track. Do not draw a straight line through the missing interval and call it an observed route.\n\nA second fictional vessel, Local Eight, also has no public observations during the same receiver interruption. The export alone cannot tell you whether a transmitter was switched off."
+    },
+    {
+      "id": "lookout",
+      "title": "03 / Lookout entry",
+      "time": "07:40",
+      "source": "Synthetic independent shore observation",
+      "body": "14 September 2026, 07:40 UTC / Itbayat\n\nA shore observer records a small supply vessel approaching the Itbayat service area. The hull lettering reads LN-6. The observation log was kept separately from the delivery desk.\n\nApproximate scenario fix: 20.760 N, 121.810 E.\n\nThis is an authored text stand-in for a future photograph. The prototype does not provide a real photograph or a geolocation puzzle. It identifies a vessel near Itbayat, not the purpose of every activity aboard."
+    },
+    {
+      "id": "receipt",
+      "title": "04 / Delivery receipt",
+      "time": "08:05",
+      "source": "Synthetic Itbayat community supply desk",
+      "body": "Delivery ledger / 14 September 2026, 08:05 UTC\nLocation: Itbayat, Batanes\nVessel local ID: LN-6 / Lantern Six\nReceived: sealed replacement communications batteries\nEntry: cargo unloaded following a local resupply request\n\nThe fictional supply desk records receipt of the consignment. This supports a routine delivery stop and corroborates the independently kept lookout entry. It does not account for every minute of the voyage or establish that no other cargo existed."
+    },
+    {
+      "id": "rumor",
+      "title": "05 / Circulating public post",
+      "time": "08:30",
+      "source": "Synthetic social post / uncorroborated claim",
+      "body": "Posted 14 September 2026, 08:30 UTC\n\n'LN-6 has disappeared from tracking. It must have shut its transmitter off for a covert trip toward Taiwan. This proves hostile activity.'\n\nThe post supplies no photograph, independent position fix or transmitter log. Its conclusion is derived entirely from the absence of public observations. Treat it as a claim to test, not a new sighting."
+    },
+    {
+      "id": "relay",
+      "title": "06 / Receiver service notice",
+      "time": "09:20",
+      "source": "Synthetic public relay operator notice",
+      "body": "Service bulletin / issued 14 September 2026, 09:20 UTC\n\nThe public receiver relay experienced an interruption from 06:25 to 08:55 UTC. Buffered messages were not recovered. Observations for multiple vessels were unavailable, including LN-6 and Local Eight.\n\nThis overlaps the missing interval in the receiver export and provides an explanation independent of the vessel's intentions. It does not prove that LN-6's transmitter remained active throughout the interval. Public reception and transmitter behavior are different questions."
+    }
+  ],
+  "timeline": [
+    {"time": "05:30", "label": "Dispatch plan", "evidence_id": "manifest"},
+    {"time": "06:00", "label": "LN-6 public fix", "evidence_id": "tracks", "lat": 20.45, "lon": 121.95},
+    {"time": "06:30", "label": "Last pre-gap fix", "evidence_id": "tracks", "lat": 20.61, "lon": 121.92},
+    {"time": "07:40", "label": "Itbayat lookout", "evidence_id": "lookout", "lat": 20.76, "lon": 121.81},
+    {"time": "08:05", "label": "Delivery entry", "evidence_id": "receipt"},
+    {"time": "08:30", "label": "Public allegation", "evidence_id": "rumor"},
+    {"time": "09:00", "label": "First post-gap fix", "evidence_id": "tracks", "lat": 20.72, "lon": 121.84},
+    {"time": "09:20", "label": "Relay notice issued", "evidence_id": "relay"},
+    {"time": "10:00", "label": "LN-6 public fix", "evidence_id": "tracks", "lat": 20.48, "lon": 121.96}
+  ],
+  "findings": [
+    {
+      "id": "stop",
+      "question": "1. Best-supported stop?",
+      "options": [
+        {"id": "itbayat", "label": "Delivery stop at Itbayat"},
+        {"id": "taiwan", "label": "Covert stop in Taiwan"},
+        {"id": "no_stop", "label": "No stop occurred"}
+      ],
+      "accepted": "itbayat",
+      "required_evidence": ["lookout", "receipt"],
+      "explanation": "The independent lookout and delivery receipt identify LN-6 at Itbayat. Together they support a delivery stop, not a complete reconstruction of the voyage."
+    },
+    {
+      "id": "gap",
+      "question": "2. Best explanation of the public gap?",
+      "options": [
+        {"id": "relay_outage", "label": "Public receiver relay outage"},
+        {"id": "shutdown", "label": "Deliberate transmitter shutdown proven"},
+        {"id": "no_gap", "label": "The export contains no gap"}
+      ],
+      "accepted": "relay_outage",
+      "required_evidence": ["tracks", "relay"],
+      "explanation": "The receiver export and service notice overlap in time and involve multiple vessels. A relay outage best explains the public gap. They do not prove the transmitter stayed on throughout it."
+    },
+    {
+      "id": "intent",
+      "question": "3. Does this establish hostile intent?",
+      "options": [
+        {"id": "not_established", "label": "Not established by this evidence"},
+        {"id": "hostile", "label": "Yes: the tracking gap proves it"},
+        {"id": "cleared", "label": "All possible misconduct disproven"}
+      ],
+      "accepted": "not_established",
+      "required_evidence": ["receipt", "relay"],
+      "explanation": "The receipt supports a routine delivery and the relay notice undermines the post's inference from silence. Hostile intent is not established. That is not proof that every possible form of misconduct is absent."
+    }
+  ],
+  "hints": [
+    "Separate an observation from an inference. Which source actually places LN-6 near a named island?",
+    "The lookout and delivery records were kept separately. Can they corroborate the same stop?",
+    "Compare the export's missing interval with the relay notice. Does missing public reception prove a transmitter was off?",
+    "For the final finding, distinguish 'not established' from 'everything disproven'. Cite the delivery receipt and relay notice."
+  ]
+}
+

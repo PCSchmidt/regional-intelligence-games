@@ -1,0 +1,80 @@
+# Regional Intelligence Game Portfolio
+
+Personal, offline Windows games about evidence, uncertainty and regional decisions. Real geography, clearly labeled fictional incidents, and one playable title at a time.
+
+**Current status:** The first Godot interaction prototype works. Owner playtesting is next; this is not yet a polished release or the planned two-hour Game 1.
+
+Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games).
+
+## Portfolio
+
+| Order | Working title | Scope and status |
+|---|---|---|
+| 1 | Regional Analysis Desk | Maritime-led evidence investigation. First small case implemented; eventual target is three linked investigations totaling about two hours. |
+| 2 | Cable Ship | Planned bounded, realistic 3D ship/ROV investigation. Production has not started. |
+| 3 | Regional Strategy | Planned discrete-turn decisions under uncertainty. Production has not started. |
+
+The [master plan](./MASTER_PLAN.md) records decisions, constraints and milestone gates. The baseline is approximately 10 owner hours/week, a $20/month project AI budget, free licensed assets initially, and no mandatory runtime AI or online services.
+
+## Play the first prototype
+
+**The Missing Interval** asks what the available records establish about a fictional vessel's missing public positions around Basco/Batan and Itbayat, Philippines.
+
+Read six sources, compare map/timeline observations, pin evidence and submit three supported findings. Notes, selections, citations and hints save locally.
+
+- [Controls, save behavior and verification results](./games/regional-desk/README.md)
+- [Concept and requirements](./specs/game-01/spec.md)
+- [Author-only case sketch and rubric - spoilers](./specs/game-01/CASE_01.md)
+
+For the first playtest, avoid the author-only rubric. Record elapsed time, confusion points, hint use and whether the assessment feels earned. Automated checks do not establish enjoyment or novice usability.
+
+## Run from source
+
+Use **Godot 4.7.2 standard Windows x64**, not the .NET build. The prototype uses GDScript and the GL Compatibility renderer.
+
+1. Obtain the engine from the [official Godot release](https://github.com/godotengine/godot/releases/tag/4.7.2-stable).
+2. Import [the Godot project](./games/regional-desk/project.godot) in the editor and run its main scene.
+
+Alternatively, from the repository root in PowerShell:
+
+```powershell
+.\tools\prototype.ps1 -Mode Run -GodotPath 'C:\path\to\Godot_v4.7.2-stable_win64_console.exe'
+.\tools\prototype.ps1 -Mode Test -GodotPath 'C:\path\to\Godot_v4.7.2-stable_win64_console.exe'
+```
+
+The optional local-tooling convention is `.tools\godot\Godot_v4.7.2-stable_win64_console.exe`, alongside the engine executable from the same archive. With that layout, omit `-GodotPath`. Engine downloads are not committed.
+
+### Windows export
+
+Obtain the matching official export templates. Extract these two files from the template archive into `.tools\godot\templates`:
+
+- `windows_release_x86_64.exe`
+- `windows_debug_x86_64.exe`
+
+These are the custom paths configured in [the export preset](./games/regional-desk/export_presets.cfg). From the repository root:
+
+```powershell
+.\tools\prototype.ps1 -Mode VisualTest
+.\tools\prototype.ps1 -Mode Export
+.\tools\prototype.ps1 -Mode PackagedTest
+```
+
+Supply `-GodotPath` on these commands if using a different engine location. Export produces `builds\RegionalDesk-Windows.zip`; extract it before launching the included executable. The unsigned personal build may trigger an unknown-publisher warning. Do not disable Windows security to run it.
+
+Generated builds are local outputs, not files distributed by this repository. No GitHub Release has been published.
+
+## Repository layout
+
+- [games/regional-desk](./games/regional-desk): Game 1 source, synthetic case content and tests.
+- [specs/game-01](./specs/game-01): Concept, requirements and case design.
+- [tools](./tools): PowerShell run, test and export entry point.
+- [MASTER_PLAN.md](./MASTER_PLAN.md): Portfolio direction and progress.
+- The three original conversation documents: brainstorming inputs retained with the owner's approval, not independently verified specifications. The master plan supersedes conflicting recommendations.
+
+Local engines, Godot caches, generated builds and temporary files are excluded from Git. Each game stays in its own folder; split repositories only when independent delivery or tooling needs justify it.
+
+## Content and licenses
+
+Places are real; the current incident, vessel activity, organizations and records are synthetic. The prototype includes no third-party map tiles, imagery or audio assets. Geographic references and limitations are recorded in the case sketch.
+
+No project-wide reuse license has been selected. Godot and its built-in components retain their own licenses; engine and third-party notices are accessible through the prototype's **Licenses** button.
