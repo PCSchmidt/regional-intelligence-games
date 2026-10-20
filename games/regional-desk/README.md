@@ -1,9 +1,10 @@
-# Regional Analysis Desk - first interaction prototype
+# Regional Analysis Desk - two-case prototype
 
-This is a small, offline Godot investigation, not the completed two-hour game.
+Two small, offline Godot investigations, not the completed two-hour game.
 
 - [Concept and requirements](../../specs/game-01/spec.md)
 - [First-case sketch and evidence rubric](../../specs/game-01/CASE_01.md)
+- [Second-case evidence graph and rubric - author-only spoilers](../../specs/game-01/CASE_02.md)
 - [Master plan](../../MASTER_PLAN.md)
 
 ## Run
@@ -26,26 +27,37 @@ Alternatively import this folder in Godot and run its main scene. On a different
 
 ## Play
 
-You are a civilian regional analyst testing a public allegation, not presuming guilt. Determine the best-supported stop, explanation of a public tracking gap and what can be established about intent.
+You are a civilian regional analyst testing public claims, not presuming guilt. **The Missing Interval** introduces stop/tracking-gap/intent assessment with six records. **The Borrowed Name** adds seven records about vessel identification, camera-clock conventions and independent observations; its image is explicitly a text transcript, not forensic imagery.
 
 1. A new session opens **Mission & Help**, explaining role, stakes, first action, feedback and completion. The header button reopens it without changing progress.
-2. Read the **Dispatch extract** already open, then select other sources, timeline entries or map observations in any order. All six sources are available; no outside research is needed.
+2. Read **Dispatch extract** in Case 1 or **Review request** in Case 2, already open, then select other sources, timeline entries or map observations in any order. All of that case's sources are available; no outside research is needed.
 3. Pin useful sources to the notebook, then tick citations **separately under each finding**. Pinning alone does not cite a source.
 4. Choose three conclusions and scroll to **Submit assessment**. A result dialog explains each finding. INCOMPLETE means choose an answer; REVISE means reconsider it; NEEDS SUPPORT means add citations; SUPPORTED means conclusion and citations are accepted.
 5. Finish when the dialog says **INVESTIGATION COMPLETE** and the fixed indicator shows **3 of 3 findings supported**. **Review latest result** reopens the debrief after closing it or restarting. Edits invalidate stale results until resubmission.
 6. Hints have no penalty; notes and progress save locally. Confidence is reflective, not scored.
+7. **Cases** opens either investigation directly and shows progress or save attention. Completing Case 1 enables **Continue to Case 2**; Case 2 explicitly says no third case is included. This is not full-campaign completion.
 
 Drag empty map space to pan, use the wheel or +/- buttons to zoom, and reset the view if needed. Standard controls support keyboard focus; the timeline provides a keyboard-accessible alternative to map markers.
 
-Times are UTC. The map bundles real, generalized Natural Earth coastlines with named Batan, Itbayat and Sabtang, a north indicator and zoom-aware kilometer scale. Squares identify places, circles public fixes and a diamond the shore sighting. Labels/incident fixes are approximate; this is not a navigation product. Coastlines and observations share a local equirectangular projection, with cosine correction at 20.6 degrees north. No line is drawn through the reception gap.
+Timeline times are UTC; source documents may use another clock convention. The map bundles real, generalized Natural Earth coastlines with named Batan, Itbayat and Sabtang, a north indicator and zoom-aware kilometer scale. Squares identify places, circles public fixes and diamonds shore sightings. Case 2 marker labels add local vessel IDs, not a pre-solved image-capture time. Labels/incident fixes are approximate; this is not a navigation product. Coastlines and observations share a local equirectangular projection, with cosine correction at 20.6 degrees north. No observed route is inferred between markers.
 
-The save resides in Godot's application user-data directory (`%APPDATA%\Godot\app_userdata\Regional Analysis Desk\session.json` on a default Windows setup). Unreadable saves lock automatic writes; explicitly resetting first preserves the original as `.backup`. A second existing backup is not silently overwritten. Existing version-1 saves retain their progress. Saves without the optional submission marker load unsubmitted; submit again to establish completion. Upgrading does not automatically reopen the new-session guide; use **Mission & Help**.
+Default Windows saves:
+
+```text
+%APPDATA%\Godot\app_userdata\Regional Analysis Desk\session.json
+%APPDATA%\Godot\app_userdata\Regional Analysis Desk\session-case-02.json
+```
+
+Case 1 retains its original path and version-1 compatibility. Every progress field is independent, including submitted results. Restart opens Case 1; select Case 2 to resume it. Switching saves before leaving; failed/locked saves require explicit **Switch without saving** or **Stay here** confirmation. Reset requires confirmation and affects only the selected slot. Unreadable originals lock writes; resetting first preserves that slot as `.backup`. An existing backup is not silently overwritten. Older saves without the optional submission marker load unsubmitted; resubmit to establish completion. Upgrading does not reopen the new-session guide automatically; use **Mission & Help**.
+
+The pinned-source summary is limited to two lines to preserve space for notes; hover to see its full text. Individual source/citation labels remain available in the source list and assessment.
 
 The export bundles Markdown [player instructions](../../PORTFOLIO_BUILD_README.md) as `README.md`.
 
 ## Testing strategy
 
 - **Revision journeys:** New-session mission/help; incomplete/partial/complete submissions and conspicuous results; reload and stale-result invalidation with legacy saves; offline coastlines aligned through pan/zoom with a measured scale; updated Markdown instructions and extracted Windows delivery.
+- **Two-case strategy:** [Case 2's pre-implementation evidence graph and testing strategy](../../specs/game-01/CASE_02.md#testing-strategy) extends the verified 140-check introductory baseline. Validate every alternative conclusion and omitted decisive citation, then exercise direct selection, continuation, independent notes/hints/confidence/citations/results, restart, save-failure cancel/confirm, and per-slot corruption/reset. Run forward and reverse second-case discovery and inspect the seven-row layout. No new infrastructure.
 - **Existing tests:** Reuse and extend the Godot case, persistence and scene suites through the same `-Mode Test` entry point. Baseline: 24 case, 19 save and 51 UI checks passed, exit 0.
 - **Map tier:** Add native geometry tests for the actual bundled public-domain coastlines, land/sea fixtures, projection and scale. No geographic network access at runtime.
 - **App type:** Native desktop; no HTML, HTTP service, database, credentials or authentication.
@@ -68,7 +80,7 @@ The export bundles Markdown [player instructions](../../PORTFOLIO_BUILD_README.m
 .\tools\prototype.ps1 -Mode PackagedTest
 ```
 
-Tests are deliberately excluded from the exported resource pack. Release templates do not support running the external script driver. PackagedTest therefore extracts the ZIP outside the project, verifies Markdown instructions, uses the standard engine with `--main-pack` to exercise map geometry and the UI journey against embedded resources, then separately launches the actual release executable. It checks a responsive desktop window, initialized-case autosave and exit zero. The release launch uses isolated application data, not the player's normal save.
+Tests are deliberately excluded from the exported resource pack. Release templates do not support running the external script driver. PackagedTest therefore extracts the ZIP outside the project, verifies Markdown instructions, uses the standard engine with `--main-pack` to exercise map geometry and both UI/campaign journeys against embedded resources, then separately launches the actual release executable. It checks a responsive desktop window, initialized-case autosave and exit zero. The release launch uses isolated application data, not the player's normal save.
 
 ### Verified checkpoint - 20 October 2026
 
@@ -90,6 +102,23 @@ Coastline extraction was reproduced from the reviewed hash-pinned source and com
 This is automation plus assistant-inspected viewports, not independent usability testing. The first owner session lasted approximately 20 minutes, used hints and submitted an assessment; completion was unconfirmed. Role, first action, finish condition and feedback were unclear, motivating this revision. The owner reported that features appeared to work.
 
 After the revision, the owner reported approximately five minutes to completion, no remaining confusion and conclusions that required some thought. Hint use was not reported for this run. This confirms improved clarity for the owner, but familiarity with the case makes it a repeat-player result, not first-play duration or independent novice validation. Enjoyment, keyboard-only operation, Windows security prompts and minimum hardware remain unverified.
+
+### Two-case checkpoint - 20 October 2026
+
+The owner approved designing and building Case 2, followed by commit/push. The introductory checkpoint was preserved as commit `b8feeaf` before expansion. Case 1's records, accepted answers and original save identity are unchanged.
+
+| Command | Observed result |
+|---|---|
+| `-Mode Test` | 48 case, 23 persistence, 27 map, 70 original UI and 44 campaign checks passed: **212 total**, zero failures, exit 0 |
+| `-Mode VisualTest` | 73 original UI and 46 campaign checks passed: **119 total**, exit 0; game-only views captured for both cases |
+| `-Mode Export` | Windows x64 executable embeds both case JSON files and shared geography; Markdown instructions archived; exit 0 |
+| `-Mode PackagedTest` | 27 map, 70 original UI and 44 campaign checks passed: **141 total** against extracted embedded resources; actual release window/autosave/normal exit verified; exit 0 |
+
+The campaign suite drives real scene controls and isolated files through continuation/direct selection, both discovery orders, distinct confidence/notes/hints/citations, restart and recomputed completion, failed-switch cancel/confirm, corrupt-slot preservation/recovery, and resetting either slot without changing the other slot's bytes. JSON integer/float serialization can legitimately change bytes during a normal save/reload, so reset isolation compares the other file immediately before and after reset. All seven source rows and the completed notebook/footer fit the target window.
+
+Initial validation caught an unparented map allocation during case activation; it was removed rather than suppressing resource errors. The longer source list and pinned summary were adjusted after inspecting the rendered view. Deliberately failed/locked-save warnings are expected; final passing runs contain no engine/script errors.
+
+These checks repeat in rendered and packaged runs; do not add them as separate unique tests. **Case 2 still needs an owner playtest.** Record unfamiliar-case duration, hints, confusion and reasoning quality before adding a third case or promising the two-hour target.
 
 ## Asset/provenance register
 
@@ -122,4 +151,4 @@ Two synthetic fixes were moved offshore when the real coastlines exposed inland 
 
 The prototype tests whether the information loop works. It has text placeholders instead of forensic imagery, generalized coastlines rather than a detailed chart, and no sound design or 3D. All evidence is immediately available; there is no search engine, branching campaign or regional simulator. Confidence is reflective, not scored.
 
-The owner must still evaluate enjoyment, clarity and pacing before expanding the content.
+The next gate is an owner walkthrough of Case 2, followed by a keep/cut decision on additional content and presentation polish.

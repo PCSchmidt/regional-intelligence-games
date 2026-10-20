@@ -36,7 +36,7 @@ switch ($Mode) {
     }
     'Test' {
         Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--editor', '--import', '--quit')
-        foreach ($test in @('test_case', 'test_save', 'test_map', 'test_ui')) {
+        foreach ($test in @('test_case', 'test_save', 'test_map', 'test_ui', 'test_campaign')) {
             Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--script', "res://tests/$test.gd")
         }
     }
@@ -44,6 +44,8 @@ switch ($Mode) {
         New-Item -ItemType Directory -Path $build -Force | Out-Null
         $preview = Join-Path $build 'preview.png'
         Invoke-Engine -EngineArguments @('--path', $project, '--script', 'res://tests/test_ui.gd', '--', "--preview=$preview")
+        $secondPreview = Join-Path $build 'case02.png'
+        Invoke-Engine -EngineArguments @('--path', $project, '--script', 'res://tests/test_campaign.gd', '--', "--preview=$secondPreview")
     }
     'Export' {
         New-Item -ItemType Directory -Path $build -Force | Out-Null
@@ -75,7 +77,7 @@ switch ($Mode) {
             New-Item -ItemType Directory -Path $env:APPDATA | Out-Null
             # Release templates cannot run an external --script. The standard engine
             # exercises the exported resource pack; a separate release launch checks startup.
-            foreach ($test in @('test_map', 'test_ui')) {
+            foreach ($test in @('test_map', 'test_ui', 'test_campaign')) {
                 Invoke-Engine -EngineArguments @('--headless', '--main-pack', $executable, '--script', (Join-Path $project "tests\$test.gd"))
             }
             $process = Start-Process -FilePath $executable -WorkingDirectory $testDirectory -ArgumentList @('--max-fps', '30', '--quit-after', '180') -PassThru

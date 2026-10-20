@@ -3,18 +3,23 @@ extends Control
 const Rules = preload("res://scripts/case_rules.gd")
 const Store = preload("res://scripts/save_store.gd")
 const MapView = preload("res://scripts/map_view.gd")
+const CASES := [
+	{"path": "res://content/case_01.json", "save_suffix": ""},
+	{"path": "res://content/case_02.json", "save_suffix": "-case-02"}
+]
 const HELP_TEXT := """YOUR ROLE
 You are a civilian regional analyst reviewing public information about a vessel near the Batanes islands in the Philippines.
 
 WHY THIS CASE MATTERS
-A public post treats missing tracking data as proof of a covert voyage and hostile activity. An unsupported allegation can mislead decisions. Your job is to test the claim, not to find someone guilty.
+{mission}
+Unsupported claims can mislead decisions. Your job is to test the records, not presume guilt.
 
 YOUR DELIVERABLE
-Submit three findings: the best-supported stop, the explanation of the public tracking gap, and what can be established about intent. Support each finding with citations. The case ends only when the result says INVESTIGATION COMPLETE (3 of 3 findings supported).
+Answer the three questions shown in this case's assessment panel. Support each finding with citations. The case ends only when the result says INVESTIGATION COMPLETE (3 of 3 findings supported).
 
 START HERE
-1. Read the Dispatch extract already open on the desk. Then inspect the other five records in any order. No outside research is required.
-2. Select timeline entries or map markers to compare locations and times. A dot is an observation, not a continuous route.
+1. Read {first_source}, already open on the desk. Then inspect the remaining records in any order. No outside research is required.
+2. Select timeline entries or map markers to compare locations and times. A marker is an observation, not a continuous route.
 3. Pin useful records with "Pin source to notebook." Pinning makes a source available; it does not cite it automatically.
 4. In the assessment panel, choose a conclusion for each finding. Tick the supporting source boxes separately under that finding. Scroll the panel to reach all three findings and Submit.
 5. Submit assessment. Read the result, revise if needed and resubmit. Optional hints have no penalty; notes help you reason but are not graded.
@@ -26,15 +31,19 @@ NEEDS SUPPORT: The conclusion matches, but required supporting citations are mis
 SUPPORTED: This finding has the accepted conclusion and supporting citations.
 
 HOW TO FINISH
-All three findings must be supported in the same submission. A result dialog will say "INVESTIGATION COMPLETE" and the desk will show "3 of 3 findings supported." That is the end of this prototype case, not the full planned campaign. Confidence is recorded for reflection, not scored.
+All three findings must be supported in the same submission. A result dialog will say "INVESTIGATION COMPLETE" and the desk will show "3 of 3 findings supported." Use Cases to choose either investigation; completing Case 1 also enables Continue to Case 2. That is not the full planned campaign. Confidence is recorded for reflection, not scored.
 
 CONTROLS AND SAVING
-Drag empty map space to pan; wheel or +/- to zoom; Reset view restores the map. The timeline is a keyboard-accessible alternative to map markers. Tab moves among ordinary controls; Space activates buttons and checkboxes. All times are UTC.
-Progress autosaves locally; Save is also available. Reset case asks for confirmation. Reopen this guide at any time with Mission & Help."""
+Drag empty map space to pan; wheel or +/- to zoom; Reset view restores the map. The timeline is a keyboard-accessible alternative to map markers. Tab moves among ordinary controls; Space activates buttons and checkboxes. Timeline times are UTC. Source documents may use another clock convention; verify it.
+Progress saves separately for each case. Switching saves before leaving; a save failure requires confirmation to leave without saving. Reset affects only the current case and asks for confirmation. Restart opens Case 1; select Case 2 to resume it. Reopen this guide with Mission & Help."""
 
 var case_data: Dictionary = {}
 var state: Dictionary = {}
 var save_path := "user://session.json"
+var cases: Array[Dictionary] = []
+var case_index := 0
+var pending_case := -1
+var coastlines: Array[PackedVector2Array] = []
 var save_blocked := false
 var selected_evidence := ""
 var evidence_list: ItemList
@@ -51,7 +60,7 @@ var hint_label: Label
 var confidence: OptionButton
 var reset_dialog: ConfirmationDialog
 var autosave: Timer
-var map_view := MapView.new()
+var map_view: MapView
 var finding_options: Dictionary = {}
 var citation_boxes: Dictionary = {}
 var progress_label: Label
@@ -60,20 +69,62 @@ var help_dialog: AcceptDialog
 var help_text: RichTextLabel
 var result_dialog: AcceptDialog
 var result_text: RichTextLabel
+var case_picker: OptionButton
+var continue_button: Button
+var switch_dialog: ConfirmationDialog
 
 
 func _ready() -> void:
-	var result := Rules.load_case("res://content/case_01.json")
-	if result.has("error"):
-		_show_fatal(result["error"])
-		return
-	case_data = result["case"]
+	for entry in CASES:
+		var result := Rules.load_case(entry["path"])
+		if result.has("error"):
+			_show_fatal(result["error"])
+			return
+		for existing in cases:
+			if existing["id"] == result["case"]["id"]:
+				_show_fatal("Duplicate case identity: " + existing["id"])
+				return
+		cases.append(result["case"])
 	var geography := MapView.load_coastlines("res://content/batanes_coastline.json")
 	if geography.has("error"):
 		_show_fatal(geography["error"])
 		return
-	map_view.land_polygons = geography["polygons"]
-	var loaded := Store.load_session(save_path, case_data)
+	coastlines = geography["polygons"]
+	get_tree().auto_accept_quit = false
+	_activate_case(0)
+
+
+func session_path(index: int) -> String:
+	var suffix: String = CASES[index]["save_suffix"]
+	return save_path if suffix.is_empty() else save_path.get_basename() + suffix + ".json"
+
+
+func _request_case(index: int) -> void:
+	case_picker.select(case_index)
+	if index == case_index:
+		return
+	if not _save():
+		pending_case = index
+		switch_dialog.popup_centered()
+		return
+	_activate_case(index)
+
+
+func _activate_case(index: int) -> void:
+	if is_instance_valid(autosave):
+		autosave.stop()
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
+	finding_options.clear()
+	citation_boxes.clear()
+	map_view = MapView.new()
+	map_view.land_polygons = coastlines
+	case_index = index
+	pending_case = -1
+	case_data = cases[index]
+	var loaded := Store.load_session(session_path(index), case_data)
+	save_blocked = loaded.has("error")
 	if loaded.has("error"):
 		state = Rules.new_session(case_data)
 		save_blocked = true
@@ -87,9 +138,24 @@ func _ready() -> void:
 		_set_status("SAVE LOCKED: " + loaded["error"] + " Use Reset to back it up and start again.", true)
 	else:
 		_set_status("Local progress ready. Changes autosave; Save is also available.")
-	get_tree().auto_accept_quit = false
+	_refresh_case_picker()
 	if loaded.get("new", false):
 		call_deferred("_show_help")
+
+
+func _refresh_case_picker() -> void:
+	case_picker.clear()
+	for index in range(cases.size()):
+		var loaded := Store.load_session(session_path(index), cases[index])
+		var label := "Save needs attention"
+		if index == case_index and not save_blocked:
+			label = "Complete" if state.get("assessment_submitted", false) and Rules.assess(case_data, state)["complete"] else "In progress"
+		elif not loaded.has("error"):
+			label = "Not started" if loaded.get("new", false) else "In progress"
+			if loaded["state"].get("assessment_submitted", false) and Rules.assess(cases[index], loaded["state"])["complete"]:
+				label = "Complete"
+		case_picker.add_item("%02d / %s / %s" % [index + 1, cases[index]["title"], label])
+	case_picker.select(case_index)
 
 
 func _build_interface() -> void:
@@ -130,7 +196,13 @@ func _build_interface() -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title)
 	_button(header, "Mission & Help", _show_help)
-	header.add_child(_label("CASE 01  /  OFFLINE PROTOTYPE", 14))
+	header.add_child(_label("Cases", 14))
+	case_picker = OptionButton.new()
+	case_picker.name = "Cases"
+	case_picker.tooltip_text = "Choose a case. Each has separate saved progress."
+	case_picker.add_theme_font_size_override("font_size", 14)
+	header.add_child(case_picker)
+	case_picker.item_selected.connect(_request_case)
 	page.add_child(_label(case_data["title"] + "  |  " + case_data["date"] + "  |  UTC", 20))
 	page.add_child(_label(case_data["brief"], 16, true))
 	var disclaimer := _label(case_data["disclaimer"], 13, true)
@@ -166,9 +238,10 @@ func _build_interface() -> void:
 	left.add_child(timeline_list)
 	timeline_list.item_selected.connect(_select_observation)
 
-	center.add_child(_label("SOURCE LIBRARY / SIX RECORDS", 15))
+	center.add_child(_label("SOURCE LIBRARY / %d RECORDS" % case_data["evidence"].size(), 15))
 	evidence_list = ItemList.new()
-	evidence_list.custom_minimum_size.y = 170
+	evidence_list.add_theme_constant_override("v_separation", 0)
+	evidence_list.custom_minimum_size.y = maxf(170, case_data["evidence"].size() * 24 + 12)
 	for evidence in case_data["evidence"]:
 		evidence_list.add_item(evidence["title"])
 	center.add_child(evidence_list)
@@ -186,6 +259,8 @@ func _build_interface() -> void:
 	center.add_child(reader)
 	pin_button = _button(center, "Pin source to notebook", _toggle_pin)
 	notebook_label = _label("", 13, true)
+	notebook_label.max_lines_visible = 2
+	notebook_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	center.add_child(notebook_label)
 	center.add_child(_label("YOUR NOTES / saved locally", 14))
 	notes = TextEdit.new()
@@ -205,6 +280,9 @@ func _build_interface() -> void:
 	right.add_child(progress_label)
 	review_button = _button(right, "Review latest result", _show_result)
 	review_button.disabled = true
+	continue_button = _button(right, "Continue to Case 2", func() -> void: _request_case(case_index + 1))
+	continue_button.visible = case_index < cases.size() - 1
+	continue_button.disabled = true
 	var assessment_scroll := ScrollContainer.new()
 	assessment_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	assessment_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -261,7 +339,7 @@ func _build_interface() -> void:
 	_button(footer, "Reset case", func() -> void: reset_dialog.popup_centered())
 	reset_dialog = ConfirmationDialog.new()
 	reset_dialog.title = "Reset case progress?"
-	reset_dialog.dialog_text = "Replace your notes, pins, answers and hints?\nAn unreadable save will first be copied to a .backup file."
+	reset_dialog.dialog_text = "Replace notes, pins, answers and hints for " + case_data["title"] + " only?\nOther cases are unchanged. An unreadable save is first copied to .backup."
 	reset_dialog.confirmed.connect(_reset_case)
 	add_child(reset_dialog)
 	autosave = Timer.new()
@@ -269,7 +347,18 @@ func _build_interface() -> void:
 	autosave.one_shot = true
 	autosave.timeout.connect(_save)
 	add_child(autosave)
-	help_dialog = _text_dialog("Mission & Help", HELP_TEXT)
+	switch_dialog = ConfirmationDialog.new()
+	switch_dialog.title = "Current case could not be saved"
+	switch_dialog.dialog_text = "Stay to preserve your current work, or switch WITHOUT saving it?\nThe original save is preserved. The other case has separate progress."
+	switch_dialog.get_ok_button().text = "Switch without saving"
+	switch_dialog.get_cancel_button().text = "Stay here"
+	switch_dialog.confirmed.connect(func() -> void:
+		if pending_case >= 0:
+			_activate_case(pending_case)
+	)
+	switch_dialog.canceled.connect(func() -> void: pending_case = -1)
+	add_child(switch_dialog)
+	help_dialog = _text_dialog("Mission & Help", HELP_TEXT.format({"mission": case_data["brief"], "first_source": case_data["evidence"][0]["title"]}))
 	help_dialog.name = "MissionHelp"
 	help_text = help_dialog.get_child(0)
 	help_dialog.get_ok_button().text = "Return to investigation"
@@ -374,6 +463,7 @@ func _refresh_notebook() -> void:
 		if evidence["id"] in state["pinned"]:
 			titles.append(evidence["title"].substr(5))
 	notebook_label.text = "PINNED (%d): %s" % [titles.size(), ", ".join(titles) if not titles.is_empty() else "none yet"]
+	notebook_label.tooltip_text = notebook_label.text
 	for finding in case_data["findings"]:
 		var id: String = finding["id"]
 		var box: VBoxContainer = citation_boxes[id]
@@ -427,11 +517,13 @@ func _render_assessment() -> void:
 	var count_text := "%d of %d findings supported" % [supported, case_data["findings"].size()]
 	progress_label.text = ("INVESTIGATION COMPLETE\n" if result["complete"] else "NOT FINISHED YET\n") + count_text
 	review_button.disabled = false
+	continue_button.disabled = not result["complete"]
+	_refresh_case_picker()
 	result_dialog.title = "Investigation complete" if result["complete"] else "Assessment needs review"
 	var lines: Array[String] = [
 		"INVESTIGATION COMPLETE" if result["complete"] else "ASSESSMENT NEEDS REVIEW",
 		count_text,
-		"You have finished this case. Review the reasoning and its limits below. There is no next case in this prototype." if result["complete"] else "This case is not finished. Review each finding below, revise your conclusions or citations, then resubmit.",
+		("You have finished this case. Review the reasoning and its limits below. " + ("Continue to Case 2 from the desk, or use Cases to choose an investigation." if case_index < cases.size() - 1 else "No third case is included in this build. You can revisit either investigation using Cases.")) if result["complete"] else "This case is not finished. Review each finding below, revise your conclusions or citations, then resubmit.",
 		"\nStatus guide: INCOMPLETE = choose a conclusion; REVISE = reconsider the conclusion; NEEDS SUPPORT = add citations; SUPPORTED = conclusion and citations accepted."
 	]
 	var evidence_titles := {}
@@ -493,7 +585,9 @@ func _mark_dirty(invalidate_feedback: bool = true) -> void:
 		feedback.text = "Assessment changed. Submit to produce a current debrief."
 		progress_label.text = "AWAITING SUBMISSION\nSubmit to check your three findings."
 		review_button.disabled = true
+		continue_button.disabled = true
 		result_dialog.hide()
+		_refresh_case_picker()
 	if is_instance_valid(autosave) and not save_blocked:
 		autosave.start()
 		_set_status("Unsaved changes / autosave pending.")
@@ -503,7 +597,7 @@ func _save() -> bool:
 	if save_blocked:
 		_set_status("SAVE LOCKED: original unreadable save preserved. Use Reset to back it up and start again.", true)
 		return false
-	var error := Store.write_session(save_path, state, case_data)
+	var error := Store.write_session(session_path(case_index), state, case_data)
 	if not error.is_empty():
 		_set_status("SAVE FAILED: " + error, true)
 		return false
@@ -513,16 +607,17 @@ func _save() -> bool:
 
 func _reset_case() -> void:
 	autosave.stop()
-	if save_blocked and FileAccess.file_exists(save_path):
-		if FileAccess.file_exists(save_path + ".backup"):
+	var path := session_path(case_index)
+	if save_blocked and FileAccess.file_exists(path):
+		if FileAccess.file_exists(path + ".backup"):
 			_set_status("RESET FAILED: an existing .backup must be moved before replacing the unreadable save.", true)
 			return
-		var backup_error := DirAccess.copy_absolute(save_path, save_path + ".backup")
+		var backup_error := DirAccess.copy_absolute(path, path + ".backup")
 		if backup_error != OK:
 			_set_status("RESET FAILED: cannot preserve original save: " + error_string(backup_error), true)
 			return
 	var replacement := Rules.new_session(case_data)
-	var error := Store.write_session(save_path, replacement, case_data)
+	var error := Store.write_session(path, replacement, case_data)
 	if not error.is_empty():
 		_set_status("RESET FAILED: " + error, true)
 		return
@@ -531,12 +626,14 @@ func _reset_case() -> void:
 	_restore_form()
 	progress_label.text = "Not submitted / 0 of 3 findings supported"
 	review_button.disabled = true
+	continue_button.disabled = true
 	result_dialog.hide()
 	feedback.text = "Case reset. Start a new investigation."
 	map_view.reset_view()
 	map_view.set_selection(-1)
 	timeline_list.deselect_all()
 	_open_evidence(0)
+	_refresh_case_picker()
 	_set_status("Case reset and saved.")
 	_show_help()
 

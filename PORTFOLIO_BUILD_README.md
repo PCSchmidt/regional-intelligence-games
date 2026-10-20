@@ -1,6 +1,6 @@
-# Regional Analysis Desk - The Missing Interval
+# Regional Analysis Desk - Two Investigations
 
-Onboarding and coastline revision / 20 October 2026.
+Two-case build / 20 October 2026.
 
 ## Run
 
@@ -13,18 +13,20 @@ Only run a build you trust. This project does not require disabling Windows secu
 
 ### Your role and objective
 
-You are a civilian regional analyst. A public post treats missing vessel-tracking
-data as proof of a covert voyage and hostile activity. Your job is to test that
-claim against the records, not to presume guilt. Unsupported allegations can
-mislead decisions.
+You are a civilian regional analyst. Test disputed public claims against the
+records, rather than presuming guilt. Unsupported allegations can mislead decisions.
 
-Deliver three findings: the best-supported stop, the explanation of the public
-tracking gap, and what can be established about intent. No outside research is
-required. All six records are available immediately.
+| Investigation | Your task | Start with |
+|---|---|---|
+| 1. The Missing Interval | Assess a stop, a tracking gap and the limits of an intent claim | Dispatch extract; six records |
+| 2. The Borrowed Name | Compare vessel identity, camera time and independent positions | Review request; seven records |
+
+Deliver three supported findings in each investigation. No outside research is
+required; all of the selected case's records are immediately available.
 
 ### Start here
 
-1. Read the **Dispatch extract** already open. Then read the remaining sources
+1. Read the first document already open. Then read the remaining sources
    in any order, selecting the source list, timeline or map observations.
 2. **Pin source to notebook** makes a useful record available for citation.
    Pinning alone does **not** cite it.
@@ -33,7 +35,10 @@ required. All six records are available immediately.
 4. Select **Submit assessment**. Read the result, revise as needed and resubmit.
    Notes help your reasoning but are not graded. Confidence is reflective, not scored.
 5. Finish when the result says **INVESTIGATION COMPLETE** and **3 of 3 findings
-   supported**. That ends this case; there is no next case in this prototype.
+   supported**. Completing Case 1 enables **Continue to Case 2**.
+6. The header's **Cases** selector opens either case directly, with its own
+   progress status. Case 2 finishes this build's available content, not the planned
+   full campaign. There is no third investigation yet.
 
 The opening **Mission & Help** guide explains these steps. Reopen it from the
 top of the desk at any time. Returning saves are not automatically interrupted
@@ -56,25 +61,39 @@ timer or penalty.
 
 ### Map and controls
 
-- Squares identify places; circles identify public position fixes; the diamond
-  identifies the shore sighting. Labels show UTC observation times.
+- Squares identify places; circles identify public position fixes; diamonds
+  identify shore sightings. Labels show UTC observation times and, in Case 2,
+  local vessel identifiers.
 - Batan, Itbayat and Sabtang have real generalized coastlines and island names.
   The north indicator and approximate kilometer scale provide orientation.
 - Drag empty map space to pan; use the wheel or +/- to zoom; **Reset view**
   restores the map. The scale changes with zoom.
-- Observations do not form a continuous route. No observed route is drawn
-  through the public tracking gap.
+- Observations do not form a continuous route. Do not merge observations of
+  different vessels into a single track.
+- Timeline entries use UTC. Source documents may use another clock convention;
+  read the records rather than assuming an image overlay is already UTC.
 - Use the timeline as a keyboard-accessible alternative to map markers.
   Tab moves among ordinary controls; Space activates buttons and checkboxes.
 
 ## Save
 
-Progress autosaves locally. A manual Save button is also available.
-Default Windows location:
+Progress autosaves separately for each case. A manual Save button is also
+available. Default Windows locations:
 ```text
 %APPDATA%\Godot\app_userdata\Regional Analysis Desk\session.json
+%APPDATA%\Godot\app_userdata\Regional Analysis Desk\session-case-02.json
 ```
-Reset case requires confirmation. Corrupt saves are not overwritten silently.
+The first path is unchanged from earlier builds. Restart opens Case 1; use
+**Cases** to resume Case 2. Notes, pins, answers, citations, confidence, hints and
+submitted results remain independent.
+
+Switching saves the current case before leaving. If saving fails, choose
+**Stay here** to retain current work, or explicitly **Switch without saving**.
+**Reset case** requires confirmation and affects only the selected case.
+Corrupt saves lock writes and are preserved; resetting first creates a `.backup`
+of that case's original. An existing backup is never overwritten silently.
+The other case remains accessible.
+
 The Licenses button displays engine and third-party notices.
 Existing version-1 saves retain their notes, selections, citations and hints.
 Older saves without submission metadata must be submitted again to establish
@@ -83,7 +102,8 @@ a current completion result; they are not silently declared finished.
 ## Content and limitations
 
 Basco/Batan and Itbayat are real places. All vessel activity, people, organizations,
-records and the incident are fictional. All times are UTC.
+records and incidents are fictional. The second case's image is a text observation
+transcript, not a supplied photograph or forensic tool.
 Made with Natural Earth: public-domain 1:10m land data, version 5.0.0,
 repository revision `ace5fed0eaf3c6c03c951e75b439ba8fffbc218e`.
 Source: https://github.com/nvkelso/natural-earth-vector
@@ -92,7 +112,9 @@ The map is generalized, not a navigational chart. Place labels and synthetic
 vessel fixes are approximate. The geography's source date is not evidence for
 the fictional incident.
 There is no forensic imagery, sound design, 3D or two-hour campaign in this build.
-This small case tests an evidence and assessment interaction.
+These two cases test evidence-based assessment and independent progression.
 The first owner playtest lasted approximately 20 minutes, with hints and an
-assessment submission; completion was not confirmed. This revision responds to
-that feedback. Improved novice usability and enjoyment still need a new playtest.
+assessment submission; completion was not confirmed. After the guidance revision,
+the owner completed Case 1 in about five minutes with no remaining confusion.
+That was a familiar-case replay, not fresh-player timing. Case 2 still needs an
+owner playtest; pacing and enjoyment are not established by automated tests.

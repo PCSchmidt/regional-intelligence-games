@@ -153,13 +153,13 @@ func _draw() -> void:
 		if not plot_rect().has_point(point):
 			continue
 		var color := Color("#ffce7a") if index == selected_index else ACCENT
-		if event["evidence_id"] == "lookout":
+		if event.get("kind", "sighting" if event["evidence_id"] == "lookout" else "public_fix") == "sighting":
 			draw_polyline(PackedVector2Array([point + Vector2(0, -6), point + Vector2(6, 0), point + Vector2(0, 6), point + Vector2(-6, 0), point + Vector2(0, -6)]), color, 2, true)
 		else:
 			draw_circle(point, 5, color)
 		if index == selected_index:
 			draw_arc(point, 10, 0, TAU, 32, color, 2, true)
-		_draw_label(event["time"], point, color, occupied)
+		_draw_label(event.get("marker_label", event["time"]), point, color, occupied)
 	draw_rect(Rect2(0, 0, size.x, 32), Color("#091c28"))
 	draw_string(font, Vector2(12, 22), "N ^  /  BATANES, PHILIPPINES", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, INK)
 	draw_rect(Rect2(0, size.y - 50, size.x, 50), Color("#091c28"))

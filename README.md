@@ -2,7 +2,7 @@
 
 Personal, offline Windows games about evidence, uncertainty and regional decisions. Real geography, clearly labeled fictional incidents, and one playable title at a time.
 
-**Current status:** The first Godot interaction prototype includes mission/help guidance, conspicuous completion feedback and offline coastlines. The owner reports approximately five minutes to completion on replay, no remaining confusion and some thought required. Fresh-player timing remains unverified; this is not yet a polished release or the planned two-hour Game 1.
+**Current status:** The Godot prototype now includes two investigations, case selection, separate progress saves, mission/help guidance, completion feedback and offline coastlines. Case 1's familiar-owner replay took about five minutes with no remaining confusion; Case 2 needs its first owner playtest. This is not yet a polished release or the planned two-hour Game 1.
 
 Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games).
 
@@ -10,23 +10,26 @@ Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt
 
 | Order | Working title | Scope and status |
 |---|---|---|
-| 1 | Regional Analysis Desk | Maritime-led evidence investigation. First small case implemented; eventual target is three linked investigations totaling about two hours. |
+| 1 | Regional Analysis Desk | Two maritime evidence investigations implemented; eventual target is three linked investigations totaling about two hours, subject to playtest recalibration. |
 | 2 | Cable Ship | Planned bounded, realistic 3D ship/ROV investigation. Production has not started. |
 | 3 | Regional Strategy | Planned discrete-turn decisions under uncertainty. Production has not started. |
 
 The [master plan](./MASTER_PLAN.md) records decisions, constraints and milestone gates. The baseline is approximately 10 owner hours/week, a $20/month project AI budget, free licensed assets initially, and no mandatory runtime AI or online services.
 
-## Play the first prototype
+## Play the two-case prototype
 
 **The Missing Interval** asks what the available records establish about a fictional vessel's missing public positions around Basco/Batan and Itbayat, Philippines.
 
-Read six sources, compare map/timeline observations, pin evidence and submit three supported findings. Mission & Help explains how to begin; a result dialog and persistent count identify completion. Real generalized island coastlines, named islands, differentiated symbols and a kilometer scale provide geographic context. Notes, selections, citations and hints save locally.
+**The Borrowed Name** adds a distinct investigation involving similar vessel names, camera-clock conventions and independent position reports. It contains seven fictional text records, not a real photograph.
+
+Read the selected case's sources, compare map/timeline observations, pin evidence and submit three supported findings. Mission & Help explains how to begin; a result dialog and persistent count identify completion. Use **Cases** to open either investigation, or **Continue to Case 2** after finishing the introduction. Each case saves independently; existing first-case progress is preserved. Real generalized coastlines, named islands, differentiated symbols and a kilometer scale provide geographic context.
 
 - [Controls, save behavior and verification results](./games/regional-desk/README.md)
 - [Concept and requirements](./specs/game-01/spec.md)
 - [Author-only case sketch and rubric - spoilers](./specs/game-01/CASE_01.md)
+- [Author-only second-case evidence graph and rubric - spoilers](./specs/game-01/CASE_02.md)
 
-For the next playtest, avoid the author-only rubric. Record elapsed time, confusion points, hint use and whether completion is clear. The first owner session was approximately 20 minutes, with hints and assessment submission; completion was unconfirmed. The revised-case replay took approximately five minutes with no remaining confusion and some reasoning required. Prior familiarity limits that timing result. Automated checks do not establish enjoyment or novice usability.
+For the next playtest, choose **The Borrowed Name** and avoid the author-only rubrics. Record elapsed time, confusion points, hints used and whether the conclusion required thought. Case 1's first session was approximately 20 minutes with completion unconfirmed; its improved replay took about five minutes with no confusion. Prior familiarity limits that result. Automated checks do not establish enjoyment or novice usability.
 
 ## Run from source
 
@@ -75,6 +78,6 @@ Local engines, Godot caches, generated builds and temporary files are excluded f
 
 ## Content and licenses
 
-Places are real; the current incident, vessel activity, organizations and records are synthetic. The prototype bundles public-domain Natural Earth land polygons, not map tiles, imagery or audio. **Made with Natural Earth.** [Geographic provenance, license and reproduction](./games/regional-desk/README.md#coastline-provenance-and-reproduction) and the case sketch record sources and limitations.
+Places are real; the incidents, vessel activity, organizations and records are synthetic. The prototype bundles public-domain Natural Earth land polygons, not map tiles, imagery or audio. **Made with Natural Earth.** [Geographic provenance, license and reproduction](./games/regional-desk/README.md#coastline-provenance-and-reproduction) and the case sketch record sources and limitations.
 
 No project-wide reuse license has been selected. Godot and its built-in components retain their own licenses; engine and third-party notices are accessible through the prototype's **Licenses** button.

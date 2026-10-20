@@ -1,7 +1,7 @@
 # Feature Specification: Regional Analysis Desk
 
 **Created:** 2026-10-20
-**Status:** Second interaction iteration; owner reports revised-case completion with no remaining confusion; fresh-player timing pending
+**Status:** Two-case implementation; automated and rendered checks passing; second-case owner playtest and fresh-player timing pending
 **Governing decisions:** [Master Plan](../../MASTER_PLAN.md)
 **Input:** A personal, offline Windows portfolio game using real regional geography, fictional scenario actors and accessible evidence-based investigation.
 
@@ -9,11 +9,11 @@
 
 - **Discovery method:** Review of the three source conversations, confirmed user answers and master-plan v2.
 - **Total items discovered:** Three portfolio titles.
-- **Items in scope:** One concept and the first investigation of Game 1. The cable-ship and regional-strategy games remain later projects.
+- **Items in scope:** Game 1's introductory investigation and approved second investigation, with case selection and separate progress. The cable-ship and regional-strategy games remain later projects.
 - **Full-game target:** Approximately two hours across three linked investigations, including tutorial and debriefs.
-- **This prototype:** One small complete investigation, six text evidence records, an offline coastline map, synchronized timeline, notebook, assessment, hints and save/reload.
+- **This prototype:** Two investigations (six and seven text records), an offline coastline map, synchronized timeline, notebook, assessment, hints, case selection and independent save/reload.
 - **Player fantasy:** Explain what happened without claiming more than the evidence supports.
-- **Working title:** Regional Analysis Desk. Case 1: *The Missing Interval*.
+- **Working title:** Regional Analysis Desk. Case 1: *The Missing Interval*; Case 2: *The Borrowed Name*.
 - **Tone:** Calm, credible and curious. Tension comes from competing explanations, not combat or a countdown.
 - **Exclusions:** Real feeds, external research, combat, account creation, procedural world simulation, live models, commercial release and 3D in Game 1.
 
@@ -113,18 +113,43 @@ As a player unfamiliar with Batanes, I recognize islands, places, observations, 
 1. **Given** the offline map, **when** I open it, **then** I see real generalized coastlines, named islands, distinct place/observation symbols, a legend, north indicator and distance scale.
 2. **Given** a zoomed map, **when** I change zoom, **then** the scale remains geographically consistent and no observed route is invented through the tracking gap.
 
+### User Story 7 - Investigate a mistaken identity (Priority: P1)
+
+As an analyst, I compare vessel features, clock conventions and independent observations rather than trusting a shared name or a reposted timestamp.
+
+**Independent test:** Complete The Borrowed Name using its seven records in any order.
+
+**Acceptance scenarios:**
+
+1. **Given** two similar vessel names, **when** I compare the register and image transcript, **then** I can identify the best structural match without outside knowledge.
+2. **Given** a local camera timestamp and its setting card, **when** I distinguish capture from archive indexing, **then** I can report the capture time in UTC.
+3. **Given** two independent position records, **when** I assess the reconstruction, **then** I do not merge distinct vessel IDs into one observed route.
+
+### User Story 8 - Continue and resume separate cases (Priority: P1)
+
+As a player, I can choose either investigation, continue from the introduction and resume each without losing the other's work.
+
+**Independent test:** Edit and complete different cases, switch/restart, then reset only one.
+
+**Acceptance scenarios:**
+
+1. **Given** work in Case 1, **when** I select Case 2 and return, **then** Case 1's notes, answers and submitted result remain intact.
+2. **Given** a completed Case 1, **when** I continue, **then** Case 2 opens with its own briefing and progress.
+3. **Given** a failed save, **when** I attempt to switch, **then** I can stay without losing work or explicitly confirm leaving without saving.
+4. **Given** a corrupt Case 2 save, **when** I select Case 1 or reset Case 2, **then** the original is preserved and Case 1 remains unaffected.
+
 ## Requirements
 
 ### Functional Requirements
 
 - **REQ-001:** The case MUST label all vessel activity, organizations and records as synthetic, while identifying Basco/Batan and Itbayat as real places.
-- **REQ-002:** The player MUST be able to open all six evidence records in any order without external services.
+- **REQ-002:** The player MUST be able to open all evidence in the selected case (six records in Case 1, seven in Case 2) in any order without external services.
 - **REQ-003:** Selecting an observation on the location view or timeline MUST open the associated evidence and identify the selected observation.
 - **REQ-004:** The player MUST be able to pan, zoom and reset the location view; its generalized geography MUST be labeled as unsuitable for navigation.
 - **REQ-005:** The player MUST be able to pin/unpin read evidence and keep free-form notes.
 - **REQ-006:** The assessment MUST collect a conclusion and individual citations for each of three findings.
 - **REQ-007:** Feedback MUST distinguish incomplete submission, unsupported conclusion and correct conclusion lacking support.
-- **REQ-008:** A complete supported submission MUST explain the supported stop, receiver outage and absence of proof of hostile intent without asserting that all other conduct is disproven.
+- **REQ-008:** A complete supported Case 1 submission MUST explain the supported stop, receiver outage and absence of proof of hostile intent without asserting that all other conduct is disproven.
 - **REQ-009:** The player MUST be able to revise and resubmit; changing the supporting state MUST invalidate displayed assessment results.
 - **REQ-010:** Optional staged hints MUST persist and MUST NOT impose a timer or penalty.
 - **REQ-011:** Saving and restarting MUST preserve the case version, notes, read/pinned sources, findings, citations, confidence selection and hint position.
@@ -134,7 +159,7 @@ As a player unfamiliar with Batanes, I recognize islands, places, observations, 
 
 ### Non-Functional Requirements
 
-- **REQ-015:** At 1280 x 900, the briefing, six-source list, evidence reader, notebook and three assessment findings MUST be reachable without clipped interactive controls.
+- **REQ-015:** At 1280 x 900, the case selector, briefing, six/seven-source list, evidence reader, notebook and three assessment findings MUST be reachable without clipped interactive controls.
 - **REQ-016:** Findings, source labels and feedback MUST not rely on color alone; normal form controls MUST support keyboard focus.
 - **REQ-017:** The prototype MUST contain no paid assets, mandatory network calls or runtime AI dependency.
 - **REQ-018:** Invalid case structure or dangling evidence references MUST stop case startup with a visible diagnostic rather than start a partially valid case.
@@ -148,10 +173,20 @@ As a player unfamiliar with Batanes, I recognize islands, places, observations, 
 - **REQ-023:** The offline map MUST show sourced real coastlines, Batan/Itbayat/Sabtang island labels, a north indicator, a legend and a kilometer scale that updates with zoom. Places and public fixes/shore observations MUST be distinguishable without color alone.
 - **REQ-024:** Map data MUST be redistributable, credited with its source and limitations, bundled for offline play and share the observation projection. Missing or invalid geography MUST produce an explicit startup diagnostic.
 
+### Two-Case Build
+
+- **REQ-025:** Case 2 MUST provide seven immediately available fictional records supporting three distinct identity, timestamp and geographic-corroboration findings; no outside research or real photograph is required.
+- **REQ-026:** The timeline MUST distinguish UTC record/index times from unconverted camera-overlay time and MUST NOT reveal the accepted conversion as an observed map timestamp.
+- **REQ-027:** A visible case selector MUST open either investigation and identify each case's progress or save problem without relying on color.
+- **REQ-028:** Each case MUST preserve its own notes, read/pinned records, findings, citations, confidence, hints and submitted state; existing Case 1 version-1 saves MUST retain their original location and compatibility.
+- **REQ-029:** Switching MUST first save current progress; on failure or a locked save, departure MUST require explicit confirmation, with a cancel path preserving the current case.
+- **REQ-030:** Reset/recovery MUST affect only the selected case. A corrupt save MUST NOT prevent access to the other investigation or silently replace the original.
+- **REQ-031:** Supported completion of Case 1 MUST offer continuation to Case 2; the last available case MUST clearly state that no third case is included, without claiming full campaign completion.
+
 ### Key Entities
 
 - **Case:** Versioned question, region, reference date, evidence and expected reasoning.
-- **Evidence record:** Stable ID, source description, UTC timestamp, synthetic status and body.
+- **Evidence record:** Stable ID, source description, UTC record/index timestamp, synthetic status and body. An embedded camera overlay can use a different clock convention.
 - **Observation:** Timestamp, optional coordinates and reference to its evidence record.
 - **Finding:** Question, candidate conclusions, citation requirements and explanatory feedback.
 - **Notebook:** Read/pinned records and player notes.
@@ -161,8 +196,8 @@ As a player unfamiliar with Batanes, I recognize islands, places, observations, 
 
 ### Measurable Outcomes
 
-- **SC-001:** One offline packaged walkthrough reaches a supported debrief for all three findings.
-- **SC-002:** All six sources can be opened in forward and reverse order without blocking completion.
+- **SC-001:** Each offline packaged investigation reaches a supported debrief for all three findings.
+- **SC-002:** Each case's sources can be opened in forward and reverse order without blocking completion.
 - **SC-003:** Correct submissions with missing support, wrong conclusions and incomplete submissions yield distinguishable feedback.
 - **SC-004:** A save/restart round trip preserves every state field listed in REQ-011.
 - **SC-005:** Corrupt, incompatible and unwritable save examples each produce an explicit diagnostic without replacing prior progress.
@@ -171,6 +206,10 @@ As a player unfamiliar with Batanes, I recognize islands, places, observations, 
 - **SC-008:** A new player can identify their role, first action and completion condition from the opening guide; an owner playtest must confirm whether clarity improved.
 - **SC-009:** Automated submissions with zero, one and three supported findings show the corresponding counts; a completed result remains accessible after restart.
 - **SC-010:** Coastline, place and observation alignment survives pan/zoom/reset; the scale matches a known 10 km projected distance within 1% at the map's reference latitude.
+- **SC-011:** Both cases can be completed in forward or reverse discovery order; every alternative Case 2 conclusion is rejected and every omitted decisive citation yields missing-support feedback.
+- **SC-012:** Switch/restart round trips preserve two different sets of notes, citations, hints and completion states; resetting either leaves the other's saved bytes unchanged.
+- **SC-013:** Failed-switch cancel/confirm and corrupt-save recovery are observable, preserve originals and leave the other case usable.
+- **SC-014:** An extracted offline Windows build supports both cases, a seven-record source list, case-specific help and independent progress; target-window controls remain reachable.
 
 ### Owner Playtest Baseline - 20 October 2026
 

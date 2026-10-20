@@ -67,6 +67,10 @@ static func validate(value: Variant) -> PackedStringArray:
 		if event.has("lat") or event.has("lon"):
 			if not valid_coordinate(event):
 				errors.append("Timeline coordinates out of range or incomplete.")
+		if event.has("kind") and event["kind"] not in ["sighting", "public_fix"]:
+			errors.append("Unknown observation marker kind.")
+		if event.has("marker_label") and (not event["marker_label"] is String or event["marker_label"].is_empty()):
+			errors.append("Observation marker label must be nonempty text.")
 
 	for place in data["places"]:
 		if not place is Dictionary:

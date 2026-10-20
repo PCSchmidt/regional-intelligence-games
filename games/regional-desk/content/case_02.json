@@ -1,0 +1,117 @@
+{
+  "id": "borrowed-name",
+  "version": 1,
+  "title": "The Borrowed Name",
+  "date": "2026-09-15",
+  "brief": "YOUR MISSION: A new post assigns an Itbayat image to Lantern Six. Compare similar vessel names, camera time and independent position records. File three supported findings without merging different vessels or mistaking an archive time for a capture time.",
+  "disclaimer": "FICTIONAL SCENARIO / REAL GEOGRAPHY. All vessels, records and observations are invented. Timeline times are UTC; the image's clock convention is evidence to investigate. Natural Earth coastlines are generalized. Not for navigation.",
+  "places": [
+    {"name": "Basco", "lat": 20.45, "lon": 121.97},
+    {"name": "Itbayat town", "lat": 20.78, "lon": 121.84}
+  ],
+  "evidence": [
+    {
+      "id": "assignment",
+      "title": "01 / Review request",
+      "time": "09:10",
+      "source": "Synthetic civilian analysis desk",
+      "body": "15 September 2026 / 09:10 UTC\n\nYesterday's tracking-gap review is closed. Today a circulating post identifies a vessel in an Itbayat image as Lantern Six and calls the image time 08:20 UTC.\n\nYour assignment:\n1. Identify which registered vessel best matches the visible structural features.\n2. Establish the image capture time in UTC, distinguishing it from archive indexing.\n3. Reconcile the independently recorded vessel positions.\n\nDo not assume a shared name identifies a hull. An image, its archive entry and a repost of that image are not three independent sightings. Every record needed for this review is available on this desk."
+    },
+    {
+      "id": "registry",
+      "title": "02 / Local vessel register",
+      "time": "06:00",
+      "source": "Synthetic local registry extract",
+      "body": "Register extract / 15 September 2026, 06:00 UTC\nThese fictional local identifiers are not IMO numbers.\n\nLANTERN SIX / LN-6\nCabin side: three rectangular windows in one row.\nStern marking: one horizontal bar below the vessel name.\n\nLANTERN NINE / LN-9\nCabin side: two round portholes.\nStern marking: two horizontal bars below the vessel name.\n\nBoth names begin LANTERN. Cropped name lettering alone does not distinguish them. Structural descriptions apply to this authored scenario; they are not general vessel-identification rules."
+    },
+    {
+      "id": "image",
+      "title": "03 / Archive observation transcript",
+      "time": "08:45",
+      "source": "Synthetic image archive / text stand-in",
+      "body": "Archive indexing: 15 September 2026, 08:45 UTC\nFrame reference: Q4-0915-0820\nCamera identifier: Q4\nLocation tag: Itbayat service approach\nVisible overlay: 15 SEP 2026 / 08:20 (no time zone printed)\n\nObservation transcript:\nThe name begins LANTERN; the remainder is cropped. The local hull number is unreadable. The cabin side has two round portholes. Two horizontal bars are visible below the cropped stern name. No cargo detail can be established.\n\nThis is an authored text observation, NOT a supplied photograph. No pixel enhancement or external image research is required. Indexing records when an archive processed the frame, not necessarily when the camera captured it."
+    },
+    {
+      "id": "clock",
+      "title": "04 / Q4 camera setting card",
+      "time": "08:50",
+      "source": "Synthetic camera maintenance desk",
+      "body": "Setting card copied: 15 September 2026, 08:50 UTC\nApplies to camera Q4 throughout 15 September; no clock reset or measured drift is recorded.\n\nThe camera overlay uses Philippine local time, UTC+08:00. The archive database uses UTC. The archive does not rewrite the image overlay.\n\nTo convert this camera's displayed time to UTC, subtract eight hours and check the calendar date. For example, 14:00 on this local clock is 06:00 UTC on the same date. An overlay without a printed zone must not automatically be treated as UTC."
+    },
+    {
+      "id": "quay",
+      "title": "05 / Itbayat approach ledger",
+      "time": "00:35",
+      "source": "Synthetic independent Itbayat supply desk",
+      "body": "Ledger filed: 15 September 2026, 00:35 UTC\nApproach observation: 00:10 UTC\nVessel: LANTERN NINE / clear local identifier LN-9\nApproximate offshore approach: 20.760 N, 121.775 E\n\nA shore clerk records LN-9 approaching the Itbayat service area. The clerk kept this ledger independently of camera Q4. The record does not identify LN-6 and does not give LN-9's full route.\n\nThe arrival observation and this ledger's later filing time are different events."
+    },
+    {
+      "id": "basco",
+      "title": "06 / Basco shore observation",
+      "time": "06:40",
+      "source": "Synthetic independent Basco observer",
+      "body": "15 September 2026 / 06:40 UTC\nLocation: offshore near Basco, Batan Island\nApproximate observation: 20.480 N, 121.960 E\nVessel: LANTERN SIX / clear local identifier LN-6\nCabin side: three rectangular windows.\n\nThe observer records this vessel near Basco at this time. The note was kept independently of the Itbayat desk and camera archive. It establishes a position observation, not every movement before or after it. It does not prove LN-6 never visited another island."
+    },
+    {
+      "id": "claim",
+      "title": "07 / Circulating identification post",
+      "time": "09:00",
+      "source": "Synthetic public post / disputed interpretation",
+      "body": "Posted 15 September 2026, 09:00 UTC\nAttached archive frame: Q4-0915-0820\n\n'The cropped name says LANTERN, so this is Lantern Six at Itbayat at 08:20 UTC today. Together with the Basco report, this proves its northbound run.'\n\nThe attachment is a copy of the indexed archive frame, not a separate observation. The post provides no additional clear hull number, camera setting record or independent Itbayat position fix. Test the identification and time convention against the original records; do not count the copy as corroboration."
+    }
+  ],
+  "timeline": [
+    {"time": "00:10", "label": "LN-9 Itbayat approach", "evidence_id": "quay", "lat": 20.76, "lon": 121.775, "kind": "sighting", "marker_label": "00:10 LN-9"},
+    {"time": "00:35", "label": "Approach ledger filed", "evidence_id": "quay"},
+    {"time": "06:00", "label": "Vessel register extract", "evidence_id": "registry"},
+    {"time": "06:40", "label": "LN-6 near Basco", "evidence_id": "basco", "lat": 20.48, "lon": 121.96, "kind": "sighting", "marker_label": "06:40 LN-6"},
+    {"time": "08:45", "label": "Image indexed / not capture time", "evidence_id": "image"},
+    {"time": "08:50", "label": "Camera setting card copied", "evidence_id": "clock"},
+    {"time": "09:00", "label": "Identification post published", "evidence_id": "claim"},
+    {"time": "09:10", "label": "Review request", "evidence_id": "assignment"}
+  ],
+  "findings": [
+    {
+      "id": "image_identity",
+      "question": "1. Which vessel best matches the image?",
+      "options": [
+        {"id": "ln6", "label": "Lantern Six / LN-6"},
+        {"id": "ln9", "label": "Lantern Nine / LN-9"},
+        {"id": "same_vessel", "label": "Both names identify the same hull"}
+      ],
+      "accepted": "ln9",
+      "required_evidence": ["registry", "image"],
+      "explanation": "The register distinguishes two hulls. Two round cabin portholes and two stern bars in the transcript match LN-9, not LN-6's three rectangular windows and single bar. The cropped shared name alone is insufficient."
+    },
+    {
+      "id": "capture_time",
+      "question": "2. When was the image captured in UTC?",
+      "options": [
+        {"id": "0820", "label": "15 September / 08:20 UTC"},
+        {"id": "0845", "label": "15 September / 08:45 UTC"},
+        {"id": "0020", "label": "15 September / 00:20 UTC"}
+      ],
+      "accepted": "0020",
+      "required_evidence": ["image", "clock"],
+      "explanation": "The frame shows 08:20 on Q4. Its setting card specifies UTC+08:00: subtract eight hours to obtain 00:20 UTC on 15 September. The 08:45 archive time is indexing, not capture. The post copied the overlay without its time-zone context."
+    },
+    {
+      "id": "positions",
+      "question": "3. What do independent position records establish?",
+      "options": [
+        {"id": "one_track", "label": "Both positions form one LN-6 track"},
+        {"id": "two_vessels", "label": "LN-9 at Itbayat; LN-6 near Basco"},
+        {"id": "never_visited", "label": "LN-6 never visited Itbayat"}
+      ],
+      "accepted": "two_vessels",
+      "required_evidence": ["quay", "basco"],
+      "explanation": "The independent Itbayat ledger identifies LN-9 at 00:10 UTC; the Basco observer identifies LN-6 at 06:40 UTC. These are different vessels, not a single observed track. Together with the image and clock comparison, they undermine the post's conflation. They do not reconstruct either vessel's entire day or prove LN-6 never visited Itbayat."
+    }
+  ],
+  "hints": [
+    "Compare structural features, not just the shared word LANTERN. Which details can actually be read?",
+    "The archive and the camera use different clock conventions. Which timestamp is capture, and which is indexing?",
+    "Use the camera setting card to convert the overlay. Check the date as well as the hour.",
+    "For the last finding, compare the clear local IDs in the two independent shore records. Different hull IDs must not become one route."
+  ]
+}

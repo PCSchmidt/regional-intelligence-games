@@ -56,6 +56,12 @@ func _run() -> void:
 	fixture["polygons"][0][-1][0] = 200
 	check(not MapView.validate_coastlines(fixture).is_empty(), "Reject malformed geographic coordinate")
 	check(not MapView.validate_coastlines({"polygons": []}).is_empty(), "Reject missing map provenance and geometry")
+	map.case_data = Rules.load_case("res://content/case_02.json")["case"]
+	for event in map.case_data["timeline"]:
+		if event.has("lat"):
+			check(not map.is_land(event["lat"], event["lon"]), "Second-case vessel observation %s is offshore" % event["time"])
+			var body: String = map.case_data["evidence"].filter(func(item: Dictionary) -> bool: return item["id"] == event["evidence_id"])[0]["body"]
+			check(body.contains("%.3f N" % event["lat"]) and body.contains("%.3f E" % event["lon"]), "Second-case source and map fix agree at " + event["time"])
 	map.queue_free()
 	await process_frame
 	print("MAP TESTS: %d passed, %d failed" % [passed, failed])
