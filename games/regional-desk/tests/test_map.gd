@@ -62,6 +62,15 @@ func _run() -> void:
 			check(not map.is_land(event["lat"], event["lon"]), "Second-case vessel observation %s is offshore" % event["time"])
 			var body: String = map.case_data["evidence"].filter(func(item: Dictionary) -> bool: return item["id"] == event["evidence_id"])[0]["body"]
 			check(body.contains("%.3f N" % event["lat"]) and body.contains("%.3f E" % event["lon"]), "Second-case source and map fix agree at " + event["time"])
+	map.case_data = Rules.load_case("res://content/case_03.json")["case"]
+	check(map.case_data["timeline"].all(func(event: Dictionary) -> bool: return not event.has("lat") and not event.has("lon")), "Third case has no invented map observations")
+	map.set_selection(5)
+	map.queue_redraw()
+	await process_frame
+	check(map.selected_index == 5 and map.land_polygons.size() == 6, "Context-only map accepts timeline selection without drawing a vessel fix")
+	selected.clear()
+	map._gui_input(click)
+	check(selected.is_empty(), "Context-only map click cannot fabricate an evidence marker")
 	map.queue_free()
 	await process_frame
 	print("MAP TESTS: %d passed, %d failed" % [passed, failed])

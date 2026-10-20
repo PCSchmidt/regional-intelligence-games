@@ -3,12 +3,14 @@ extends Control
 const Rules = preload("res://scripts/case_rules.gd")
 const Store = preload("res://scripts/save_store.gd")
 const MapView = preload("res://scripts/map_view.gd")
+const MapAtlas = preload("res://scripts/map_atlas.gd")
 const CASES := [
 	{"path": "res://content/case_01.json", "save_suffix": ""},
-	{"path": "res://content/case_02.json", "save_suffix": "-case-02"}
+	{"path": "res://content/case_02.json", "save_suffix": "-case-02"},
+	{"path": "res://content/case_03.json", "save_suffix": "-case-03"}
 ]
 const HELP_TEXT := """YOUR ROLE
-You are a civilian regional analyst reviewing public information about a vessel near the Batanes islands in the Philippines.
+You are a civilian regional analyst reviewing public information about activity in the Batanes islands in the Philippines.
 
 WHY THIS CASE MATTERS
 {mission}
@@ -19,7 +21,7 @@ Answer the three questions shown in this case's assessment panel. Support each f
 
 START HERE
 1. Read {first_source}, already open on the desk. Then inspect the remaining records in any order. No outside research is required.
-2. Select timeline entries or map markers to compare locations and times. A marker is an observation, not a continuous route.
+2. {location_guidance}
 3. Pin useful records with "Pin source to notebook." Pinning makes a source available; it does not cite it automatically.
 4. In the assessment panel, choose a conclusion for each finding. Tick the supporting source boxes separately under that finding. Scroll the panel to reach all three findings and Submit.
 5. Submit assessment, then scroll through the result for each finding. Submitting is not the finish condition: all three must say SUPPORTED. Choose Return to findings to correct answers or citations, then Submit again to check those changes. Optional hints have no penalty; notes help you reason but are not graded.
@@ -31,11 +33,11 @@ NEEDS SUPPORT: The conclusion matches, but required supporting citations are mis
 SUPPORTED: This finding has the accepted conclusion and supporting citations.
 
 HOW TO FINISH
-All three findings must be supported in the same submission. A result dialog will say "INVESTIGATION COMPLETE" and the desk will show "3 of 3 findings supported." Use Cases to choose either investigation; completing Case 1 also enables Continue to Case 2. That is not the full planned campaign. Confidence is recorded for reflection, not scored.
+All three findings must be supported in the same submission. A result dialog will say "INVESTIGATION COMPLETE" and the desk will show "3 of 3 findings supported." Use Cases to choose any included investigation. Completing a case enables Continue when a next case is included. Completing the available cases does not establish the full planned campaign or its duration. Confidence is recorded for reflection, not scored.
 
 CONTROLS AND SAVING
-Drag empty map space to pan; wheel or +/- to zoom; Reset view restores the map. The timeline is a keyboard-accessible alternative to map markers. Tab moves among ordinary controls; Space activates buttons and checkboxes. Timeline times are UTC. Source documents may use another clock convention; verify it.
-Progress saves separately for each case. Switching saves before leaving; a save failure requires confirmation to leave without saving. Reset affects only the current case and asks for confirmation. Restart opens Case 1; select Case 2 to resume it. Reopen this guide with Mission & Help."""
+Drag empty map space to pan; wheel or +/- to zoom; Reset view restores the map. Expand map opens a larger view with Region, Basco, Itbayat town and Chinapoliran Port presets. Close-ups show supplied real streets/buildings; port outlines are not available everywhere. Terrain detail varies; this is not a navigational chart or additional case evidence. The timeline is a keyboard-accessible alternative to map markers. Tab moves among ordinary controls; Space activates buttons and checkboxes. Timeline times are UTC. Source documents may use another clock convention; verify it.
+Progress saves separately for each case. Switching saves before leaving; a save failure requires confirmation to leave without saving. Reset affects only the current case and asks for confirmation. Restart opens Case 1; select another case in Cases to resume it. Reopen this guide with Mission & Help."""
 
 var case_data: Dictionary = {}
 var state: Dictionary = {}
@@ -72,6 +74,12 @@ var result_text: RichTextLabel
 var case_picker: OptionButton
 var continue_button: Button
 var switch_dialog: ConfirmationDialog
+var map_context_label: Label
+var atlas: Dictionary = {}
+var expand_map_button: Button
+var map_dialog: AcceptDialog
+var expanded_map: MapView
+var map_focus: OptionButton
 
 
 func _ready() -> void:
@@ -90,6 +98,11 @@ func _ready() -> void:
 		_show_fatal(geography["error"])
 		return
 	coastlines = geography["polygons"]
+	var detailed_geography := MapAtlas.load_atlas("res://content/offline_map.json")
+	if detailed_geography.has("error"):
+		_show_fatal(detailed_geography["error"])
+		return
+	atlas = detailed_geography["atlas"]
 	get_tree().auto_accept_quit = false
 	_activate_case(0)
 
@@ -116,10 +129,13 @@ func _activate_case(index: int) -> void:
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
+	map_dialog = null
+	expanded_map = null
 	finding_options.clear()
 	citation_boxes.clear()
 	map_view = MapView.new()
 	map_view.land_polygons = coastlines
+	map_view.atlas = atlas
 	case_index = index
 	pending_case = -1
 	case_data = cases[index]
@@ -218,17 +234,22 @@ func _build_interface() -> void:
 	var center := _column(columns, 395, 1.25)
 	var right := _column(columns, 365, 1.05)
 
-	left.add_child(_label("LOCATION / OBSERVATIONS", 15))
+	var has_observations: bool = case_data["timeline"].any(func(event: Dictionary) -> bool: return event.has("lat"))
+	left.add_child(_label("LOCATION / OBSERVATIONS" if has_observations else "LOCATION / REGIONAL CONTEXT", 15))
 	var map_toolbar := HBoxContainer.new()
 	left.add_child(map_toolbar)
 	_button(map_toolbar, "+", func() -> void: map_view.zoom_by(1.15))
 	_button(map_toolbar, "-", func() -> void: map_view.zoom_by(1.0 / 1.15))
 	_button(map_toolbar, "Reset view", map_view.reset_view)
+	expand_map_button = _button(map_toolbar, "Expand map", _open_map)
 	map_view.case_data = case_data
 	map_view.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	left.add_child(map_view)
 	map_view.observation_selected.connect(_select_observation)
-	left.add_child(_label("Square: place / circle: public fix / diamond: shore sighting\nUTC times / drag to pan, wheel or +/- to zoom\nNo observed route is drawn through the gap.", 12, true))
+	map_context_label = _label("Square: place / circle: public fix / diamond: shore sighting\nUTC times / drag to pan, wheel or +/- to zoom\nNo observed route is drawn through the gap." if has_observations else "Square: real place / regional context only\nThis case has no mapped vessel observations.\nA/B are fictional work labels, not mapped piers.", 12, true)
+	left.add_child(map_context_label)
+	if not has_observations:
+		map_view.tooltip_text = "Real terrain and mapped towns for context only; no vessel observations or work areas. A/B are not real mapped piers. Expand for town presets."
 	left.add_child(_label("TIMELINE / ALL TIMES UTC", 15))
 	timeline_list = ItemList.new()
 	timeline_list.custom_minimum_size.y = 210
@@ -280,7 +301,7 @@ func _build_interface() -> void:
 	right.add_child(progress_label)
 	review_button = _button(right, "Review latest result", _show_result)
 	review_button.disabled = true
-	continue_button = _button(right, "Continue to Case 2", func() -> void: _request_case(case_index + 1))
+	continue_button = _button(right, "Continue to Case %d" % (case_index + 2), func() -> void: _request_case(case_index + 1))
 	continue_button.visible = case_index < cases.size() - 1
 	continue_button.disabled = true
 	var assessment_scroll := ScrollContainer.new()
@@ -349,7 +370,7 @@ func _build_interface() -> void:
 	add_child(autosave)
 	switch_dialog = ConfirmationDialog.new()
 	switch_dialog.title = "Current case could not be saved"
-	switch_dialog.dialog_text = "Stay to preserve your current work, or switch WITHOUT saving it?\nThe original save is preserved. The other case has separate progress."
+	switch_dialog.dialog_text = "Stay to preserve your current work, or switch WITHOUT saving it?\nThe original save is preserved. Other cases have separate progress."
 	switch_dialog.get_ok_button().text = "Switch without saving"
 	switch_dialog.get_cancel_button().text = "Stay here"
 	switch_dialog.confirmed.connect(func() -> void:
@@ -358,7 +379,8 @@ func _build_interface() -> void:
 	)
 	switch_dialog.canceled.connect(func() -> void: pending_case = -1)
 	add_child(switch_dialog)
-	help_dialog = _text_dialog("Mission & Help", HELP_TEXT.format({"mission": case_data["brief"], "first_source": case_data["evidence"][0]["title"]}))
+	var location_guidance := "Select timeline entries or map markers to compare locations and times. A marker is an observation, not a continuous route." if has_observations else "Select timeline entries to compare the events and their source records. The map is regional context only: this case has no mapped vessel observations, route or work-area positions."
+	help_dialog = _text_dialog("Mission & Help", HELP_TEXT.format({"mission": case_data["brief"], "first_source": case_data["evidence"][0]["title"], "location_guidance": location_guidance}))
 	help_dialog.name = "MissionHelp"
 	help_text = help_dialog.get_child(0)
 	help_dialog.get_ok_button().text = "Return to investigation"
@@ -441,11 +463,70 @@ func _select_observation(index: int) -> void:
 	timeline_list.select(index)
 	timeline_list.ensure_current_is_visible()
 	map_view.set_selection(index)
+	if is_instance_valid(expanded_map):
+		expanded_map.set_selection(index)
 	var id: String = case_data["timeline"][index]["evidence_id"]
 	for evidence_index in range(case_data["evidence"].size()):
 		if case_data["evidence"][evidence_index]["id"] == id:
 			_open_evidence(evidence_index)
 			break
+
+
+func _open_map() -> void:
+	if not is_instance_valid(map_dialog):
+		map_dialog = AcceptDialog.new()
+		map_dialog.title = "Batanes / offline terrain and town detail"
+		var content := VBoxContainer.new()
+		content.custom_minimum_size = Vector2(1100, 660)
+		var toolbar := HBoxContainer.new()
+		content.add_child(toolbar)
+		map_focus = OptionButton.new()
+		for label in ["Region", "Basco town / port", "Itbayat town", "Chinapoliran Port"]:
+			map_focus.add_item(label)
+		map_focus.item_selected.connect(func(index: int) -> void:
+			if index == 0:
+				expanded_map.reset_view()
+			elif index < 3:
+				expanded_map.focus_area(index - 1)
+			else:
+				for feature in atlas["features"]:
+					if feature["kind"] == "landmark" and feature["name"] == "Chinapoliran Port":
+						expanded_map.center = feature["points"][0]
+						expanded_map.pan = Vector2.ZERO
+						expanded_map.zoom = 64
+						expanded_map.queue_redraw()
+						return
+				_set_status("Port focus is missing from the supplied atlas.", true)
+		)
+		toolbar.add_child(map_focus)
+		_button(toolbar, "+", func() -> void: expanded_map.zoom_by(1.3))
+		_button(toolbar, "-", func() -> void: expanded_map.zoom_by(1.0 / 1.3))
+		_button(toolbar, "Reset region", func() -> void:
+			map_focus.select(0)
+			expanded_map.reset_view()
+		)
+		var explanation := _label("Real mapped context, not case evidence. Relief grid ~30 m; source detail varies. Approx. 100 m contours. Town detail is bounded.\nItbayat: port points and roads, no supplied pier outlines. Fictional work areas A/B are not mapped. Drag / wheel / +/-; Esc closes.", 13, true)
+		explanation.custom_minimum_size.x = 1050
+		content.add_child(explanation)
+		expanded_map = MapView.new()
+		expanded_map.atlas = atlas
+		expanded_map.land_polygons = coastlines
+		expanded_map.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		content.add_child(expanded_map)
+		expanded_map.observation_selected.connect(func(index: int) -> void:
+			_select_observation(index)
+			map_dialog.hide()
+		)
+		map_dialog.add_child(content)
+		add_child(map_dialog)
+	expanded_map.case_data = case_data
+	expanded_map.center = map_view.unproject(map_view.plot_rect().get_center())
+	expanded_map.pan = Vector2.ZERO
+	expanded_map.zoom = map_view.zoom
+	expanded_map.set_selection(map_view.selected_index)
+	map_focus.select(-1)
+	map_focus.text = "Current desk view"
+	map_dialog.popup_centered()
 
 
 func _toggle_pin() -> void:
@@ -523,10 +604,11 @@ func _render_assessment() -> void:
 	continue_button.disabled = not result["complete"]
 	_refresh_case_picker()
 	result_dialog.title = "Investigation complete" if result["complete"] else "Assessment needs review"
+	var continuation := "Continue to Case %d from the desk, or use Cases to choose an investigation." % (case_index + 2) if case_index < cases.size() - 1 else "This is the last included case in this build. No further case is included. You can revisit any investigation using Cases."
 	var lines: Array[String] = [
 		"INVESTIGATION COMPLETE" if result["complete"] else "ASSESSMENT NEEDS REVIEW",
 		count_text,
-		("You have finished this case. Review the reasoning and its limits below. " + ("Continue to Case 2 from the desk, or use Cases to choose an investigation." if case_index < cases.size() - 1 else "No third case is included in this build. You can revisit either investigation using Cases.")) if result["complete"] else "Submitted, but NOT COMPLETE. Scroll through the findings below. Fix every finding that is not SUPPORTED, then Submit again.",
+		("You have finished this case. Review the reasoning and its limits below. " + continuation) if result["complete"] else "Submitted, but NOT COMPLETE. Scroll through the findings below. Fix every finding that is not SUPPORTED, then Submit again.",
 		"\nStatus guide: INCOMPLETE = choose a conclusion; REVISE = reconsider the conclusion; NEEDS SUPPORT = add citations; SUPPORTED = conclusion and citations accepted."
 	]
 	var evidence_titles := {}
@@ -666,7 +748,7 @@ func _show_licenses() -> void:
 	text.custom_minimum_size = Vector2(760, 480)
 	text.selection_enabled = true
 	text.text = "GODOT ENGINE\n\n" + Engine.get_license_text()
-	text.text += "\n\nMAP DATA\n\nMade with Natural Earth. 1:10m land, version 5.0.0. Public domain.\nBatanes island subset from revision ace5fed0eaf3c6c03c951e75b439ba8fffbc218e.\nhttps://github.com/nvkelso/natural-earth-vector\nGeneralized coastlines, not for navigation. Incident positions are synthetic."
+	text.text += "\n\nMAP DATA\n\n" + FileAccess.get_file_as_string("res://content/MAP_DATA_LICENSES.md")
 	text.text += "\n\nTHIRD-PARTY COPYRIGHT NOTICES\n\n" + JSON.stringify(Engine.get_copyright_info(), "\t")
 	text.text += "\n\nTHIRD-PARTY LICENSE TEXTS\n\n" + JSON.stringify(Engine.get_license_info(), "\t")
 	dialog.add_child(text)

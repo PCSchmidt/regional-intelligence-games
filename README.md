@@ -2,34 +2,39 @@
 
 Personal, offline Windows games about evidence, uncertainty and regional decisions. Real geography, clearly labeled fictional incidents, and one playable title at a time.
 
-**Current status:** The Godot prototype now includes two investigations, case selection, separate progress saves, mission/help guidance, completion feedback and offline coastlines. Case 1's familiar-owner replay took about five minutes with no remaining confusion; Case 2's first owner session lasted about seven minutes, used all hints and remained incomplete, with confusion about camera/record times and feedback. The current clarity revision needs a replay. This is not yet a polished release or the planned two-hour Game 1.
+**Current status:** The Godot prototype now includes three investigations, case selection, separate progress saves, mission/help guidance, completion feedback and offline coastlines. Case 1's familiar-owner replay took about five minutes with no remaining confusion. After an initially confusing, incomplete Case 2 session, the owner reports that the corrections made the information understandable; its replay took about five minutes with all selections correctly determined. These are familiar-content results, not novice timing. This is not yet a polished release or the planned two-hour Game 1.
 
 Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games).
+
+**New investigation and maps:** *The Echoed Warning* is implemented: six records about repeated reporting, a correction and independent corroboration. The approved offline map upgrade adds shaded relief, approximate contours, sourced roads/buildings and an expanded view with Basco, Itbayat-town and Chinapoliran-port presets. Owner Case 3 and map playtests are pending. This is not a new case, satellite view or 3D production.
 
 ## Portfolio
 
 | Order | Working title | Scope and status |
 |---|---|---|
-| 1 | Regional Analysis Desk | Two maritime evidence investigations implemented; eventual target is three linked investigations totaling about two hours, subject to playtest recalibration. |
+| 1 | Regional Analysis Desk | Three concise evidence investigations implemented; the approximately two-hour target remains unverified and subject to playtest recalibration. |
 | 2 | Cable Ship | Planned bounded, realistic 3D ship/ROV investigation. Production has not started. |
 | 3 | Regional Strategy | Planned discrete-turn decisions under uncertainty. Production has not started. |
 
 The [master plan](./MASTER_PLAN.md) records decisions, constraints and milestone gates. The baseline is approximately 10 owner hours/week, a $20/month project AI budget, free licensed assets initially, and no mandatory runtime AI or online services.
 
-## Play the two-case prototype
+## Play the three-case prototype
 
 **The Missing Interval** asks what the available records establish about a fictional vessel's missing public positions around Basco/Batan and Itbayat, Philippines.
 
 **The Borrowed Name** adds a distinct investigation involving similar vessel names, camera-clock conventions and independent position reports. It contains seven fictional text records, not a real photograph.
 
-Read the selected case's sources, compare map/timeline observations, pin evidence and submit three supported findings. Mission & Help explains how to begin; a result dialog and persistent count identify completion. Use **Cases** to open either investigation, or **Continue to Case 2** after finishing the introduction. Each case saves independently; existing first-case progress is preserved. Real generalized coastlines, named islands, differentiated symbols and a kilometer scale provide geographic context.
+**The Echoed Warning** asks how reports obtained their information, what a correction changes and what a separately kept record supports. All its times are UTC; its map is regional context, not an invented vessel track.
+
+Read the selected case's sources, compare records and the timeline, pin evidence and submit three supported findings. Mission & Help explains how to begin; a result dialog and persistent count identify completion. Use **Cases** to open any investigation, or **Continue to Case 2/3** after completing the preceding case. Each case saves independently; existing progress is preserved. **Expand map** opens the town presets. Terrain, mapped streets/buildings, available port outlines and a kilometer/meter scale provide context, not additional evidence. Itbayat has named port points and roads but no supplied pier outlines; no facilities are invented.
 
 - [Controls, save behavior and verification results](./games/regional-desk/README.md)
 - [Concept and requirements](./specs/game-01/spec.md)
 - [Author-only case sketch and rubric - spoilers](./specs/game-01/CASE_01.md)
 - [Author-only second-case evidence graph and rubric - spoilers](./specs/game-01/CASE_02.md)
+- [Author-only third-case design and rubric - spoilers](./specs/game-01/CASE_03.md)
 
-For the next playtest, resume **The Borrowed Name** using its revised camera/clock records, ordered hints and explicit correction feedback. Existing saves are retained; no reset is needed. The owner spent about seven minutes on the first Case 2 session, used all hints and submitted without all findings supported; capture versus archive time, the camera time zone and feedback were confusing. That is not completion timing. Case 1's improved five-minute replay was familiar content. Automated checks do not establish enjoyment or novice usability.
+The owner comprehension gate for **The Borrowed Name** is now met: the revised information made sense, and all selections were correctly determined in about five minutes. Hint use and the final supported-finding count were not explicitly reported. Preserve the earlier seven-minute incomplete session as evidence of the original confusion; do not average it with the replay or treat either as novice completion timing. The third-case design was approved and implemented; its own owner comprehension gate is pending. Fresh-player testing remains useful if available; enjoyment and novice usability are not established by automated checks.
 
 ## Run from source
 
@@ -78,6 +83,6 @@ Local engines, Godot caches, generated builds and temporary files are excluded f
 
 ## Content and licenses
 
-Places are real; the incidents, vessel activity, organizations and records are synthetic. The prototype bundles public-domain Natural Earth land polygons, not map tiles, imagery or audio. **Made with Natural Earth.** [Geographic provenance, license and reproduction](./games/regional-desk/README.md#coastline-provenance-and-reproduction) and the case sketch record sources and limitations.
+Places are real; the incidents, vessel activity, organizations and records are synthetic. The offline map bundles derived **OpenStreetMap contributors** data under **ODbL-1.0**, Mapzen/USGS/NOAA relief, and the earlier public-domain Natural Earth reference. No website map tiles or satellite imagery are bundled. [Offline source/license notices](./games/regional-desk/content/MAP_DATA_LICENSES.md) and [geographic provenance/reproduction](./games/regional-desk/README.md#offline-terrain-and-town-map) distinguish vector detail from the elevation grid's variable effective resolution. The derived OSM database is separately available under ODbL; this does not license the game code.
 
 No project-wide reuse license has been selected. Godot and its built-in components retain their own licenses; engine and third-party notices are accessible through the prototype's **Licenses** button.

@@ -1,7 +1,7 @@
 # Feature Specification: Regional Analysis Desk
 
 **Created:** 2026-10-20
-**Status:** Two-case implementation and Case 2 clarity revision technically verified; revised owner completion and fresh-player timing pending
+**Status:** Three-case implementation technically verified; revised Cases 1/2 clear to owner; Case 3 owner playtest and fresh-player timing pending
 **Governing decisions:** [Master Plan](../../MASTER_PLAN.md)
 **Input:** A personal, offline Windows portfolio game using real regional geography, fictional scenario actors and accessible evidence-based investigation.
 
@@ -9,11 +9,12 @@
 
 - **Discovery method:** Review of the three source conversations, confirmed user answers and master-plan v2.
 - **Total items discovered:** Three portfolio titles.
-- **Items in scope:** Game 1's introductory investigation and approved second investigation, with case selection and separate progress. The cable-ship and regional-strategy games remain later projects.
+- **Items in scope:** Game 1's three approved investigations, with case selection and separate progress. The cable-ship and regional-strategy games remain later projects.
+- **Approved third case:** [The Echoed Warning](./CASE_03.md) supplies six records and three source-independence/correction/corroboration findings, implemented after design approval.
 - **Full-game target:** Approximately two hours across three linked investigations, including tutorial and debriefs.
-- **This prototype:** Two investigations (six and seven text records), an offline coastline map, synchronized timeline, notebook, assessment, hints, case selection and independent save/reload.
+- **This prototype:** Three investigations (six, seven and six text records), an offline coastline map, synchronized timeline, notebook, assessment, hints, case selection and independent save/reload.
 - **Player fantasy:** Explain what happened without claiming more than the evidence supports.
-- **Working title:** Regional Analysis Desk. Case 1: *The Missing Interval*; Case 2: *The Borrowed Name*.
+- **Working title:** Regional Analysis Desk. Cases: *The Missing Interval*, *The Borrowed Name* and *The Echoed Warning*.
 - **Tone:** Calm, credible and curious. Tension comes from competing explanations, not combat or a countdown.
 - **Exclusions:** Real feeds, external research, combat, account creation, procedural world simulation, live models, commercial release and 3D in Game 1.
 
@@ -177,11 +178,11 @@ As a player, I can choose either investigation, continue from the introduction a
 
 - **REQ-025:** Case 2 MUST provide seven immediately available fictional records supporting three distinct identity, timestamp and geographic-corroboration findings; no outside research or real photograph is required.
 - **REQ-026:** The timeline and source headers MUST distinguish UTC record/index times from unconverted camera-overlay time and MUST NOT reveal the accepted conversion as an observed map timestamp. Source text and staged hints MUST identify which event is being converted and where the camera clock convention is established.
-- **REQ-027:** A visible case selector MUST open either investigation and identify each case's progress or save problem without relying on color.
+- **REQ-027:** A visible case selector MUST open any included investigation and identify each case's progress or save problem without relying on color.
 - **REQ-028:** Each case MUST preserve its own notes, read/pinned records, findings, citations, confidence, hints and submitted state; existing Case 1 version-1 saves MUST retain their original location and compatibility.
 - **REQ-029:** Switching MUST first save current progress; on failure or a locked save, departure MUST require explicit confirmation, with a cancel path preserving the current case.
-- **REQ-030:** Reset/recovery MUST affect only the selected case. A corrupt save MUST NOT prevent access to the other investigation or silently replace the original.
-- **REQ-031:** Supported completion of Case 1 MUST offer continuation to Case 2; the last available case MUST clearly state that no third case is included, without claiming full campaign completion.
+- **REQ-030:** Reset/recovery MUST affect only the selected case. A corrupt save MUST NOT prevent access to other investigations or silently replace the original.
+- **REQ-031:** Supported completion of Case 1 MUST offer continuation to Case 2; the last available case MUST accurately identify the end of included content, without claiming full campaign completion. Case 3 progression is further specified by REQ-039.
 
 ### Key Entities
 
@@ -191,6 +192,20 @@ As a player, I can choose either investigation, continue from the introduction a
 - **Finding:** Question, candidate conclusions, citation requirements and explanatory feedback.
 - **Notebook:** Read/pinned records and player notes.
 - **Session:** Case/version-bound selections, citations, notes, hints and transient debrief.
+
+### Third-Case Extension - Implemented
+
+[The Echoed Warning](./CASE_03.md) defines REQ-032 through REQ-040 and SC-015 through SC-018. The approved design was implemented using the existing desk and separate third save slot. The author-only design records source lineage, decisive records, alternatives, citation sets, hints, uncertainty limits and the pre-implementation verification contract. New third-case tests, not the older two-case counts, establish its technical coverage. SC-017 remains a human playtest gate.
+
+### Approved Offline Map Extension
+
+- **REQ-041:** The offline map MUST provide sourced shaded relief and approximate contours, disclose variable effective elevation resolution, and retain separate synthetic case observations without inventing routes or work-area positions.
+- **REQ-042:** An expanded map MUST offer regional, Basco town/port, Itbayat town and sourced Chinapoliran Port views; pan/zoom/reset and a kilometer/meter scale MUST remain consistent with the evidence projection.
+- **REQ-043:** Close views MUST show available real streets/buildings and port context, identify bounded coverage, and NOT fabricate missing pier outlines or buildings.
+- **REQ-044:** Map sources, snapshot hashes, processing and redistribution terms MUST accompany the offline assets. Invalid/missing atlas or terrain assets MUST produce an explicit startup diagnostic; no runtime connection or subscription is required.
+- **REQ-045:** Map viewing and case switching MUST preserve all existing investigation state and show only the selected case's observations. Expanded-map observation selection MUST open its correct source.
+
+Coverage is deliberately limited. The output elevation grid is about 30 m but merged sources can be coarser; this is not satellite imagery, survey accuracy or 3D. Itbayat port outlines are not supplied. The separately licensed derived geographic database does not establish a project-wide game-code license.
 
 ## Success Criteria
 
@@ -210,6 +225,9 @@ As a player, I can choose either investigation, continue from the introduction a
 - **SC-012:** Switch/restart round trips preserve two different sets of notes, citations, hints and completion states; resetting either leaves the other's saved bytes unchanged.
 - **SC-013:** Failed-switch cancel/confirm and corrupt-save recovery are observable, preserve originals and leave the other case usable.
 - **SC-014:** An extracted offline Windows build supports both cases, a seven-record source list, case-specific help and independent progress; target-window controls remain reachable.
+- **SC-019:** At the target 1280 x 900 window, expanded town/port views fit, show supplied detail, and align the selected geographic focus within half a display pixel. Close-zoom scale bars represent less than one kilometer and remain within their measured width.
+- **SC-020:** Browsing every map preset leaves investigation state unchanged; observation clicks in both positioned cases open the matching source, and Case 3 remains position-free through case switching.
+- **SC-021:** Extracted packaged tests validate real terrain pixels, licensed source metadata, bounded geometry, zoom/reset and expanded-view behavior without obtaining geographic data from the network. Owner readability remains a separate gate.
 
 ### Owner Playtest Baseline - 20 October 2026
 
@@ -221,7 +239,11 @@ The owner reports approximately five minutes to completion, no remaining confusi
 
 ### Case 2 Owner Playtest - 20 October 2026
 
-Approximately seven minutes, all hints used, difficulty with finding 2 and a fair bit of confusion. The owner clarified that an assessment was submitted but not all findings were supported; do not label this as completed-case duration. Capture versus archive processing, the camera's time zone, step 2/hints and submission feedback were unclear. A clarity revision retains the existing rubric and save identity, separates event/clock labels, sequences hints and makes correction actions explicit. The next owner gate is understanding and reaching three supported findings, not adding more content.
+Approximately seven minutes, all hints used, difficulty with finding 2 and a fair bit of confusion. The owner clarified that an assessment was submitted but not all findings were supported; do not label this as completed-case duration. Capture versus archive processing, the camera's time zone, step 2/hints and submission feedback were unclear. A clarity revision retains the existing rubric and save identity, separates event/clock labels, sequences hints and makes correction actions explicit. At that point, the owner gate was understanding and reaching three supported findings, not adding more content.
+
+### Case 2 Revised Owner Replay - 20 October 2026
+
+The owner reports that the corrections made the information understandable, the replay took approximately five minutes, and all selections were correctly determined. This confirms owner comprehension after the clarity revision. Hint use and the final supported-finding count were not explicitly reported; do not infer either. Familiarity with the case and prior feedback prevents treating this as novice timing or independent usability evidence. Preserve the earlier incomplete session as a separate observation. The next proposed step is a bounded third-case design for approval, not padding these cases or claiming the two-hour target.
 
 ## Assumptions
 

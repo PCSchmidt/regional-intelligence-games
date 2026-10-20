@@ -111,8 +111,70 @@ func _initialize() -> void:
 	check(not Rules.validate(broken).is_empty(), "Reject blank evidence timestamp meaning")
 	broken["evidence"][2]["time_label"] = 42
 	check(not Rules.validate(broken).is_empty(), "Reject non-text evidence timestamp meaning")
+	test_third_case(data, data2)
 	print("CASE TESTS: %d passed, %d failed" % [passed, failed])
 	quit(1 if failed else 0)
+
+
+func test_third_case(first: Dictionary, second: Dictionary) -> void:
+	var loaded := Rules.load_case("res://content/case_03.json")
+	check(loaded.has("case"), "Approved third case loads and validates")
+	if not loaded.has("case"):
+		return
+	var data: Dictionary = loaded["case"]
+	check(data["id"] == "echoed-warning" and data["version"] == 1 and data["date"] == "2026-09-16", "Third-case identity and date match design")
+	check(data["evidence"].size() == 6 and data["findings"].size() == 3 and data["hints"].size() == 4, "Third case has six records, three findings and four hints")
+	check(data["timeline"].size() == 8 and data["places"] == second["places"], "Eight timeline events reuse real places without new facilities")
+	var expected_times := ["07:55", "08:00", "08:10", "08:25", "08:40", "08:45", "08:55", "09:00"]
+	for index in range(data["timeline"].size()):
+		var event: Dictionary = data["timeline"][index]
+		check(event["time"] == expected_times[index] and not event.has("lat") and not event.has("lon") and not event.has("kind"), "Third-case timeline event has explicit UTC without invented position")
+	for evidence in data["evidence"]:
+		check(evidence.has("time_label") and evidence["body"].contains("UTC"), "Third-case source labels event/publication clock: " + evidence["id"])
+	check(data["evidence"][2]["body"].contains("M17") and data["evidence"][3]["body"].contains("RB4"), "Both attribution links are present")
+	check(data["evidence"][4]["body"].contains("M17-C") and data["evidence"][4]["body"].contains("B remains cordoned"), "Correction explicitly revises the original without erasing disruption")
+	check(data["evidence"][5]["body"].contains("DH21") and data["evidence"][5]["body"].contains("08:45 UTC") and data["evidence"][5]["body"].contains("08:55 UTC"), "Independent ledger distinguishes event and filing times")
+	var rubric := {
+		"origins": {"accepted": "one_origin", "required": ["original", "bulletin", "digest"]},
+		"corrected_scope": {"accepted": "limited_restriction", "required": ["original", "correction"]},
+		"corroboration": {"accepted": "bounded_corroboration", "required": ["correction", "ledger"]}
+	}
+	var state := Rules.new_session(data)
+	check(not Rules.assess(data, state)["complete"], "Third case starts incomplete")
+	for evidence in data["evidence"]:
+		state["read"].append(evidence["id"])
+		state["pinned"].append(evidence["id"])
+	for finding in data["findings"]:
+		var id: String = finding["id"]
+		check(rubric.has(id) and finding["accepted"] == rubric[id]["accepted"] and finding["required_evidence"] == rubric[id]["required"] and finding["options"].size() == 3, "Exact approved rubric for " + id)
+		state["answers"][id] = rubric[id]["accepted"]
+		state["citations"][id] = rubric[id]["required"].duplicate()
+	check(Rules.assess(data, state)["complete"] and Rules.validate_session(state, data).is_empty(), "Third case accepts the exact fully supported authored assessment")
+	for index in range(data["findings"].size()):
+		var finding: Dictionary = data["findings"][index]
+		var id: String = finding["id"]
+		for option in finding["options"]:
+			if option["id"] != finding["accepted"]:
+				state["answers"][id] = option["id"]
+				check(Rules.assess(data, state)["results"][index]["status"] == "revise", "Reject third-case alternative " + option["id"])
+		state["answers"][id] = finding["accepted"]
+		for source in finding["required_evidence"]:
+			state["citations"][id] = finding["required_evidence"].duplicate()
+			state["citations"][id].erase(source)
+			var result: Dictionary = Rules.assess(data, state)["results"][index]
+			check(result["status"] == "needs_support" and result["missing"] == [source], "Require each approved source " + source + " for " + id)
+		state["citations"][id] = ["assignment"]
+		check(Rules.assess(data, state)["results"][index]["status"] == "needs_support", "Request cannot substitute for third-case support " + id)
+		state["citations"][id] = finding["required_evidence"].duplicate()
+	state["citations"]["origins"] = ["original", "bulletin", "ledger"]
+	check(Rules.assess(data, state)["results"][0]["missing"] == ["digest"], "Independent ledger cannot replace a missing attribution link")
+	state["citations"]["origins"] = rubric["origins"]["required"].duplicate()
+	state["citations"]["corroboration"] = ["original", "bulletin", "digest"]
+	check(Rules.assess(data, state)["results"][2]["status"] == "needs_support", "Repeated reports cannot replace independent corroboration")
+	state["citations"]["corroboration"] = rubric["corroboration"]["required"].duplicate()
+	for other in [first, second]:
+		check(not Rules.validate_session(state, other).is_empty(), "Third session cannot overwrite an earlier case")
+		check(not Rules.validate_session(Rules.new_session(other), data).is_empty(), "Earlier session cannot masquerade as third case")
 
 
 func check(condition: bool, description: String) -> void:

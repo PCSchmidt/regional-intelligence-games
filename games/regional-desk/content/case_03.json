@@ -1,0 +1,116 @@
+{
+  "id": "echoed-warning",
+  "version": 1,
+  "title": "The Echoed Warning",
+  "date": "2026-09-16",
+  "brief": "YOUR MISSION: Three messages warn that supply landings at Itbayat have stopped. Trace their sources, compare the correction and check a separately kept record. File three supported findings for a summary as of 09:00 UTC.",
+  "disclaimer": "FICTIONAL SCENARIO / REAL GEOGRAPHY. All reports, groups and activity are invented. A/B label fictional work areas, not real piers. All times are UTC. Map is regional context only; no mapped vessel observations. Not for navigation.",
+  "places": [
+    {"name": "Basco", "lat": 20.45, "lon": 121.97},
+    {"name": "Itbayat town", "lat": 20.78, "lon": 121.84}
+  ],
+  "evidence": [
+    {
+      "id": "assignment",
+      "title": "01 / Desk review request",
+      "time": "09:00",
+      "time_label": "Request issued",
+      "source": "Synthetic civilian analysis desk",
+      "body": "16 September 2026 / request issued 09:00 UTC\n\nThree messages describe a complete halt to supply landings at Itbayat. Issue an accurate desk summary as of 09:00 UTC.\n\n1. Trace where records 02-04 got the closure headline. Count original reporting accounts behind those three publications, not every record on the desk.\n2. Compare record 02 with its explicit correction in 05. Identify what changed and what did not.\n3. Compare the separately kept handling record in 06 with the corrected account in 05. Identify what it supports and the limits of that support.\n\nAll records are available now; inspect them in any order. Pin useful records, then tick their citation boxes separately under each finding. Submission is not completion: correct answers or missing citations and resubmit until all three findings are SUPPORTED. Optional hints have no penalty.\n\nAll times are UTC. Loading areas A/B are labels in an invented work arrangement, not real named piers. All reports, groups and activity are synthetic. This desk assessment is not permission to sail or unload."
+    },
+    {
+      "id": "original",
+      "title": "02 / Morning field note",
+      "time": "08:00",
+      "time_label": "Report issued",
+      "source": "Synthetic Landing Watch",
+      "body": "FICTIONAL LANDING WATCH / report M17 / issued 08:00 UTC\n\nPRELIMINARY HEADLINE: All supply landings at Itbayat suspended.\n\nOBSERVATION, 07:55 UTC: From the approach to loading area B, I saw a barrier and an inspection notice across B's access. I could not see loading area A from that position.\n\nThe headline is my preliminary interpretation. I have not checked A or a handling ledger. A follow-up check is pending."
+    },
+    {
+      "id": "bulletin",
+      "title": "03 / Route service bulletin",
+      "time": "08:10",
+      "time_label": "Bulletin published",
+      "source": "Synthetic Route Service",
+      "body": "FICTIONAL ROUTE SERVICE / bulletin RB4 / published 08:10 UTC\n\nAll supply landings at Itbayat suspended.\n\nSource: Landing Watch report M17, issued 08:00 UTC. This bulletin relays that report. We have not sent an observer or made a separate check."
+    },
+    {
+      "id": "digest",
+      "title": "04 / Community digest",
+      "time": "08:25",
+      "time_label": "Digest published",
+      "source": "Synthetic Community Digest",
+      "body": "FICTIONAL COMMUNITY DIGEST / item CD9 / published 08:25 UTC\n\nSupply landings at Itbayat suspended, according to Route Service bulletin RB4.\n\nSource for this item: RB4, published 08:10 UTC. This is a summary of that bulletin; no additional observation or handling record was obtained."
+    },
+    {
+      "id": "correction",
+      "title": "05 / Field note correction",
+      "time": "08:40",
+      "time_label": "Correction issued",
+      "source": "Synthetic Landing Watch",
+      "body": "FICTIONAL LANDING WATCH / correction M17-C / issued 08:40 UTC\n\nCORRECTS M17, issued 08:00 UTC. Withdraw the headline \"All supply landings at Itbayat suspended.\"\n\nAfter checking both areas, the restriction is limited to loading area B for a routine inspection. B remains cordoned. A is available for scheduled unloading as of this check. The barrier observation at B stands; the all-landings interpretation does not.\n\nThis corrects my earlier report; it is not a second independent witness. It does not guarantee access later in the day or certify navigation conditions."
+    },
+    {
+      "id": "ledger",
+      "title": "06 / Handling ledger extract",
+      "time": "08:55",
+      "time_label": "Ledger filed",
+      "source": "Synthetic Delivery Cooperative",
+      "body": "FICTIONAL DELIVERY COOPERATIVE / ledger filed 08:55 UTC\n\nOWN HANDLING ENTRY DH21 / event time 08:45 UTC: One scheduled supply unloading was completed at loading area A. Loading area B was not used; its inspection barrier remained in place.\n\nCompiled from the cooperative's own unloading entry DH21, not from M17, RB4 or CD9. This entry records that operation only; it does not certify other deliveries, later access or the condition of every landing facility."
+    }
+  ],
+  "timeline": [
+    {"time": "07:55", "label": "Barrier at B observed / A not checked", "evidence_id": "original"},
+    {"time": "08:00", "label": "Preliminary field note issued", "evidence_id": "original"},
+    {"time": "08:10", "label": "Route bulletin published", "evidence_id": "bulletin"},
+    {"time": "08:25", "label": "Community digest published", "evidence_id": "digest"},
+    {"time": "08:40", "label": "Field note correction issued", "evidence_id": "correction"},
+    {"time": "08:45", "label": "Unloading at A recorded", "evidence_id": "ledger"},
+    {"time": "08:55", "label": "Handling ledger filed", "evidence_id": "ledger"},
+    {"time": "09:00", "label": "Desk review requested", "evidence_id": "assignment"}
+  ],
+  "findings": [
+    {
+      "id": "origins",
+      "question": "1. How many original reporting accounts lie behind the closure headline in records 02-04?",
+      "options": [
+        {"id": "three_origins", "label": "Three independent reporting accounts"},
+        {"id": "one_origin", "label": "One report, repeated in two publications"},
+        {"id": "two_origins", "label": "Two: the field note and a new digest account"}
+      ],
+      "accepted": "one_origin",
+      "required_evidence": ["original", "bulletin", "digest"],
+      "explanation": "Within records 02-04, M17 is the originating report. RB4 explicitly relays M17 without a separate check; CD9 summarizes RB4 without another observation. Three publications therefore trace to one reporting origin. Cite all three to establish both attribution links. The later correction and independent ledger answer other questions, not the origin count scoped to 02-04."
+    },
+    {
+      "id": "corrected_scope",
+      "question": "2. What does record 05 change in record 02's account?",
+      "options": [
+        {"id": "all_closed", "label": "It retains the suspension of all landings"},
+        {"id": "no_restriction", "label": "It withdraws every restriction and the barrier"},
+        {"id": "limited_restriction", "label": "B stays restricted; A is available for unloading"}
+      ],
+      "accepted": "limited_restriction",
+      "required_evidence": ["original", "correction"],
+      "explanation": "M17 observed B's barrier but generalized that observation into an all-landings suspension without checking A. M17-C explicitly withdraws that broad headline after checking both areas: B remains cordoned for routine inspection while A is available for scheduled unloading. The original limited observation stands. This is neither continued total closure nor proof that nothing happened. Compare and cite both versions."
+    },
+    {
+      "id": "corroboration",
+      "question": "3. How does record 06 relate to the corrected account in record 05?",
+      "options": [
+        {"id": "bounded_corroboration", "label": "Its own unloading record supports that limited account"},
+        {"id": "copied_confirmation", "label": "It only copies the same bulletin chain"},
+        {"id": "unrestricted_day", "label": "It proves all landings were unrestricted all day"}
+      ],
+      "accepted": "bounded_corroboration",
+      "required_evidence": ["correction", "ledger"],
+      "explanation": "The cooperative's own entry DH21 records one unloading at A at 08:45 UTC, with B still cordoned. Its provenance is independent of M17/RB4/CD9, and that event supports M17-C's limited account at that time. The 08:55 filing time is not the event time. A newer timestamp alone is not corroboration; the independently recorded event is. Neither record guarantees every facility, later access, navigational safety or anyone's intent."
+    }
+  ],
+  "hints": [
+    "Finding 1 / trace the source: In records 02-04, distinguish each document's own ID from the report it cites. Follow the digest's attribution backward to the bulletin, then follow that bulletin's attribution. A new publication is not automatically a new observation.",
+    "Finding 2 / compare the scope: Read what 02 actually observed and compare it with 05's explicit correction. Identify which headline is withdrawn and which restriction remains. \"The broad claim was wrong\" does not mean \"nothing happened.\"",
+    "Finding 3 / check independent support: Compare 05 with 06. Identify where the ledger's entry came from, what operation it records and what period it does not cover. Do not accept or reject it merely because it was filed later.",
+    "Apply support and resubmit: Pin and cite 02/03/04 under finding 1, 02/05 under finding 2, and 05/06 under finding 3. Pinning alone does not cite. Review every REVISE or NEEDS SUPPORT result, make the indicated change and submit again."
+  ]
+}

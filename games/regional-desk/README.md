@@ -1,10 +1,11 @@
-# Regional Analysis Desk - two-case prototype
+# Regional Analysis Desk - three-case prototype
 
-Two small, offline Godot investigations, not the completed two-hour game.
+Three small, offline Godot investigations, not the completed two-hour game.
 
 - [Concept and requirements](../../specs/game-01/spec.md)
 - [First-case sketch and evidence rubric](../../specs/game-01/CASE_01.md)
 - [Second-case evidence graph and rubric - author-only spoilers](../../specs/game-01/CASE_02.md)
+- [Third-case source lineage and rubric - author-only spoilers](../../specs/game-01/CASE_03.md)
 - [Master plan](../../MASTER_PLAN.md)
 
 ## Run
@@ -27,30 +28,33 @@ Alternatively import this folder in Godot and run its main scene. On a different
 
 ## Play
 
-You are a civilian regional analyst testing public claims, not presuming guilt. **The Missing Interval** introduces stop/tracking-gap/intent assessment with six records. **The Borrowed Name** adds seven records about vessel identification, camera-clock conventions and independent observations; its image is explicitly a text transcript, not forensic imagery.
+You are a civilian regional analyst testing public claims, not presuming guilt. **The Missing Interval** introduces stop/tracking-gap/intent assessment with six records. **The Borrowed Name** adds seven records about vessel identification, camera-clock conventions and independent observations; its image is explicitly a text transcript, not forensic imagery. **The Echoed Warning** adds six records about reporting lineage, a correction's scope and independent bounded corroboration.
 
 1. A new session opens **Mission & Help**, explaining role, stakes, first action, feedback and completion. The header button reopens it without changing progress.
-2. Read **Dispatch extract** in Case 1 or **Review request** in Case 2, already open, then select other sources, timeline entries or map observations in any order. All of that case's sources are available; no outside research is needed.
+2. Read **Dispatch extract** in Case 1, **Review request** in Case 2 or **Desk review request** in Case 3, already open, then select other sources, timeline entries or available map observations in any order. All of that case's sources are available; no outside research is needed.
 3. Pin useful sources to the notebook, then tick citations **separately under each finding**. Pinning alone does not cite a source.
 4. Choose three conclusions and scroll to **Submit assessment**. A result dialog explains each finding. INCOMPLETE means choose an answer; REVISE means reconsider it; NEEDS SUPPORT means add citations; SUPPORTED means conclusion and citations are accepted.
 5. Finish when the dialog says **INVESTIGATION COMPLETE** and the fixed indicator shows **3 of 3 findings supported**. **Review latest result** reopens the debrief after closing it or restarting. Edits invalidate stale results until resubmission.
 6. Hints have no penalty; notes and progress save locally. Confidence is reflective, not scored.
-7. **Cases** opens either investigation directly and shows progress or save attention. Completing Case 1 enables **Continue to Case 2**; Case 2 explicitly says no third case is included. This is not full-campaign completion.
+7. **Cases** opens any investigation directly and shows progress or save attention. Completing Case 1 enables **Continue to Case 2**; completing Case 2 enables **Continue to Case 3**. Case 3 explicitly identifies the last included case, without promising a fourth or claiming a two-hour campaign.
 
 Drag empty map space to pan, use the wheel or +/- buttons to zoom, and reset the view if needed. Standard controls support keyboard focus; the timeline provides a keyboard-accessible alternative to map markers.
 
-Timeline times are UTC; source documents may use another clock convention. The map bundles real, generalized Natural Earth coastlines with named Batan, Itbayat and Sabtang, a north indicator and zoom-aware kilometer scale. Squares identify places, circles public fixes and diamonds shore sightings. Case 2 marker labels add local vessel IDs, not a pre-solved image-capture time. Labels/incident fixes are approximate; this is not a navigation product. Coastlines and observations share a local equirectangular projection, with cosine correction at 20.6 degrees north. No observed route is inferred between markers.
+Timeline times are UTC; source documents may use another clock convention. The map bundles shaded relief, approximate 100 m contours, named islands and bounded real OSM streets/buildings/port context. **Expand map** provides Region, Basco town/port, Itbayat town and Chinapoliran Port presets. Zoom reaches 96 times the regional baseline; the scale switches to meters at close range. Squares identify places, circles public fixes and diamonds shore sightings. Case 2 marker labels add local vessel IDs, not a pre-solved capture time. Terrain, vectors and observations share a local equirectangular projection with cosine correction at 20.6 degrees north. No observed route is inferred. The elevation output grid is about 30 m, but effective source resolution varies and can be coarser. This is not a navigation product.
 
 Default Windows saves:
 
 ```text
 %APPDATA%\Godot\app_userdata\Regional Analysis Desk\session.json
 %APPDATA%\Godot\app_userdata\Regional Analysis Desk\session-case-02.json
+%APPDATA%\Godot\app_userdata\Regional Analysis Desk\session-case-03.json
 ```
 
-Case 1 retains its original path and version-1 compatibility. Every progress field is independent, including submitted results. Restart opens Case 1; select Case 2 to resume it. Switching saves before leaving; failed/locked saves require explicit **Switch without saving** or **Stay here** confirmation. Reset requires confirmation and affects only the selected slot. Unreadable originals lock writes; resetting first preserves that slot as `.backup`. An existing backup is not silently overwritten. Older saves without the optional submission marker load unsubmitted; resubmit to establish completion. Upgrading does not reopen the new-session guide automatically; use **Mission & Help**.
+Case 1 retains its original path and version-1 compatibility. Every progress field is independent, including submitted results. Restart opens Case 1; select Case 2 or 3 to resume it. Switching saves before leaving; failed/locked saves require explicit **Switch without saving** or **Stay here** confirmation. Reset requires confirmation and affects only the selected slot. Unreadable originals lock writes; resetting first preserves that slot as `.backup`. An existing backup is not silently overwritten. Older saves without the optional submission marker load unsubmitted; resubmit to establish completion. Upgrading does not reopen the new-session guide automatically; use **Mission & Help**.
 
 The pinned-source summary is limited to two lines to preserve space for notes; hover to see its full text. Individual source/citation labels remain available in the source list and assessment.
+
+Case 3 has no vessel-position events. Its map, legend, tooltip and help explicitly describe regional context only. Fictional work labels A/B are not mapped as real facilities. Its eight timeline entries open source records without fabricating coordinates; all header and body times are UTC.
 
 The export bundles Markdown [player instructions](../../PORTFOLIO_BUILD_README.md) as `README.md`.
 
@@ -58,6 +62,7 @@ The export bundles Markdown [player instructions](../../PORTFOLIO_BUILD_README.m
 
 - **Revision journeys:** New-session mission/help; incomplete/partial/complete submissions and conspicuous results; reload and stale-result invalidation with legacy saves; offline coastlines aligned through pan/zoom with a measured scale; updated Markdown instructions and extracted Windows delivery.
 - **Two-case strategy:** [Case 2's pre-implementation evidence graph and testing strategy](../../specs/game-01/CASE_02.md#testing-strategy) extends the verified 140-check introductory baseline. Validate every alternative conclusion and omitted decisive citation, then exercise direct selection, continuation, independent notes/hints/confidence/citations/results, restart, save-failure cancel/confirm, and per-slot corruption/reset. Run forward and reverse second-case discovery and inspect the seven-row layout. No new infrastructure.
+- **Three-case strategy:** [Case 3's approved verification contract](../../specs/game-01/CASE_03.md#implementation-boundaries-and-testing-strategy) extends the 224-check baseline with exact lineage/rubric tests, seven individual citation omissions, context-only mapping and real three-slot scene/file journeys. Preserve earlier flows, changing only case-count and now-available continuation expectations. Validate every alternative conclusion and omitted decisive citation, then exercise direct selection, continuation, independent notes/hints/confidence/citations/results, restart, save-failure cancel/confirm, and per-slot corruption/reset. Run forward and reverse second-case discovery and inspect the seven-row layout. No new infrastructure.
 - **Existing tests:** Reuse and extend the Godot case, persistence and scene suites through the same `-Mode Test` entry point. Baseline: 24 case, 19 save and 51 UI checks passed, exit 0.
 - **Map tier:** Add native geometry tests for the actual bundled public-domain coastlines, land/sea fixtures, projection and scale. No geographic network access at runtime.
 - **App type:** Native desktop; no HTML, HTTP service, database, credentials or authentication.
@@ -126,6 +131,73 @@ Record 03 now separates camera display from archive processing, including an exp
 
 Existing submitted results are recomputed on load. Resume the saved case and use **Review latest result**; no reset is required. A new scripted flow deliberately chooses a wrong time and unpins its supporting clock record, then corrects only the answer, then pins/cites/resubmits to reach completion. Native rendering and packaged checks remain distinct from owner usability confirmation.
 
+### Case 2 revised owner replay - 20 October 2026
+
+The owner reports that the corrections helped the information make sense, the replay took approximately five minutes, and all selections were correctly determined. Owner comprehension is confirmed. Hint use and the final supported-finding count were not explicitly reported. This was a familiar-case replay after an earlier attempt and feedback, not independent novice testing or first-play timing. No gameplay changes were made in response to this successful replay. The recommended next step is a bounded third-case design for approval; preserve both short existing cases and their clearer guidance.
+
+### Three-case checkpoint - 20 October 2026
+
+The approved third-case design preceded implementation. Both original case JSON files, versions and save paths remain unchanged. No schema migration, new dependency or external asset was needed.
+
+| Command | Observed result |
+|---|---|
+| `-Mode Test` | 98 case, 23 persistence, 30 map, 70 original UI and 122 campaign checks: **343 passed**, zero failed, exit 0 |
+| `-Mode VisualTest` | 73 original UI and 130 campaign checks: **203 passed**, zero failed, exit 0; third desk, longest source, all hints, review and complete results inspected at 1280 x 900 |
+| `-Mode Export` | Three case JSON files and shared geography embedded in Windows x64 executable; two-entry executable/Markdown ZIP; exit 0 |
+| `-Mode PackagedTest` | 98 case, 30 map, 70 original UI and 122 campaign checks: **320 passed**, zero failed, exit 0; actual extracted release responsive startup, autosave and normal exit 0 |
+
+The third-case journey exercises direct selection, the actual Case 2 continuation button, both discovery orders, all four hints, REVISE -> NEEDS SUPPORT -> SUPPORTED, all-three-slot restart comparisons, third-slot failed-switch cancel/confirm, corrupt-original backup/recovery, and resetting each slot with both other files byte-identical immediately around reset. The package now runs the domain suite too, checking every authored alternative and decisive citation against the embedded content. Expected deliberately failed-save warnings were reviewed; there were no unexpected engine/script errors.
+
+Counts repeat across tiers; they are not additive unique tests. Native control signals and real isolated files do not establish novice usability, actual keyboard-only completion, minimum hardware or enjoyment. Case 3's owner playtest is still pending. The separately approved offline terrain/city-detail upgrade follows this historical checkpoint.
+
+### Offline terrain and town map
+
+The bounded map upgrade is implemented without new packages or runtime network calls:
+
+- [Derived OSM database](./content/offline_map.json): 3,353 actual building footprints, 506 clipped road parts, 19 local coast parts, five Basco pier/breakwater/quay lines and six named landmarks. Detail is bounded to the two source town boxes; Itbayat supplies named ports/roads but no pier outlines.
+- [Relief raster](./content/map_relief.png): 1620 x 2700 samples over longitude 121.65-122.1, latitude 20.2-20.95. Mapzen merged Skadi elevations are hillshaded/colored with approximate 100 m contour crossings. The one-arc-second output grid is about 30 m, NOT a guarantee of uniformly 30 m effective source detail. Per-pixel source identity is unavailable.
+- Complete OSM coast rings replace the visibly coarse Batan/Itbayat elevation land mask. The exact rings, ten continuation URLs and all input hashes are retained in the derived database. Flat styled water is not bathymetry. No missing elevations were silently filled.
+- Vectors remain sharp at town zoom. Expanded-view observation clicks close the map and open the correct case source. Browsing maps changes no assessment, hint or notebook state. Case 3 adds no positions, real piers or fabricated A/B locations.
+- [Offline license/source notice](./content/MAP_DATA_LICENSES.md) is embedded, required at startup and displayed by **Licenses**. OSM-derived data is distributed under ODbL-1.0, separately from the game code. Credits remain visible on the map and in packaged instructions.
+
+#### Reproduction
+
+[The generator](../../tools/build_map_assets.gd) uses Godot's built-in XML, geometry,
+image, gzip and hashing APIs. Inputs belong in the ignored `.tools\geography`
+folder: `basco.osm`, `itbayat.osm`, ten `coast-<way-id>.osm` files, and
+`N20E121.hgt.gz` / `N20E122.hgt.gz`. Download URLs and exact SHA256 values are
+recorded in the derived database. Original snapshot bytes must be retained for
+byte-reproducible regeneration: live OSM API responses can change, and the
+generator deliberately rejects a changed hash rather than silently using new data.
+The committed derived assets suffice to build/play without downloading sources.
+
+```powershell
+.\.tools\godot\Godot_v4.7.2-stable_win64_console.exe --headless --path .\games\regional-desk --script C:\Dev\AIGameDevelopment\tools\build_map_assets.gd -- --source=C:\Dev\AIGameDevelopment\.tools\geography
+```
+
+Adjust absolute paths on another machine. Re-import assets before running tests
+or exporting. The atlas suite is wired into canonical, rendered and extracted-pack
+validation; it exercises source/schema failures, real relief pixels, feature
+coverage, town/port presets, coordinate round trips, sub-kilometer scale,
+bounded zoom/reset, actual expanded dialogs, source clicks and three-case switching.
+Owner readability and Case 3 comprehension remain separate human gates.
+
+#### Verified map checkpoint - 20 October 2026
+
+| Command | Observed result |
+|---|---|
+| `-Mode Test` | 98 case, 23 persistence, 30 map, 70 UI, 122 campaign and 59 atlas checks: **402 passed**, zero failed, exit 0 |
+| `-Mode VisualTest` | 73 UI, 130 campaign and 63 atlas checks: **266 passed**, zero failed, exit 0; regional, Basco, Itbayat-town and port viewports inspected |
+| `-Mode Export` | Three cases, terrain, vector data and offline license notice embedded; executable/Markdown ZIP, exit 0 |
+| `-Mode PackagedTest` | 98 case, 30 map, 70 UI, 122 campaign and 59 atlas checks: **379 passed**, zero failed, exit 0; actual extracted release responsive window, autosave and normal exit 0 |
+| Asset regeneration | Both generated assets reproduced byte-for-byte from all hash-pinned inputs; zero elevation void substitutions |
+
+Final map assets total about 1.53 MB before executable packaging. Native/packaged
+checks repeat the same journeys, not additional unique tests. No browser,
+container, network, account, new package or runtime model is involved. Earlier
+case content and save versions are unchanged. Game-viewport captures and
+signal-driven controls are not a full OS-input, novice or minimum-hardware test.
+
 ## Asset/provenance register
 
 | Material | Source | Treatment |
@@ -133,6 +205,8 @@ Existing submitted results are recomputed on load. Resume the saved case and use
 | Godot engine and built-in components | Official `godotengine/godot` 4.7.2 release | Engine/third-party license information is available through the in-game Licenses button |
 | UI and case documents | Authored for this project | No external imagery, map tiles, fonts or audio files |
 | Offline Batanes coastlines | Natural Earth 1:10m land, version 5.0.0 | Public-domain polygon subset; source and transformation details below; also credited in the app and packaged instructions |
+| Offline town/coast detail and land mask | OpenStreetMap bounded API snapshots and complete coast ways | Derived database under ODbL-1.0; names/geometry retained, clipped town features, sourced coast masking; no invented Itbayat piers |
+| Shaded relief | Mapzen Global Terrain, global USGS/NOAA sources | Variable-resolution merged elevation on a one-arc-second output grid; modifications and attributions in the offline notice |
 | Basic place identification | Basco and Itbayat references in the case sketch | Facts used for context; no copied article text or media |
 | Incident, organizations and vessel data | Synthetic scenario | Not a historical incident or live operational dataset |
 
@@ -157,4 +231,4 @@ Two synthetic fixes were moved offshore when the real coastlines exposed inland 
 
 The prototype tests whether the information loop works. It has text placeholders instead of forensic imagery, generalized coastlines rather than a detailed chart, and no sound design or 3D. All evidence is immediately available; there is no search engine, branching campaign or regional simulator. Confidence is reflective, not scored.
 
-The next gate is clear owner completion of the revised Case 2, before deciding on additional content or broader presentation polish.
+The revised replay confirms owner comprehension and correctly determined selections. [Case 3 - The Echoed Warning](../../specs/game-01/CASE_03.md) is now designed around source independence, corrected scope and bounded corroboration; it awaits implementation approval and is not in this two-case build. Independent novice testing remains useful if available.
