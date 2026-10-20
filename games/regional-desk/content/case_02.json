@@ -15,7 +15,7 @@
       "title": "01 / Review request",
       "time": "09:10",
       "source": "Synthetic civilian analysis desk",
-      "body": "15 September 2026 / 09:10 UTC\n\nYesterday's tracking-gap review is closed. Today a circulating post identifies a vessel in an Itbayat image as Lantern Six and calls the image time 08:20 UTC.\n\nYour assignment:\n1. Identify which registered vessel best matches the visible structural features.\n2. Establish the image capture time in UTC, distinguishing it from archive indexing.\n3. Reconcile the independently recorded vessel positions.\n\nDo not assume a shared name identifies a hull. An image, its archive entry and a repost of that image are not three independent sightings. Every record needed for this review is available on this desk."
+      "body": "15 September 2026 / 09:10 UTC\n\nYesterday's tracking-gap review is closed. Today a circulating post identifies a vessel in an Itbayat image as Lantern Six and calls the image time 08:20 UTC.\n\nYour assignment:\n1. Identify which registered vessel best matches the visible structural features.\n2. Find when camera Q4 TOOK the image, expressed in UTC. Read the camera display in record 03, find that camera's clock convention in record 04, then convert the display to UTC. Do not use the time when the archive processed the image.\n3. Reconcile the independently recorded vessel positions.\n\nPin useful records, then tick their citation boxes separately under each finding. Submitting alone does not finish the case: all three findings must say SUPPORTED in the same submission.\n\nDo not assume a shared name identifies a hull. An image, its archive entry and a repost of that image are not three independent sightings. Every record needed for this review is available on this desk."
     },
     {
       "id": "registry",
@@ -26,17 +26,19 @@
     },
     {
       "id": "image",
-      "title": "03 / Archive observation transcript",
+      "title": "03 / Camera image and archive entry",
       "time": "08:45",
+      "time_label": "Archive processed",
       "source": "Synthetic image archive / text stand-in",
-      "body": "Archive indexing: 15 September 2026, 08:45 UTC\nFrame reference: Q4-0915-0820\nCamera identifier: Q4\nLocation tag: Itbayat service approach\nVisible overlay: 15 SEP 2026 / 08:20 (no time zone printed)\n\nObservation transcript:\nThe name begins LANTERN; the remainder is cropped. The local hull number is unreadable. The cabin side has two round portholes. Two horizontal bars are visible below the cropped stern name. No cargo detail can be established.\n\nThis is an authored text observation, NOT a supplied photograph. No pixel enhancement or external image research is required. Indexing records when an archive processed the frame, not necessarily when the camera captured it."
+      "body": "CAMERA DISPLAY / WHEN THE IMAGE WAS TAKEN\n15 SEP 2026 / 08:20\nNo time zone is printed on the image. Read record 04, Q4 camera setting card, to establish what clock Q4 uses before converting this reading to UTC.\n\nARCHIVE PROCESSING / WHEN THE FILE WAS INDEXED\n15 September 2026 / 08:45 UTC\nThis is when the archive processed the file, NOT when the camera took the image. It is already UTC; it is not the input to the capture-time conversion.\n\nFrame reference: Q4-0915-0820\nCamera identifier: Q4\nLocation tag: Itbayat service approach\n\nObservation transcript:\nThe name begins LANTERN; the remainder is cropped. The local hull number is unreadable. The cabin side has two round portholes. Two horizontal bars are visible below the cropped stern name. No cargo detail can be established.\n\nThis is an authored text observation, NOT a supplied photograph. No pixel enhancement or external image research is required."
     },
     {
       "id": "clock",
       "title": "04 / Q4 camera setting card",
       "time": "08:50",
+      "time_label": "Setting card copied",
       "source": "Synthetic camera maintenance desk",
-      "body": "Setting card copied: 15 September 2026, 08:50 UTC\nApplies to camera Q4 throughout 15 September; no clock reset or measured drift is recorded.\n\nThe camera overlay uses Philippine local time, UTC+08:00. The archive database uses UTC. The archive does not rewrite the image overlay.\n\nTo convert this camera's displayed time to UTC, subtract eight hours and check the calendar date. For example, 14:00 on this local clock is 06:00 UTC on the same date. An overlay without a printed zone must not automatically be treated as UTC."
+      "body": "CAMERA Q4 CLOCK CONVENTION\nApplies throughout 15 September; no clock reset or measured drift is recorded.\n\nQ4's image display uses PHILIPPINE LOCAL TIME: UTC+08:00. This clock is eight hours AHEAD of UTC. Record 03 does not print a zone on the image; this setting card establishes it.\n\nCONVERSION\nTake the CAMERA DISPLAY from record 03 and subtract eight hours to obtain UTC. Check whether the subtraction changes the calendar date. For example, 14:00 local is 06:00 UTC on the same date.\n\nDo not subtract from the archive's processing time: that timestamp is already UTC and describes a different event. The archive does not rewrite the camera display.\n\nADMINISTRATIVE TIMESTAMP\nThis setting card was copied at 08:50 UTC on 15 September. That is not the image capture time."
     },
     {
       "id": "quay",
@@ -85,7 +87,7 @@
     },
     {
       "id": "capture_time",
-      "question": "2. When was the image captured in UTC?",
+      "question": "2. When did camera Q4 take the image, in UTC (not archive processing time)?",
       "options": [
         {"id": "0820", "label": "15 September / 08:20 UTC"},
         {"id": "0845", "label": "15 September / 08:45 UTC"},
@@ -93,7 +95,7 @@
       ],
       "accepted": "0020",
       "required_evidence": ["image", "clock"],
-      "explanation": "The frame shows 08:20 on Q4. Its setting card specifies UTC+08:00: subtract eight hours to obtain 00:20 UTC on 15 September. The 08:45 archive time is indexing, not capture. The post copied the overlay without its time-zone context."
+      "explanation": "Use two records: 03 supplies the camera display, 08:20 on 15 September; 04 establishes that Q4 uses Philippine local time, UTC+08:00. Local time is eight hours ahead of UTC, so 08:20 minus eight hours is 00:20 UTC on 15 September. The 08:45 timestamp describes archive processing, a different event; the 08:50 timestamp describes copying the setting card. Neither is when the image was taken."
     },
     {
       "id": "positions",
@@ -109,9 +111,9 @@
     }
   ],
   "hints": [
-    "Compare structural features, not just the shared word LANTERN. Which details can actually be read?",
-    "The archive and the camera use different clock conventions. Which timestamp is capture, and which is indexing?",
-    "Use the camera setting card to convert the overlay. Check the date as well as the hour.",
-    "For the last finding, compare the clear local IDs in the two independent shore records. Different hull IDs must not become one route."
+    "Finding 1 / identity: compare record 02's registered windows and stern bars with record 03's observation. The shared word LANTERN is not enough. Pin both records and cite them under finding 1.",
+    "Finding 2 / choose the event: record 03 contains a camera display (08:20) and archive processing time (08:45 UTC). The question asks when the camera TOOK the image, not when the archive processed it. Start with 08:20; its clock convention comes from record 04.",
+    "Finding 2 / convert and cite: record 04 says Q4 uses Philippine local time, UTC+08:00, eight hours AHEAD of UTC. Subtract eight hours from the 08:20 camera display and check the date. Pin records 03 and 04, then tick BOTH under finding 2; pinning alone is not citation.",
+    "Finding 3 / independent positions: compare the clear local IDs in records 05 and 06. Different hulls must not become one route. After submitting, fix every finding that is not SUPPORTED: change a REVISE answer, or add the listed citations for NEEDS SUPPORT, then Submit again."
   ]
 }

@@ -21,7 +21,7 @@ Real setting: Basco/Batan and Itbayat, Philippines. All vessels, observations, r
 |---|---|---|---|
 | assignment | 09:10 | Review request | Sets the disputed claim and three questions without giving the answers |
 | registry | 06:00 | Local vessel register | Maps local hull IDs and structural features to two similar names |
-| image | 08:45 | Archive observation transcript | Shows two round cabin portholes and an unzoned 08:20 overlay; names Q4 and frame Q4-0915-0820 |
+| image | 08:45 | Camera image and archive entry | Separates the camera's unzoned 08:20 capture readout from 08:45 UTC archive processing; shows two round portholes, Q4 and frame Q4-0915-0820 |
 | clock | 08:50 | Q4 camera setting card | Establishes UTC+08:00 convention; requires conversion rather than giving this frame's answer |
 | quay | 00:35 | Itbayat approach ledger | Independently identifies LN-9 at an approximate offshore arrival point at 00:10 UTC |
 | basco | 06:40 | Basco observation | Independently identifies LN-6 offshore at 06:40 UTC |
@@ -63,4 +63,6 @@ All tests use isolated paths, clean up named files and enter the canonical Test 
 
 ## Acceptance and limits
 
-Both cases must be completable offline and resume independently. New-case guide and feedback must not mention Case 1's accepted answers. A future owner playtest must record unfamiliar-case time, hints and confusion; neither 15-25 minutes nor a two-hour campaign is claimed by this implementation.
+Both cases must be completable offline and resume independently. New-case guide and feedback must not mention Case 1's accepted answers. The first owner session lasted about seven minutes with all hints used, but submission did not support all findings. Confusion concerned finding 2, capture versus processing, the camera time zone and feedback/hints. This is not completion timing.
+
+The clarity revision labels image-processing and setting-card-copy times in source headers, separates capture/processing sections, and makes the hints sequential. Feedback must name missing citations even for a wrong answer, then explain pinning, ticking and resubmission. The rubric and case/save versions are unchanged. Tests must reproduce wrong timestamp + missing clock citation, answer-only correction, then pin/cite/resubmit completion and reload. A revised owner replay must confirm clarity; neither 15-25 minutes nor a two-hour campaign is claimed.

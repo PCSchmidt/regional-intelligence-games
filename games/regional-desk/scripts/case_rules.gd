@@ -44,6 +44,8 @@ static func validate(value: Variant) -> PackedStringArray:
 				errors.append("Evidence missing text field: " + key)
 		if not valid_time(item.get("time")):
 			errors.append("Evidence time must be HH:MM UTC.")
+		if item.has("time_label") and (not item["time_label"] is String or item["time_label"].strip_edges().is_empty()):
+			errors.append("Evidence time label must be nonempty text.")
 		var id := str(item.get("id", ""))
 		if id in evidence_ids:
 			errors.append("Duplicate evidence ID: " + id)

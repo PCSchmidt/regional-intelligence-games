@@ -49,8 +49,8 @@ by the guide; open it manually if upgrading from the first build.
 | Status | Meaning / next action |
 |---|---|
 | INCOMPLETE | Choose a conclusion for this finding. |
-| REVISE | Reconsider the conclusion; the evidence does not establish it. |
-| NEEDS SUPPORT | The conclusion matches, but supporting citations are missing. Tick sources under this finding. |
+| REVISE | Change this finding's selected answer using the explanation; also check any listed missing citations. |
+| NEEDS SUPPORT | Your answer is correct. Open the listed records, pin them if needed, then tick their boxes under this finding. |
 | SUPPORTED | Both the conclusion and its required citations are accepted. |
 
 Every submission opens a result dialog. The supported-finding count remains
@@ -58,6 +58,17 @@ visible above the scrolling assessment form. **Review latest result** reopens
 the current debrief, including after restart. Editing the assessment/notebook
 invalidates the displayed result until resubmission. Optional hints have no
 timer or penalty.
+
+**Submitted is not the same as complete.** Scroll through the result and fix
+every finding that is not SUPPORTED. Select **Return to findings**, change the
+answer and/or citations, then **Submit assessment** again. Pinning alone does
+not cite a record. The previous result is not updated until you resubmit.
+
+For Case 2's finding 2, distinguish **when the camera took the image** from
+**when the archive processed it**. Record 03 separates these events; record 04
+establishes the camera's clock convention. The hints walk through choosing the
+event, converting its clock and supplying citations. This revision retains your
+answers and notes; use **Review latest result** to resume without resetting.
 
 ### Map and controls
 
@@ -116,5 +127,7 @@ These two cases test evidence-based assessment and independent progression.
 The first owner playtest lasted approximately 20 minutes, with hints and an
 assessment submission; completion was not confirmed. After the guidance revision,
 the owner completed Case 1 in about five minutes with no remaining confusion.
-That was a familiar-case replay, not fresh-player timing. Case 2 still needs an
-owner playtest; pacing and enjoyment are not established by automated tests.
+That was a familiar-case replay, not fresh-player timing. Case 2's first owner session was about seven minutes with all hints used;
+an assessment was submitted but not all findings were supported. The camera
+times and feedback were confusing. This revision addresses that feedback;
+clear completion, pacing and enjoyment still need human confirmation.

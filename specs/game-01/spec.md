@@ -1,7 +1,7 @@
 # Feature Specification: Regional Analysis Desk
 
 **Created:** 2026-10-20
-**Status:** Two-case implementation; automated and rendered checks passing; second-case owner playtest and fresh-player timing pending
+**Status:** Two-case implementation and Case 2 clarity revision technically verified; revised owner completion and fresh-player timing pending
 **Governing decisions:** [Master Plan](../../MASTER_PLAN.md)
 **Input:** A personal, offline Windows portfolio game using real regional geography, fictional scenario actors and accessible evidence-based investigation.
 
@@ -148,7 +148,7 @@ As a player, I can choose either investigation, continue from the introduction a
 - **REQ-004:** The player MUST be able to pan, zoom and reset the location view; its generalized geography MUST be labeled as unsuitable for navigation.
 - **REQ-005:** The player MUST be able to pin/unpin read evidence and keep free-form notes.
 - **REQ-006:** The assessment MUST collect a conclusion and individual citations for each of three findings.
-- **REQ-007:** Feedback MUST distinguish incomplete submission, unsupported conclusion and correct conclusion lacking support.
+- **REQ-007:** Feedback MUST distinguish incomplete submission, unsupported conclusion and correct conclusion lacking support, identify missing citations even when an answer also needs revision, and explain returning, pinning/citing and resubmitting.
 - **REQ-008:** A complete supported Case 1 submission MUST explain the supported stop, receiver outage and absence of proof of hostile intent without asserting that all other conduct is disproven.
 - **REQ-009:** The player MUST be able to revise and resubmit; changing the supporting state MUST invalidate displayed assessment results.
 - **REQ-010:** Optional staged hints MUST persist and MUST NOT impose a timer or penalty.
@@ -176,7 +176,7 @@ As a player, I can choose either investigation, continue from the introduction a
 ### Two-Case Build
 
 - **REQ-025:** Case 2 MUST provide seven immediately available fictional records supporting three distinct identity, timestamp and geographic-corroboration findings; no outside research or real photograph is required.
-- **REQ-026:** The timeline MUST distinguish UTC record/index times from unconverted camera-overlay time and MUST NOT reveal the accepted conversion as an observed map timestamp.
+- **REQ-026:** The timeline and source headers MUST distinguish UTC record/index times from unconverted camera-overlay time and MUST NOT reveal the accepted conversion as an observed map timestamp. Source text and staged hints MUST identify which event is being converted and where the camera clock convention is established.
 - **REQ-027:** A visible case selector MUST open either investigation and identify each case's progress or save problem without relying on color.
 - **REQ-028:** Each case MUST preserve its own notes, read/pinned records, findings, citations, confidence, hints and submitted state; existing Case 1 version-1 saves MUST retain their original location and compatibility.
 - **REQ-029:** Switching MUST first save current progress; on failure or a locked save, departure MUST require explicit confirmation, with a cancel path preserving the current case.
@@ -217,7 +217,11 @@ Approximately 20 minutes, hints used, assessment submitted, completion unconfirm
 
 ### Revised Owner Playtest - 20 October 2026
 
-The owner reports approximately five minutes to completion, no remaining confusion, and conclusions that required some thought. Hint use was not reported. This supports improved clarity and owner-reported completion, but is a repeat playthrough with prior knowledge of the case. It does not establish novice usability, first-play duration, enjoyment or the 15-25 minute expanded-investigation target. Preserve the concise introductory case rather than adding records solely to increase duration; any second investigation remains a separate scope decision.
+The owner reports approximately five minutes to completion, no remaining confusion, and conclusions that required some thought. Hint use was not reported. This supports improved clarity and owner-reported completion, but is a repeat playthrough with prior knowledge of the case. It does not establish novice usability, first-play duration, enjoyment or the 15-25 minute expanded-investigation target. Preserve the concise introductory case rather than adding records solely to increase duration. The second investigation was subsequently approved and implemented.
+
+### Case 2 Owner Playtest - 20 October 2026
+
+Approximately seven minutes, all hints used, difficulty with finding 2 and a fair bit of confusion. The owner clarified that an assessment was submitted but not all findings were supported; do not label this as completed-case duration. Capture versus archive processing, the camera's time zone, step 2/hints and submission feedback were unclear. A clarity revision retains the existing rubric and save identity, separates event/clock labels, sequences hints and makes correction actions explicit. The next owner gate is understanding and reaching three supported findings, not adding more content.
 
 ## Assumptions
 

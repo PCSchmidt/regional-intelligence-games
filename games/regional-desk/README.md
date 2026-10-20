@@ -109,16 +109,22 @@ The owner approved designing and building Case 2, followed by commit/push. The i
 
 | Command | Observed result |
 |---|---|
-| `-Mode Test` | 48 case, 23 persistence, 27 map, 70 original UI and 44 campaign checks passed: **212 total**, zero failures, exit 0 |
-| `-Mode VisualTest` | 73 original UI and 46 campaign checks passed: **119 total**, exit 0; game-only views captured for both cases |
+| `-Mode Test` | 50 case, 23 persistence, 27 map, 70 original UI and 54 campaign checks passed: **224 total**, zero failures, exit 0 |
+| `-Mode VisualTest` | 73 original UI and 58 campaign checks passed: **131 total**, exit 0; game-only views captured for both cases, clock source and correction feedback |
 | `-Mode Export` | Windows x64 executable embeds both case JSON files and shared geography; Markdown instructions archived; exit 0 |
-| `-Mode PackagedTest` | 27 map, 70 original UI and 44 campaign checks passed: **141 total** against extracted embedded resources; actual release window/autosave/normal exit verified; exit 0 |
+| `-Mode PackagedTest` | 27 map, 70 original UI and 54 campaign checks passed: **151 total** against extracted embedded resources; actual release window/autosave/normal exit verified; exit 0 |
 
 The campaign suite drives real scene controls and isolated files through continuation/direct selection, both discovery orders, distinct confidence/notes/hints/citations, restart and recomputed completion, failed-switch cancel/confirm, corrupt-slot preservation/recovery, and resetting either slot without changing the other slot's bytes. JSON integer/float serialization can legitimately change bytes during a normal save/reload, so reset isolation compares the other file immediately before and after reset. All seven source rows and the completed notebook/footer fit the target window.
 
 Initial validation caught an unparented map allocation during case activation; it was removed rather than suppressing resource errors. The longer source list and pinned summary were adjusted after inspecting the rendered view. Deliberately failed/locked-save warnings are expected; final passing runs contain no engine/script errors.
 
-These checks repeat in rendered and packaged runs; do not add them as separate unique tests. **Case 2 still needs an owner playtest.** Record unfamiliar-case duration, hints, confusion and reasoning quality before adding a third case or promising the two-hour target.
+These checks repeat in rendered and packaged runs; do not add them as separate unique tests. The initial Case 2 owner session was about seven minutes with all hints used. The owner clarified that submission did not support all findings; capture versus archive time, camera time zone, instructions/hints and feedback were confusing. This is an incomplete-session observation, not completion timing.
+
+### Case 2 clarity revision - 20 October 2026
+
+Record 03 now separates camera display from archive processing, including an explicit processing-time header. Record 04 labels its administrative copy time separately and spells out the camera clock convention. Finding 2 asks for capture, not processing; staged hints specify the event, conversion and citation actions. Incomplete feedback lists missing citations even when the selected answer is also wrong, explains pinning versus citing, and says to return, correct and resubmit. Accepted answers, required citation pairs, case versions and save paths are unchanged.
+
+Existing submitted results are recomputed on load. Resume the saved case and use **Review latest result**; no reset is required. A new scripted flow deliberately chooses a wrong time and unpins its supporting clock record, then corrects only the answer, then pins/cites/resubmits to reach completion. Native rendering and packaged checks remain distinct from owner usability confirmation.
 
 ## Asset/provenance register
 
@@ -151,4 +157,4 @@ Two synthetic fixes were moved offshore when the real coastlines exposed inland 
 
 The prototype tests whether the information loop works. It has text placeholders instead of forensic imagery, generalized coastlines rather than a detailed chart, and no sound design or 3D. All evidence is immediately available; there is no search engine, branching campaign or regional simulator. Confidence is reflective, not scored.
 
-The next gate is an owner walkthrough of Case 2, followed by a keep/cut decision on additional content and presentation polish.
+The next gate is clear owner completion of the revised Case 2, before deciding on additional content or broader presentation polish.

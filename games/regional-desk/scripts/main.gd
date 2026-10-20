@@ -22,7 +22,7 @@ START HERE
 2. Select timeline entries or map markers to compare locations and times. A marker is an observation, not a continuous route.
 3. Pin useful records with "Pin source to notebook." Pinning makes a source available; it does not cite it automatically.
 4. In the assessment panel, choose a conclusion for each finding. Tick the supporting source boxes separately under that finding. Scroll the panel to reach all three findings and Submit.
-5. Submit assessment. Read the result, revise if needed and resubmit. Optional hints have no penalty; notes help you reason but are not graded.
+5. Submit assessment, then scroll through the result for each finding. Submitting is not the finish condition: all three must say SUPPORTED. Choose Return to findings to correct answers or citations, then Submit again to check those changes. Optional hints have no penalty; notes help you reason but are not graded.
 
 WHAT THE FEEDBACK MEANS
 INCOMPLETE: Choose a conclusion for this finding.
@@ -425,7 +425,10 @@ func _open_evidence(index: int) -> void:
 	selected_evidence = evidence["id"]
 	evidence_list.select(index)
 	document_title.text = evidence["title"]
-	document_source.text = evidence["source"] + " / " + evidence["time"] + " UTC / SYNTHETIC"
+	var timestamp: String = evidence["time"] + " UTC"
+	if evidence.has("time_label"):
+		timestamp = evidence["time_label"] + ": " + timestamp
+	document_source.text = evidence["source"] + " / " + timestamp + " / SYNTHETIC"
 	reader.text = evidence["body"]
 	reader.scroll_to_line(0)
 	if selected_evidence not in state["read"]:
@@ -523,7 +526,7 @@ func _render_assessment() -> void:
 	var lines: Array[String] = [
 		"INVESTIGATION COMPLETE" if result["complete"] else "ASSESSMENT NEEDS REVIEW",
 		count_text,
-		("You have finished this case. Review the reasoning and its limits below. " + ("Continue to Case 2 from the desk, or use Cases to choose an investigation." if case_index < cases.size() - 1 else "No third case is included in this build. You can revisit either investigation using Cases.")) if result["complete"] else "This case is not finished. Review each finding below, revise your conclusions or citations, then resubmit.",
+		("You have finished this case. Review the reasoning and its limits below. " + ("Continue to Case 2 from the desk, or use Cases to choose an investigation." if case_index < cases.size() - 1 else "No third case is included in this build. You can revisit either investigation using Cases.")) if result["complete"] else "Submitted, but NOT COMPLETE. Scroll through the findings below. Fix every finding that is not SUPPORTED, then Submit again.",
 		"\nStatus guide: INCOMPLETE = choose a conclusion; REVISE = reconsider the conclusion; NEEDS SUPPORT = add citations; SUPPORTED = conclusion and citations accepted."
 	]
 	var evidence_titles := {}
@@ -537,14 +540,18 @@ func _render_assessment() -> void:
 			"supported":
 				lines.append("SUPPORTED. " + finding_result["explanation"])
 			"incomplete":
-				lines.append("INCOMPLETE. Choose a conclusion before this finding can be assessed.")
+				lines.append("INCOMPLETE. Choose a conclusion for this finding.")
 			"needs_support":
-				var missing_titles: Array[String] = []
-				for id in finding_result["missing"]:
-					missing_titles.append(evidence_titles[id])
-				lines.append("NEEDS SUPPORT. The conclusion matches. Tick these sources under THIS finding: " + ", ".join(missing_titles) + ".\n" + finding_result["explanation"])
+				lines.append("NEEDS SUPPORT. Your answer is correct, but its citations are not complete.\n" + finding_result["explanation"])
 			"revise":
-				lines.append("REVISE. Reconsider this conclusion. " + finding_result["explanation"])
+				lines.append("REVISE. Change this finding's selected answer using the reasoning below.\n" + finding_result["explanation"])
+		if status != "supported":
+			var missing_titles: Array[String] = []
+			for id in finding_result["missing"]:
+				missing_titles.append(evidence_titles[id])
+			if not missing_titles.is_empty():
+				lines.append("CITATIONS STILL NEEDED for this finding: " + ", ".join(missing_titles) + ".\nOpen each listed source and use Pin source to notebook if needed. Then tick its box under THIS finding. Pinning alone does not cite it.")
+			lines.append("NEXT: Return to findings, make these changes, then Submit assessment again. This result does not update until you resubmit.")
 	feedback.text = "\n".join(lines)
 	result_text.text = feedback.text
 

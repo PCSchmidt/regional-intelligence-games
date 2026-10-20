@@ -47,7 +47,7 @@ func _run() -> void:
 	check(app.review_button.disabled and app.progress_label.text.contains("Not submitted"), "Fresh case does not claim graded progress")
 	app._submit()
 	check(app.feedback.text.contains("INCOMPLETE"), "Incomplete UI submission explains missing answer")
-	check(app.result_dialog.visible and app.progress_label.text.contains("0 of 3") and app.result_text.text.contains("not finished"), "Incomplete submission shows visible zero-count result")
+	check(app.result_dialog.visible and app.progress_label.text.contains("0 of 3") and app.result_text.text.contains("Submitted, but NOT COMPLETE"), "Incomplete submission shows visible zero-count result")
 	app.result_dialog.hide()
 	for index in range(5, -1, -1):
 		app.evidence_list.item_selected.emit(index)

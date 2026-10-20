@@ -2,7 +2,7 @@
 
 Personal, offline Windows games about evidence, uncertainty and regional decisions. Real geography, clearly labeled fictional incidents, and one playable title at a time.
 
-**Current status:** The Godot prototype now includes two investigations, case selection, separate progress saves, mission/help guidance, completion feedback and offline coastlines. Case 1's familiar-owner replay took about five minutes with no remaining confusion; Case 2 needs its first owner playtest. This is not yet a polished release or the planned two-hour Game 1.
+**Current status:** The Godot prototype now includes two investigations, case selection, separate progress saves, mission/help guidance, completion feedback and offline coastlines. Case 1's familiar-owner replay took about five minutes with no remaining confusion; Case 2's first owner session lasted about seven minutes, used all hints and remained incomplete, with confusion about camera/record times and feedback. The current clarity revision needs a replay. This is not yet a polished release or the planned two-hour Game 1.
 
 Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games).
 
@@ -29,7 +29,7 @@ Read the selected case's sources, compare map/timeline observations, pin evidenc
 - [Author-only case sketch and rubric - spoilers](./specs/game-01/CASE_01.md)
 - [Author-only second-case evidence graph and rubric - spoilers](./specs/game-01/CASE_02.md)
 
-For the next playtest, choose **The Borrowed Name** and avoid the author-only rubrics. Record elapsed time, confusion points, hints used and whether the conclusion required thought. Case 1's first session was approximately 20 minutes with completion unconfirmed; its improved replay took about five minutes with no confusion. Prior familiarity limits that result. Automated checks do not establish enjoyment or novice usability.
+For the next playtest, resume **The Borrowed Name** using its revised camera/clock records, ordered hints and explicit correction feedback. Existing saves are retained; no reset is needed. The owner spent about seven minutes on the first Case 2 session, used all hints and submitted without all findings supported; capture versus archive time, the camera time zone and feedback were confusing. That is not completion timing. Case 1's improved five-minute replay was familiar content. Automated checks do not establish enjoyment or novice usability.
 
 ## Run from source
 

@@ -106,6 +106,11 @@ func _initialize() -> void:
 	broken = data2.duplicate(true)
 	broken["timeline"][0]["marker_label"] = 42
 	check(not Rules.validate(broken).is_empty(), "Reject malformed observation label")
+	broken = data2.duplicate(true)
+	broken["evidence"][2]["time_label"] = " "
+	check(not Rules.validate(broken).is_empty(), "Reject blank evidence timestamp meaning")
+	broken["evidence"][2]["time_label"] = 42
+	check(not Rules.validate(broken).is_empty(), "Reject non-text evidence timestamp meaning")
 	print("CASE TESTS: %d passed, %d failed" % [passed, failed])
 	quit(1 if failed else 0)
 
