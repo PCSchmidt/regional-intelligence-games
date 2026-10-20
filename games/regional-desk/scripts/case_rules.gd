@@ -147,6 +147,7 @@ static func new_session(data: Dictionary) -> Dictionary:
 		"answers": answers,
 		"citations": citations,
 		"confidence": "Unrecorded",
+		"assessment_submitted": false,
 		"hint_count": 0
 	}
 
@@ -155,6 +156,8 @@ static func validate_session(value: Variant, data: Dictionary) -> String:
 	if not value is Dictionary:
 		return "Save root must be an object."
 	var state: Dictionary = value
+	if not state.get("assessment_submitted", false) is bool:
+		return "Invalid assessment submission marker."
 	if state.get("save_version") != 1 or state.get("case_id") != data["id"] or state.get("case_version") != data["version"]:
 		return "Save version or case identity does not match this build."
 	if not state.get("notes") is String or state.get("confidence") not in ["Unrecorded", "Low", "Medium", "High"]:
@@ -213,4 +216,3 @@ static func assess(data: Dictionary, state: Dictionary) -> Dictionary:
 			complete = false
 		results.append({"id": id, "status": status, "missing": missing, "explanation": finding["explanation"]})
 	return {"complete": complete, "results": results}
-

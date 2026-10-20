@@ -4,7 +4,7 @@
 
 The fictional coastal supply vessel **Lantern Six** disappears from a public tracking view for part of a morning. A circulating post claims the gap shows a covert northbound voyage toward Taiwan. Determine the best-supported stop, what explains the missing public observations, and whether hostile intent is established.
 
-Real locations: Basco on Batan Island and Itbayat in Batanes, Philippines. All vessel activity, logs, posts, observers and organizations below are invented. The map uses approximate place markers, not copied cartography, coastlines or a navigation product.
+Real locations: Basco on Batan Island and Itbayat in Batanes, Philippines. All vessel activity, logs, posts, observers and organizations below are invented. The map combines approximate place/scenario markers with public-domain, generalized Natural Earth coastlines; it is not a navigation product.
 
 ## Geographic/reference sources
 
@@ -13,7 +13,11 @@ Reviewed 2026-10-20 for basic place identification only:
 - [Basco, Batanes](https://en.wikipedia.org/wiki/Basco,_Batanes): Basco is on Batan Island and is the provincial capital.
 - [Itbayat](https://en.wikipedia.org/wiki/Itbayat): Itbayat is in Batanes, north of Batan.
 
-No article text, images, map tiles or geographic datasets are redistributed. Marker positions are approximate contextual labels, not surveyed coordinates. Fictional vessel fixes are authored scenario data. A production basemap needs a separate source/license review.
+No article text, images or map tiles are redistributed. Marker positions are approximate contextual labels, not surveyed coordinates. Fictional vessel fixes are authored scenario data.
+
+The revised map redistributes a six-island subset of **Natural Earth 1:10m land, version 5.0.0**. [Pinned dataset](https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ace5fed0eaf3c6c03c951e75b439ba8fffbc218e/geojson/ne_10m_land.geojson) and [public-domain license](https://github.com/nvkelso/natural-earth-vector/blob/ace5fed0eaf3c6c03c951e75b439ba8fffbc218e/LICENSE.md) were reviewed. **Made with Natural Earth.** The [game README](../../games/regional-desk/README.md#coastline-provenance-and-reproduction) records the source hash, extraction bounds and reproducible transformation. Generalization and dataset age limit accuracy; geographic source dates are not incident dates.
+
+The coastlines revealed two originally authored vessel positions on land. Both source text and timeline fixes were corrected together: 07:40 moved to 20.760 N, 121.775 E, west of Itbayat; 09:00 moved to 20.675 N, 121.820 E, south of Itbayat. All plotted vessel observations now test offshore. These are corrections to synthetic scenario geometry, not historical claims. The assessment rubric and version-1 save compatibility are unchanged.
 
 ## Author-only truth and uncertainty
 
@@ -56,9 +60,10 @@ Citations are selected per finding from pinned sources. Extra citations do not c
 6. File the three findings with their individual citations.
 7. Read limitations in the debrief. Revisit unsupported claims if needed.
 
+The mission/help guide explains this procedure without exposing the accepted answers above. Every submission shows a supported-finding count and result dialog; three supported findings explicitly finish the case. Saved submitted results are recomputed on load. Older saves without submission metadata retain their progress but require resubmission.
+
 Reverse-order discovery must work equally well. This is a small interaction prototype, not a claim of completed two-hour content.
 
 ## Expansion after playtesting
 
 Only if the core loop is engaging: add a genuine chronology ambiguity, a sourced geographic inference or a second plausible identity requiring disambiguation. Do not add extra documents just to stretch playtime.
-

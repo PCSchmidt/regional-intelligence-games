@@ -1,6 +1,6 @@
 # Master Plan - Regional Intelligence Game Portfolio
 
-**Status:** v2 - confirmed direction; first Godot interaction prototype technically verified, owner playtest pending
+**Status:** v2 - confirmed direction; revised Godot prototype technically verified; owner reports approximately five-minute completion with no remaining confusion
 **Updated:** 2026-10-20
 **Purpose:** Deliver a small, polished portfolio series about investigation, uncertainty and regional decision-making. Build one playable title at a time.
 
@@ -151,7 +151,7 @@ GDScript and C# remain candidates. Build the first small spike in one, then comp
 
 Choose on observed implementation reliability, debugging, automated testing, UI integration, export behavior and maintenance. AI authoring does not eliminate those costs. If C# wins, install the compatible .NET tooling and use the appropriate Godot build; otherwise .NET is not required.
 
-**Prototype decision, 20 October 2026:** Continue Game 1 with Godot 4.7.2 standard, GDScript and the GL Compatibility renderer. The [first interaction prototype](./games/regional-desk/README.md) integrates document reading, a schematic/timeline, evidence citations, assessment, validated local saves and Windows export. Automated scene/persistence checks and an extracted release startup passed. No observed blocker currently justifies adding C#/.NET or a second UI stack. This is not a language benchmark, a minimum-hardware certification or a final decision for every later title.
+**Prototype decision, 20 October 2026:** Continue Game 1 with Godot 4.7.2 standard, GDScript and the GL Compatibility renderer. The [first interaction prototype](./games/regional-desk/README.md) integrates document reading, a coastline map/timeline, evidence citations, assessment, validated local saves and Windows export. Mission/help and explicit completion feedback now address the first owner walkthrough. Automated checks and extracted release startup passed. No observed blocker currently justifies adding C#/.NET or a second UI stack. This is not a language benchmark, a minimum-hardware certification or a final decision for every later title.
 
 ### Minimal runtime structure
 
@@ -315,10 +315,13 @@ If setup or research takes longer, reduce the prototype's breadth instead of dro
 ### Current checkpoint - 20 October 2026
 
 - **M0 artifacts available:** [Game 1 concept/requirements](./specs/game-01/spec.md) and [Case 01 evidence sketch](./specs/game-01/CASE_01.md). *The Missing Interval* uses real Basco/Batan and Itbayat geography with a fictional incident and six synthetic records.
-- **M1 technical path verified:** 24 case, 19 persistence and 51 scene/UI checks passed; a rendered run passed 52 checks, including its viewport capture. The extracted exported resource pack passed the 51-check journey using the standard engine. Separately, the actual release executable opened a responsive window, autosaved its initialized case and exited normally outside the project. See [commands, evidence and limitations](./games/regional-desk/README.md#verified-checkpoint---20-october-2026).
-- **Packaging proof is for this slice only:** The local `builds/RegionalDesk-Windows.zip` contains a runnable Windows prototype and instructions, not the two-hour game or a public release.
-- **Still pending:** Owner first-play duration, confusion points, enjoyment, keyboard-only navigation and a readable-text check at the actual preferred display scaling. The first 15-25 minute expanded investigation, full three-case campaign, art/audio polish and weaker-hardware performance are not established.
-- **Next gate:** Owner walkthrough, then M2/M3 keep/cut decisions before expanding content or starting 3D production. No paid assets or runtime model services were introduced; human throughput and monthly provider spending still need owner records.
+- **First owner feedback recorded:** Approximately 20 minutes, hints used and an assessment submitted; completion unconfirmed. Features appeared to work, but role/stakes, first action, finish condition and feedback meaning were unclear. This is one owner's session, not independent usability evidence or proof of completed-case duration.
+- **Revised owner playtest:** Approximately five minutes to completion, no remaining confusion, and conclusions required some thought. Hint use was not reported for this run. This was a repeat playthrough by an owner already familiar with the evidence, not a fresh-player duration estimate or independent usability test.
+- **Revision implemented:** Opening/reopenable Mission & Help, non-scrolling supported-finding counts, explicit completion/result dialogs and saved submitted-state restoration. Public-domain Natural Earth coastlines add Batan/Itbayat/Sabtang labels, distinct place/fix/sighting symbols, legend, north and a zoom-aware kilometer scale. Two synthetic vessel coordinates and their source text were corrected offshore; rubric and version-1 save compatibility are unchanged.
+- **Revised technical path verified:** 24 case, 23 persistence, 23 map and 70 UI checks passed (140 canonical checks). A rendered run passed 73 checks, with desk/guide/completion viewports inspected. The extracted exported pack passed 23 map and 70 UI checks using the standard engine. Separately, the actual release executable opened a responsive window, autosaved its initialized case and exited normally outside the project. All final commands exited 0. See [commands, evidence and limitations](./games/regional-desk/README.md#verified-checkpoint---20-october-2026).
+- **Packaging proof is for this slice only:** The local `builds/RegionalDesk-Windows.zip` contains a runnable Windows prototype and Markdown instructions, not the two-hour game or a public release.
+- **Still pending:** Fresh-player timing, enjoyment, keyboard-only navigation and text readability at preferred display scaling. The approximately five-minute repeat completion does not establish the 15-25 minute expanded-investigation target or the two-hour campaign. Art/audio polish and weaker-hardware performance remain unverified.
+- **Next gate:** M2/M3 scope decision: the current case is a candidate introductory investigation. Prefer a new reasoning challenge over padding it with extra records; design a second case before implementing further campaign support. This recommendation is not approval to expand scope or start 3D production. No paid assets or runtime model services were introduced; human throughput and monthly provider spending still need owner records.
 
 ## 9. Guidelines
 
@@ -362,10 +365,10 @@ These do not block this revision and should be resolved at the indicated milesto
 | Scenario date and first locality | First prototype: Batanes, Philippines; fictional incident dated 2026-09-14. Wider campaign remains open | M0 selected |
 | Character/title names and exact case story | Working concepts only; review for clarity and provenance | M0-M2 |
 | Godot version, GDScript/C# and renderer | Godot 4.7.2 standard / GDScript / GL Compatibility for Game 1; revisit only for an observed blocker | M1 selected |
-| Map source and presentation | Authored offline schematic in the prototype; detailed basemap/assets still require suitable redistribution rights | M1 prototype selected |
+| Map source and presentation | Offline Natural Earth 1:10m land subset, public domain and pinned/reproducible; approximate places and synthetic observations; not for navigation. Other imagery/basemaps need separate review | M1 revision selected |
 | Minimum hardware and performance thresholds | Measure a representative scene; do not use the owner's laptop as the minimum | M1-M3 |
 | Final assessment/confidence rubric | Evidence-backed structured conclusions; test confidence behavior before commitment | M2 |
 | Release date | Forecast after measured content/integration throughput | M3 |
 | Game 2 duration and strategy-game role | Define after the relevant prototype, not by extrapolating Game 1 | M6-M7 |
 
-**Next action:** Play the first investigation without reading its author-only rubric. Record elapsed time, unclear wording, missing guidance and whether the assessment feels earned. Revise that slice before authoring the next case. Paid usage, publishing and expansion to later games remain separate decisions.
+**Recommended next action:** Keep the now-clear first case as a short introduction and design a second investigation around a distinct challenge, such as mistaken vessel identity resolved through identifiers, chronology and geography. Agree its evidence graph and acceptance examples before implementation. Measure a fresh playthrough of new content rather than extrapolating from this owner's familiar five-minute replay. The two-hour duration remains a target to recalibrate, not a reason to add filler. Paid usage, publishing and expansion to later games remain separate decisions.

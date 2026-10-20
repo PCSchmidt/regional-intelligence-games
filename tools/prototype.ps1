@@ -36,7 +36,7 @@ switch ($Mode) {
     }
     'Test' {
         Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--editor', '--import', '--quit')
-        foreach ($test in @('test_case', 'test_save', 'test_ui')) {
+        foreach ($test in @('test_case', 'test_save', 'test_map', 'test_ui')) {
             Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--script', "res://tests/$test.gd")
         }
     }
@@ -49,9 +49,9 @@ switch ($Mode) {
         New-Item -ItemType Directory -Path $build -Force | Out-Null
         Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--editor', '--import', '--quit')
         Invoke-Engine -EngineArguments @('--headless', '--path', $project, '--export-release', 'Windows Desktop')
-        Copy-Item -LiteralPath (Join-Path $root 'PORTFOLIO_BUILD_README.txt') -Destination (Join-Path $build 'README.txt') -Force
+        Copy-Item -LiteralPath (Join-Path $root 'PORTFOLIO_BUILD_README.md') -Destination (Join-Path $build 'README.md') -Force
         $archive = Join-Path $root 'builds\RegionalDesk-Windows.zip'
-        $files = @((Join-Path $build 'RegionalDesk.exe'), (Join-Path $build 'README.txt'))
+        $files = @((Join-Path $build 'RegionalDesk.exe'), (Join-Path $build 'README.md'))
         Compress-Archive -LiteralPath $files -DestinationPath $archive -Force
         Write-Host "Portfolio archive: $archive"
     }
@@ -67,11 +67,17 @@ switch ($Mode) {
         try {
             Expand-Archive -LiteralPath $archive -DestinationPath $testDirectory
             $executable = Join-Path $testDirectory 'RegionalDesk.exe'
+            if (-not (Test-Path -LiteralPath (Join-Path $testDirectory 'README.md')) -or
+                (Test-Path -LiteralPath (Join-Path $testDirectory 'README.txt'))) {
+                throw 'Extracted package must contain Markdown instructions, not the old text README.'
+            }
             $env:APPDATA = Join-Path $testDirectory 'appdata'
             New-Item -ItemType Directory -Path $env:APPDATA | Out-Null
             # Release templates cannot run an external --script. The standard engine
             # exercises the exported resource pack; a separate release launch checks startup.
-            Invoke-Engine -EngineArguments @('--headless', '--main-pack', $executable, '--script', (Join-Path $project 'tests\test_ui.gd'))
+            foreach ($test in @('test_map', 'test_ui')) {
+                Invoke-Engine -EngineArguments @('--headless', '--main-pack', $executable, '--script', (Join-Path $project "tests\$test.gd"))
+            }
             $process = Start-Process -FilePath $executable -WorkingDirectory $testDirectory -ArgumentList @('--max-fps', '30', '--quit-after', '180') -PassThru
             $deadline = [DateTime]::UtcNow.AddSeconds(15)
             do {

@@ -25,6 +25,7 @@ func _initialize() -> void:
 	state["citations"]["stop"] = ["lookout", "receipt"]
 	state["confidence"] = "Medium"
 	state["hint_count"] = 2
+	state["assessment_submitted"] = true
 	check(Store.write_session(path, state, data).is_empty(), "Write valid save")
 	var restored := Store.load_session(path, data)
 	check(not restored.has("error"), "Load written save")
@@ -33,12 +34,20 @@ func _initialize() -> void:
 	state["notes"] = "Updated notes"
 	check(Store.write_session(path, state, data).is_empty(), "Replace existing save safely")
 	check(Store.load_session(path, data)["state"]["notes"] == "Updated notes", "Replacement persists")
+	var legacy := state.duplicate(true)
+	legacy.erase("assessment_submitted")
+	check(Store.write_session(path, legacy, data).is_empty(), "Older save without submission marker remains compatible")
+	check(Store.load_session(path, data)["state"]["notes"] == state["notes"], "Legacy notes remain intact")
+	check(Store.write_session(path, state, data).is_empty(), "Restore current save fixture")
 
 	var original := FileAccess.get_file_as_string(path)
 	var invalid := state.duplicate(true)
 	invalid["case_version"] = 99
 	check(not Store.write_session(path, invalid, data).is_empty(), "Refuse incompatible state")
 	check(FileAccess.get_file_as_string(path) == original, "Invalid write preserves original")
+	invalid = state.duplicate(true)
+	invalid["assessment_submitted"] = "yes"
+	check(not Rules.validate_session(invalid, data).is_empty(), "Reject malformed submission marker")
 	invalid = state.duplicate(true)
 	invalid["hint_count"] = 1.5
 	check(not Rules.validate_session(invalid, data).is_empty(), "Reject fractional hint position")
