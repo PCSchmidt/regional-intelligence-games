@@ -198,6 +198,21 @@ container, network, account, new package or runtime model is involved. Earlier
 case content and save versions are unchanged. Game-viewport captures and
 signal-driven controls are not a full OS-input, novice or minimum-hardware test.
 
+### Case 3 and map owner playtest - 20 October 2026
+
+The owner completed *The Echoed Warning* in approximately five minutes and
+reported that the expanded map looks good. Completion took a couple of
+submissions rather than one. Hint use, the final supported-finding count and
+whether any specific step remained confusing were not reported, so none are
+inferred here.
+
+This closes the owner comprehension gate for Case 3 and the owner readability
+gate for the regional, town and port views. It is a single familiar-owner
+session on the development laptop: it does not establish first-play duration,
+independent novice usability, keyboard-only completion, enjoyment, minimum
+hardware or the two-hour campaign target. No gameplay or map change was made in
+response to this successful session.
+
 ## Asset/provenance register
 
 | Material | Source | Treatment |
@@ -229,6 +244,6 @@ Two synthetic fixes were moved offshore when the real coastlines exposed inland 
 
 ## Quality boundaries
 
-The prototype tests whether the information loop works. It has text placeholders instead of forensic imagery, generalized coastlines rather than a detailed chart, and no sound design or 3D. All evidence is immediately available; there is no search engine, branching campaign or regional simulator. Confidence is reflective, not scored.
+The prototype tests whether the information loop works. It has text placeholders instead of forensic imagery, bounded sourced town detail rather than a full chart, and no sound design or 3D. All evidence is immediately available; there is no search engine, branching campaign or regional simulator. Confidence is reflective, not scored.
 
-The revised replay confirms owner comprehension and correctly determined selections. [Case 3 - The Echoed Warning](../../specs/game-01/CASE_03.md) is now designed around source independence, corrected scope and bounded corroboration; it awaits implementation approval and is not in this two-case build. Independent novice testing remains useful if available.
+Owner comprehension is confirmed for Cases 2 and 3, and the owner reports the expanded map looks good. [Case 3 - The Echoed Warning](../../specs/game-01/CASE_03.md) is implemented around source independence, corrected scope and bounded corroboration and ships in the three-case build. Independent novice testing remains useful if available.

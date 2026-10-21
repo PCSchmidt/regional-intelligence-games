@@ -154,7 +154,9 @@ There is no forensic imagery, sound design, 3D or two-hour campaign in this buil
 These three cases test evidence-based assessment and independent progression.
 Case 3 adds source lineage, precise correction reading and bounded corroboration.
 Every third-case time is explicitly UTC; no clock conversion is required.
-Its owner playtest is pending.
+The owner completed Case 3 in about five minutes after a couple of submissions
+and reports the expanded map looks good. Hint use and the final supported-finding
+count were not reported.
 The first owner playtest lasted approximately 20 minutes, with hints and an
 assessment submission; completion was not confirmed. After the guidance revision,
 the owner completed Case 1 in about five minutes with no remaining confusion.

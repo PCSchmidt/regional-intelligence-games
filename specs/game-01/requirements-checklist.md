@@ -16,9 +16,9 @@
 - [x] The third-case design distinguishes publication lineage, corrected scope and independent corroboration, with exact evidence sets and uncertainty limits.
 - [x] Three-case progression, separate saves, no-observation guidance and failure/reset protections are implemented and covered by native/rendered/embedded-pack checks.
 - [x] Six-record scope, no new paid assets/services and the recorded implementation approval remain explicit.
-- [ ] Case 3 owner walkthrough records time, hint use, supported count, confusion and understanding; technical checks are not a substitute.
+- [x] Case 3 owner walkthrough records time, hint use, supported count, confusion and understanding; technical checks are not a substitute. Owner completed it in approximately five minutes after a couple of submissions with no reported confusion; hint use and supported count were not reported and are not inferred.
 - [x] Offline map scope distinguishes true vector detail from variable-resolution elevation, bounds coverage, discloses missing Itbayat pier outlines and preserves fictional evidence separation.
 - [x] Expanded-view/preset/scale/state behavior and separate source-license obligations have measurable checks.
-- [ ] Owner confirms readability and usefulness of the regional, town and port views.
+- [x] Owner confirms readability and usefulness of the regional, town and port views. Owner reported the expanded map looks good; this is one familiar-owner session, not independent usability evidence.
 
 This is a document review, not evidence that runtime requirements pass. See the prototype README for executable checks and their recorded results.

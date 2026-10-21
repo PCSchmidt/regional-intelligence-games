@@ -1,7 +1,7 @@
 # Case 03 - The Echoed Warning
 
 **Created:** 2026-10-20
-**Status:** Design approved and implemented; three-case native, rendered and packaged checks passed. Owner playtest pending.
+**Status:** Design approved and implemented; three-case native, rendered and packaged checks passed. Owner playtest completed on 20 October 2026.
 **Governing decisions:** [Master Plan](../../MASTER_PLAN.md) and [Game 1 specification](./spec.md).
 **Audience:** Author-only design and answer rubric. Contains spoilers.
 **Input:** Design a bounded third investigation with a different reasoning challenge, retaining the source clarity, staged hints and actionable feedback validated in the owner replay of Case 2.
@@ -239,7 +239,7 @@ The desk replaces an apparent three-source shutdown warning with a precise corre
 
 ## Implementation Boundaries and Testing Strategy
 
-This contract was written before implementation. [Recorded three-case results](../../games/regional-desk/README.md#three-case-checkpoint---20-october-2026) distinguish technical verification from the still-pending owner playtest.
+This contract was written before implementation. [Recorded three-case results](../../games/regional-desk/README.md#three-case-checkpoint---20-october-2026) distinguish technical verification from the owner playtest, which was subsequently completed and is recorded under [Case 3 and map owner playtest](../../games/regional-desk/README.md#case-3-and-map-owner-playtest---20-october-2026).
 
 - **Existing foundation:** Reuse the current read/pin/cite/submit flow, per-finding support sets, ordered hints, content validation, shared offline geography and local persistence. No new comparison widget or graph subsystem is required.
 - **Save compatibility:** Retain both existing case IDs, versions and save paths. Proposed third save slot: `session-case-03.json`. Switching, unreadable-save protection and reset isolation must cover all three slots; never migrate or overwrite another case to introduce this one.
@@ -251,6 +251,7 @@ This contract was written before implementation. [Recorded three-case results](.
 - **Failure/reset coverage:** Corrupt only the third save and retain both originals; confirm failed-switch cancel/leave behavior. Reset each slot in turn and compare the other two files immediately before and after the reset. Isolate test files from normal player saves and clean up only named test paths.
 - **Rendered/package checks:** At 1280 x 900, inspect the six-record list, source headers, longest body, all citation controls, notes/footer, all hints and both incomplete/complete results. Export and exercise the extracted resource pack with the existing standard-engine driver; separately launch the actual release and verify responsive startup, autosave and normal exit. Every final validation command must exit 0 without failed checks or unexpected engine errors.
 - **Owner gate:** On unfamiliar content, record time spent, hint use, final supported-finding count, confusion and whether the inference required thought. Confirm the player can explain the three distinctions. Technical checks cannot establish enjoyment, novice usability or a two-hour campaign.
+- **Owner gate result (20 October 2026):** Approximately five minutes to completion, reached after a couple of submissions; the owner reported no remaining confusion and that the expanded map looks good. Hint use, final supported-finding count and per-step difficulty were not reported and are not inferred. This is one familiar-owner session on the development laptop, not first-play duration, independent novice usability or two-hour campaign evidence.
 
 ## Assumptions and Approval Boundary
 

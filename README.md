@@ -6,7 +6,7 @@ Personal, offline Windows games about evidence, uncertainty and regional decisio
 
 Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games).
 
-**New investigation and maps:** *The Echoed Warning* is implemented: six records about repeated reporting, a correction and independent corroboration. The approved offline map upgrade adds shaded relief, approximate contours, sourced roads/buildings and an expanded view with Basco, Itbayat-town and Chinapoliran-port presets. Owner Case 3 and map playtests are pending. This is not a new case, satellite view or 3D production.
+**New investigation and maps:** *The Echoed Warning* is implemented: six records about repeated reporting, a correction and independent corroboration. The approved offline map upgrade adds shaded relief, approximate contours, sourced roads/buildings and an expanded view with Basco, Itbayat-town and Chinapoliran-port presets. The owner completed Case 3 in about five minutes after a couple of submissions and reports the expanded map looks good; hint use and the final supported-finding count were not reported. This is not a satellite view or 3D production.
 
 ## Portfolio
 
@@ -34,7 +34,7 @@ Read the selected case's sources, compare records and the timeline, pin evidence
 - [Author-only second-case evidence graph and rubric - spoilers](./specs/game-01/CASE_02.md)
 - [Author-only third-case design and rubric - spoilers](./specs/game-01/CASE_03.md)
 
-The owner comprehension gate for **The Borrowed Name** is now met: the revised information made sense, and all selections were correctly determined in about five minutes. Hint use and the final supported-finding count were not explicitly reported. Preserve the earlier seven-minute incomplete session as evidence of the original confusion; do not average it with the replay or treat either as novice completion timing. The third-case design was approved and implemented; its own owner comprehension gate is pending. Fresh-player testing remains useful if available; enjoyment and novice usability are not established by automated checks.
+The owner comprehension gate for **The Borrowed Name** is now met: the revised information made sense, and all selections were correctly determined in about five minutes. Hint use and the final supported-finding count were not explicitly reported. Preserve the earlier seven-minute incomplete session as evidence of the original confusion; do not average it with the replay or treat either as novice completion timing. The third-case design was approved and implemented, and its owner comprehension gate is now met: about five minutes to completion after a couple of submissions, with the expanded map reported as looking good. Hint use and the final supported-finding count were not reported. Fresh-player testing remains useful if available; enjoyment and novice usability are not established by automated checks.
 
 ## Run from source
 
