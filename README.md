@@ -13,7 +13,7 @@ Repository: [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt
 | Order | Working title | Scope and status |
 |---|---|---|
 | 1 | Regional Analysis Desk | Three concise evidence investigations implemented; the approximately two-hour target remains unverified and subject to playtest recalibration. |
-| 2 | Cable Ship | Planned bounded, realistic 3D ship/ROV investigation. Production has not started. |
+| 2 | Cable Ship | First playable 3D deck/ROV survey prototype exported and tested; procedural first-pass art, owner playtest pending. |
 | 3 | Regional Strategy | Planned discrete-turn decisions under uncertainty. Production has not started. |
 
 The [master plan](./MASTER_PLAN.md) records decisions, constraints and milestone gates. The baseline is approximately 10 owner hours/week, a $20/month project AI budget, free licensed assets initially, and no mandatory runtime AI or online services.
@@ -34,7 +34,32 @@ Read the selected case's sources, compare records and the timeline, pin evidence
 - [Author-only second-case evidence graph and rubric - spoilers](./specs/game-01/CASE_02.md)
 - [Author-only third-case design and rubric - spoilers](./specs/game-01/CASE_03.md)
 
-The owner comprehension gate for **The Borrowed Name** is now met: the revised information made sense, and all selections were correctly determined in about five minutes. Hint use and the final supported-finding count were not explicitly reported. Preserve the earlier seven-minute incomplete session as evidence of the original confusion; do not average it with the replay or treat either as novice completion timing. The third-case design was approved and implemented, and its owner comprehension gate is now met: about five minutes to completion after a couple of submissions, with the expanded map reported as looking good. Hint use and the final supported-finding count were not reported. Fresh-player testing remains useful if available; enjoyment and novice usability are not established by automated checks.
+The owner comprehension gate for **The Borrowed Name** is now met: the revised information made sense, and all selections were correctly determined in about five minutes. Hint use and the final supported-finding count were not explicitly reported. Preserve the earlier seven-minute incomplete session as evidence of the original confusion; do not average it with the replay or treat either as novice completion timing. The third-case design was approved and implemented. Its owner playtest reported about five minutes to completion after a couple of submissions, with the expanded map looking good; it did not report hint use, final supported count or per-step confusion. Fresh-player testing remains useful if available; enjoyment and novice usability are not established by automated checks.
+
+## Play the Cable Ship 3D prototype
+
+The owner approved starting Game 2 after Game 1's prototype delivery. Walk the aft
+deck, use the console, pilot an ROV in a bounded 70 m survey, capture real images,
+then recover and defend two findings with those captures. It is offline and uses
+separate saves. No realistic production-art claim: the current models/materials
+are procedural first-pass assets, and there is no audio or repair simulation.
+
+- [Player instructions and controls](./games/cable-ship/PLAYER_README.md)
+- [Source setup, test evidence and performance limitations](./games/cable-ship/README.md)
+- [Prototype contract and acceptance criteria - contains answers](./specs/game-02/PROTOTYPE.md)
+
+```powershell
+.\tools\cable-ship.ps1 -Mode Run
+.\tools\cable-ship.ps1 -Mode Test
+.\tools\cable-ship.ps1 -Mode VisualTest
+.\tools\cable-ship.ps1 -Mode Benchmark
+.\tools\cable-ship.ps1 -Mode Export
+.\tools\cable-ship.ps1 -Mode PackagedTest
+```
+
+Use the same Godot executable/templates as below, but **Forward+** rather than
+Game 1's GL Compatibility renderer. Export writes `builds\CableShip\CableShip.exe`
+and `builds\CableShip-Windows.zip`. No GitHub Release has been published.
 
 ## Run from source
 
@@ -74,7 +99,9 @@ Generated builds are local outputs, not files distributed by this repository. No
 ## Repository layout
 
 - [games/regional-desk](./games/regional-desk): Game 1 source, synthetic case content and tests.
+- [games/cable-ship](./games/cable-ship): Separate Game 2 project, procedural world, survey and tests.
 - [specs/game-01](./specs/game-01): Concept, requirements and case design.
+- [specs/game-02](./specs/game-02): Bounded 3D prototype contract.
 - [tools](./tools): PowerShell run, test and export entry point.
 - [MASTER_PLAN.md](./MASTER_PLAN.md): Portfolio direction and progress.
 - The three original conversation documents: brainstorming inputs retained with the owner's approval, not independently verified specifications. The master plan supersedes conflicting recommendations.

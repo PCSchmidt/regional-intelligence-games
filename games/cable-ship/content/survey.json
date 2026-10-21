@@ -1,0 +1,90 @@
+{
+  "survey_id": "bashi-span-01",
+  "version": 1,
+  "title": "Cable Ship - Survey 01",
+  "reference_time": "Scenario time is relative; all capture timestamps are seconds since dive start.",
+  "brief": "A submarine communications cable has failed on the insular slope south-east of Itbayat. The repair ship is on station. Before anyone commits a splice, fly the work-class ROV and establish what actually happened to the cable.",
+  "question": "What most likely caused the cable failure, and what is the linear furrow near the cable?",
+  "depth_m": 420,
+  "bounds": {
+    "half_extent": 35.0,
+    "min_altitude": 0.8,
+    "max_altitude": 30.0
+  },
+  "features": [
+    {
+      "id": "suspended_span",
+      "label": "Suspended span",
+      "x": 0.0,
+      "z": 0.0,
+      "lift": 0.0,
+      "on_cable": true,
+      "radius": 1.6,
+      "description": "A length of cable lifted clear of the seabed between two contact points. The jacket on the span is polished and abraded; the contact points show fresh sediment disturbance."
+    },
+    {
+      "id": "net_fragment",
+      "label": "Net fragment",
+      "x": 4.5,
+      "z": 0.4,
+      "lift": 0.0,
+      "on_cable": true,
+      "radius": 1.1,
+      "description": "A torn section of synthetic netting snagged on the suspended span. The mesh is a modern monofilament weave, not natural fibre."
+    },
+    {
+      "id": "sediment_channel",
+      "label": "Linear furrow",
+      "x": -18.0,
+      "z": 12.0,
+      "lift": 0.0,
+      "on_cable": false,
+      "radius": 2.4,
+      "description": "A straight furrow in the sediment with rounded, draped shoulders. The floor is filled with settled sediment of the same tone as the surrounding seabed, and the shoulders show no fresh spoil."
+    },
+    {
+      "id": "slide_lobe",
+      "label": "Slide lobe",
+      "x": 16.0,
+      "z": -14.0,
+      "lift": 0.0,
+      "on_cable": false,
+      "radius": 3.0,
+      "description": "A broad lobe of displaced sediment with a degraded head scarp. The scarp edge is rounded and colonised, and the lobe surface carries a settled silt film."
+    }
+  ],
+  "findings": [
+    {
+      "id": "mechanism",
+      "prompt": "What most likely caused the cable failure?",
+      "options": [
+        { "id": "trawl_snag", "label": "Trawl gear snagged the cable and lifted it" },
+        { "id": "anchor_drag", "label": "A dragged anchor cut the cable" },
+        { "id": "slope_failure", "label": "A slope failure buried or severed the cable" }
+      ],
+      "accepted": "trawl_snag",
+      "required_citations": ["suspended_span", "net_fragment"]
+    },
+    {
+      "id": "decoy",
+      "prompt": "What is the linear furrow near the cable?",
+      "options": [
+        { "id": "pre_existing_channel", "label": "An older sediment channel that predates the fault" },
+        { "id": "recent_anchor_drag", "label": "Fresh anchor drag from the repair ship" },
+        { "id": "active_slope_failure", "label": "An active slope failure scarp" }
+      ],
+      "accepted": "pre_existing_channel",
+      "required_citations": ["sediment_channel"]
+    }
+  ],
+  "hints": [
+    "The cable is not lying flat everywhere. Look for where it leaves the seabed.",
+    "A lifted span needs something to hold it up. Inspect the span itself, not just the contact points.",
+    "The furrow is real, but ask whether its sediment is fresh or settled. Fresh drag leaves spoil and sharp shoulders.",
+    "The slide lobe is also real. Check whether its scarp is sharp or degraded before treating it as the cause."
+  ],
+  "debrief": {
+    "supported": "In this authored scenario, the lifted, abraded span and snagged synthetic netting are most consistent with a trawl-gear snag. The furrow's draped shoulders and settled fill favor a pre-existing feature over fresh anchor drag. The degraded lobe is also less consistent with recent failure. These are the best-supported interpretations among the offered alternatives, not forensic proof of mechanism or feature age.",
+    "unsupported": "The frames do not identify a specific vessel, prove intent, or establish the exact moment of failure. A single dramatic feature - the furrow or the lobe - would not have been enough on its own."
+  }
+}

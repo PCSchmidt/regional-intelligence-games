@@ -1,7 +1,7 @@
 # Master Plan - Regional Intelligence Game Portfolio
 
-**Status:** v2 - three-case Godot prototype technically verified; revised Cases 1/2 clear to owner; Case 3 owner playtest pending
-**Updated:** 2026-10-20
+**Status:** v3 - Game 1 three-case prototype delivered; Game 2 first playable Windows prototype verified; owner 3D playtest pending
+**Updated:** 2026-10-21
 **Purpose:** Deliver a small, polished portfolio series about investigation, uncertainty and regional decision-making. Build one playable title at a time.
 
 **Repository:** [PCSchmidt/regional-intelligence-games](https://github.com/PCSchmidt/regional-intelligence-games) - one public portfolio repository, with games in separate folders. Original conversation documents are included with owner approval; local engines, caches and generated builds are excluded. See [setup and repository layout](./README.md).
@@ -300,7 +300,7 @@ The owner has 10 hours/week. AI can accelerate implementation, but integration, 
 | M3 - Scope recalibration | Review enjoyment, content effort, bugs and model spend | Keep/cut decisions and a forecast based on measured human effort |
 | M4 - Two-hour Game 1 | Expand to the linked three-case target; improve readability, feedback, audio and saves | Complete offline walkthroughs; duration evidence with tester identity/limitations stated |
 | M5 - Portfolio delivery | Package executable, instructions, credits and known limitations | Downloadable archive runs from an extracted location outside the editor |
-| M6 - Bounded 3D prototype | Start Cable Ship only after Game 1 delivery | One ship-space/ROV inspection loop; performance and visual evidence |
+| M6 - Bounded 3D prototype | Owner approved starting after Game 1 prototype delivery; first playable now verified | One ship-space/ROV inspection loop; performance and visual evidence; realism/usability sign-off remains open |
 | M7 - Later portfolio titles | Scope Cable Ship, then regional strategy from prototype results | Separate small plans grounded in completed work |
 
 **Suggested first 10-hour block, not a delivery guarantee:**
@@ -330,7 +330,16 @@ If setup or research takes longer, reduce the prototype's breadth instead of dro
 - **Approved offline map implemented:** Shaded regional relief, approximate 100 m contours, real OSM roads/buildings, available Basco port outlines, town/Chinapoliran presets, expanded viewing and meter-scale zoom. Complete sourced coast rings correct the coarse Batan/Itbayat elevation shoreline. The ~30 m output grid does not establish uniformly 30 m source resolution. Itbayat provides named ports/roads but no supplied pier outlines. Separate synthetic overlays, all case saves and offline operation are retained. Source/license notices accompany the derived ODbL database and terrain.
 - **Final three-case/map verification:** 402 canonical, 266 rendered and 379 extracted-pack checks passed with zero failures and exit 0; the actual extracted release opened responsively, autosaved and exited normally. Both generated map assets reproduced byte-for-byte from hash-pinned inputs. Both Windows delivery folders and the two-entry ZIP are hash-identical. Committed and pushed as `85fe8ce`; no GitHub Release was created. See [map evidence and limitations](./games/regional-desk/README.md#verified-map-checkpoint---20-october-2026).
 - **Case 3 and map owner playtest:** The owner completed *The Echoed Warning* in approximately five minutes, reached completion after a couple of submissions, and reported that the expanded map looks good. This closes the owner comprehension and map-readability gates. Hint use, final supported-finding count and per-step difficulty were not reported and are not inferred. One familiar-owner session on the development laptop does not establish first-play duration, independent novice usability, keyboard-only completion, enjoyment, minimum hardware or the two-hour campaign target. No gameplay or map change followed this successful session.
-- **Next gates:** Independent novice testing, keyboard-only navigation, weaker-hardware performance and the two-hour campaign remain unverified. Neither the three-case checkpoint nor the approved map upgrade authorizes 3D production, paid assets or runtime model services; the next build decision is whether to expand Game 1 or begin the bounded 3D cable-ship prototype.
+- **Subsequent owner decision:** After the map playtest, the owner explicitly chose the bounded Game 2 prototype and requested a running build. This authorizes that prototype, not paid assets, runtime model services or a full 3D production. Independent novice testing, keyboard-only navigation, weaker-hardware performance and Game 1's two-hour campaign remain unverified.
+
+### Cable Ship checkpoint - 21 October 2026
+
+- The [bounded prototype contract](./specs/game-02/PROTOTYPE.md) is implemented in a separate Godot Forward+ project: walk to the deck console, launch/pilot the ROV, inspect four features, retain actual viewport images, recover, select two findings with captured citations, revise and debrief. Versioned saves, image persistence, protected corrupt-save handling and explicit backup/reset are separate from Game 1.
+- [Source commands, verification and known limits](./games/cable-ship/README.md) accompany an extracted Windows executable and Markdown player instructions. No art downloads, paid assets, network services or runtime AI were added.
+- Automated evidence covers deterministic motion, floor geometry, instruments, every authored answer/citation combination, real image capture, gallery, restart/reset, protected saves, synthetic keyboard dispatch, and extracted release startup/autosave/normal exit. This is not a human playtest or OS-level input automation.
+- The final 30-second 1080p development-laptop sample measured 618.9 fps average, 423.0 fps 1% low and 3.27 ms worst frame, with 51 draw calls and 271,166 all-pass primitives. It passed the sample's throughput and strict 30 fps floor. An earlier sample had a 75.21 ms hitch; retain that evidence and monitor repeatability rather than claiming sustained-load or minimum-hardware certification.
+- Procedural first-pass art and simplified physics are intentional prototype limits, not the final realistic art direction. Audio, launch/recovery animation, tether and repair simulation remain out of scope. Observation text supplies authored details that the meshes do not fully depict.
+- The owner reported Case 3 took about five minutes and a couple of tries, and that the map looked good. Those facts do not establish novice comprehension, hint use or absence of confusion. Game 1's approximately two-hour target remains unmet.
 
 ## 9. Guidelines
 
@@ -380,4 +389,4 @@ These do not block this revision and should be resolved at the indicated milesto
 | Release date | Forecast after measured content/integration throughput | M3 |
 | Game 2 duration and strategy-game role | Define after the relevant prototype, not by extrapolating Game 1 | M6-M7 |
 
-**Recommended next action:** Play [The Echoed Warning](./specs/game-01/CASE_03.md) and inspect **Expand map** town/port presets in the refreshed build. Record time, hints, final supported count, confusion and map readability. Preserve source labels, hints, correction feedback and saves. Both revised owner replays were about five minutes on familiar material; neither establishes first-play or full-game duration. Paid usage, public release publishing and later games remain separate decisions.
+**Recommended next action:** Play the first [Cable Ship build](./games/cable-ship/PLAYER_README.md). Assess movement, console discoverability, target visibility, image/review workflow and whether the loop is enjoyable before investing in realistic art. Record time, hints, confusion, conclusion/citation feedback and any stutter. Game 1 remains three short investigations, not a two-hour campaign. Paid usage, public release publishing and Game 3 remain separate decisions.
